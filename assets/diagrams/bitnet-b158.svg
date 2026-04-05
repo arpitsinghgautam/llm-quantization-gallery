@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#E84393" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">BitNet b1.58</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W1.58A8</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- BitNet b1.58: ternary {-1, 0, +1} weights -->
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Every weight is ternary: {-1, 0, +1} — trained from scratch, not post-hoc</text>
+
+  <!-- Weight distribution -->
+  <rect x="30" y="120" width="220" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="140" y="143" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">FP16 (standard model)</text>
+  <!-- Gaussian bars -->
+  <rect x="55" y="240" width="18" height="5" rx="1" fill="#aaa"/>
+  <rect x="75" y="230" width="18" height="15" rx="1" fill="#aaa"/>
+  <rect x="95" y="210" width="18" height="35" rx="1" fill="#aaa"/>
+  <rect x="115" y="185" width="18" height="60" rx="1" fill="#aaa"/>
+  <rect x="135" y="175" width="18" height="70" rx="1" fill="#aaa"/>
+  <rect x="155" y="185" width="18" height="60" rx="1" fill="#aaa"/>
+  <rect x="175" y="210" width="18" height="35" rx="1" fill="#aaa"/>
+  <rect x="195" y="230" width="18" height="15" rx="1" fill="#aaa"/>
+  <rect x="215" y="240" width="18" height="5" rx="1" fill="#aaa"/>
+  <text x="140" y="262" font-family="monospace" font-size="9" fill="#555" text-anchor="middle">continuous Gaussian weights</text>
+
+  <!-- Arrow -->
+  <text x="275" y="200" font-family="monospace" font-size="20" fill="#E84393" text-anchor="middle">→</text>
+  <text x="275" y="218" font-family="monospace" font-size="10" fill="#E84393" text-anchor="middle">absmean</text>
+  <text x="275" y="233" font-family="monospace" font-size="10" fill="#E84393" text-anchor="middle">quant</text>
+
+  <!-- Ternary distribution -->
+  <rect x="310" y="120" width="220" height="150" rx="6" fill="#E84393" opacity="0.10" stroke="#E84393" stroke-width="1.5"/>
+  <text x="420" y="143" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">BitNet b1.58 weights</text>
+  <!-- Three spikes -->
+  <rect x="335" y="175" width="30" height="70" rx="2" fill="#E84393" opacity="0.7"/>
+  <rect x="405" y="150" width="30" height="95" rx="2" fill="#E84393" opacity="0.9"/>
+  <rect x="475" y="175" width="30" height="70" rx="2" fill="#E84393" opacity="0.7"/>
+  <text x="350" y="260" font-family="monospace" font-size="12" fill="#E84393" text-anchor="middle">-1</text>
+  <text x="420" y="260" font-family="monospace" font-size="12" fill="#E84393" text-anchor="middle">0</text>
+  <text x="490" y="260" font-family="monospace" font-size="12" fill="#E84393" text-anchor="middle">+1</text>
+  <text x="420" y="278" font-family="monospace" font-size="9" fill="#555" text-anchor="middle">1.58 bits per weight (log₂3)</text>
+
+  <!-- Quantization formula -->
+  <rect x="560" y="120" width="210" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="665" y="143" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">AbsMean quantizer</text>
+  <text x="665" y="165" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">γ = mean(|W|)</text>
+  <text x="665" y="185" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">W̃ = clamp(round(W/γ), -1, 1)</text>
+  <text x="665" y="215" font-family="monospace" font-size="11" fill="#E84393" text-anchor="middle">Inference:</text>
+  <text x="665" y="233" font-family="monospace" font-size="10" fill="#E84393" text-anchor="middle">XW = X·(-1) + X·(+1)</text>
+  <text x="665" y="251" font-family="monospace" font-size="10" fill="#E84393" text-anchor="middle">= addition only, no multiply</text>
+
+  <!-- Properties bar -->
+  <rect x="30" y="295" width="740" height="80" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="317" font-family="monospace" font-size="11" fill="#555">• 1.58 bits/weight (log₂3)   • Activations: INT8 (8-bit)   • Matmul becomes add + select</text>
+  <text x="50" y="337" font-family="monospace" font-size="11" fill="#555">• Requires training from scratch (not PTQ)   • Matches full-precision LLaMA-3B quality at 3B params</text>
+  <text x="50" y="357" font-family="monospace" font-size="11" fill="#E84393">• Hardware: custom kernels needed; no standard INT8/INT4 kernel applies directly</text>
+
+</svg>
