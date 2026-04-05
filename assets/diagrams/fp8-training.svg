@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#D4A027" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">FP8 Training (Transformer Engine)</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">FP8 (E4M3 forward / E5M2 gradient)</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- FP8 training: format comparison -->
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">FP8 training: E4M3 for forward pass, E5M2 for gradients, delayed per-tensor scaling</text>
+
+  <!-- Format comparison table -->
+  <rect x="25" y="115" width="750" height="160" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="45" y="140" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Format comparison (8-bit floating point)</text>
+
+  <!-- Headers -->
+  <text x="45" y="165" font-family="monospace" font-size="11" fill="#555">Format</text>
+  <text x="185" y="165" font-family="monospace" font-size="11" fill="#555">Sign</text>
+  <text x="235" y="165" font-family="monospace" font-size="11" fill="#555">Exponent</text>
+  <text x="330" y="165" font-family="monospace" font-size="11" fill="#555">Mantissa</text>
+  <text x="430" y="165" font-family="monospace" font-size="11" fill="#555">Max value</text>
+  <text x="530" y="165" font-family="monospace" font-size="11" fill="#555">Use case</text>
+
+  <!-- E4M3 -->
+  <text x="45" y="188" font-family="monospace" font-size="11" fill="#D4A027">FP8 E4M3</text>
+  <text x="185" y="188" font-family="monospace" font-size="11" fill="#555">1</text>
+  <text x="235" y="188" font-family="monospace" font-size="11" fill="#555">4 bits</text>
+  <text x="330" y="188" font-family="monospace" font-size="11" fill="#555">3 bits</text>
+  <text x="430" y="188" font-family="monospace" font-size="11" fill="#555">448</text>
+  <text x="530" y="188" font-family="monospace" font-size="11" fill="#D4A027">Weights, activations</text>
+
+  <!-- E5M2 -->
+  <text x="45" y="211" font-family="monospace" font-size="11" fill="#D4A027">FP8 E5M2</text>
+  <text x="185" y="211" font-family="monospace" font-size="11" fill="#555">1</text>
+  <text x="235" y="211" font-family="monospace" font-size="11" fill="#555">5 bits</text>
+  <text x="330" y="211" font-family="monospace" font-size="11" fill="#555">2 bits</text>
+  <text x="430" y="211" font-family="monospace" font-size="11" fill="#555">57344</text>
+  <text x="530" y="211" font-family="monospace" font-size="11" fill="#D4A027">Gradients (wide range)</text>
+
+  <!-- BF16 -->
+  <text x="45" y="234" font-family="monospace" font-size="11" fill="#aaa">BF16</text>
+  <text x="185" y="234" font-family="monospace" font-size="11" fill="#aaa">1</text>
+  <text x="235" y="234" font-family="monospace" font-size="11" fill="#aaa">8 bits</text>
+  <text x="330" y="234" font-family="monospace" font-size="11" fill="#aaa">7 bits</text>
+  <text x="430" y="234" font-family="monospace" font-size="11" fill="#aaa">~3.4×10³⁸</text>
+  <text x="530" y="234" font-family="monospace" font-size="11" fill="#aaa">Weight update, master</text>
+
+  <text x="45" y="258" font-family="monospace" font-size="11" fill="#aaa">FP32</text>
+  <text x="185" y="258" font-family="monospace" font-size="11" fill="#aaa">1</text>
+  <text x="235" y="258" font-family="monospace" font-size="11" fill="#aaa">8 bits</text>
+  <text x="330" y="258" font-family="monospace" font-size="11" fill="#aaa">23 bits</text>
+  <text x="430" y="258" font-family="monospace" font-size="11" fill="#aaa">~3.4×10³⁸</text>
+  <text x="530" y="258" font-family="monospace" font-size="11" fill="#aaa">Accumulation, loss</text>
+
+  <!-- Training pipeline -->
+  <rect x="25" y="295" width="750" height="100" rx="6" fill="#D4A027" opacity="0.07" stroke="#D4A027" stroke-width="1.5"/>
+  <text x="45" y="318" font-family="monospace" font-size="11" font-weight="bold" fill="#333">FP8 training pipeline (forward):</text>
+  <text x="45" y="338" font-family="monospace" font-size="11" fill="#555">  BF16 weight  →  [cast E4M3 + scale]  →  FP8 matmul  →  [accumulate FP32]  →  BF16 output</text>
+  <text x="45" y="358" font-family="monospace" font-size="11" fill="#555">  scale_t = max(|tensor_{t-1}|) / 448  (delayed scaling — reuse prev. step, avoid sync barrier)</text>
+  <text x="45" y="378" font-family="monospace" font-size="11" fill="#D4A027">H100 FP8 Tensor Core: 2x throughput vs BF16 at same accuracy on GPT-3 scale training.</text>
+
+  <!-- Bottom: backward -->
+  <rect x="25" y="415" width="750" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="45" y="437" font-family="monospace" font-size="11" fill="#555">Backward: gradient cast to E5M2 (wider range for small grad values), accumulate in FP32, weight update in BF16.</text>
+  <text x="45" y="455" font-family="monospace" font-size="11" fill="#D4A027">Key: weight master copy stays BF16/FP32; FP8 is only the compute format, not the storage format for gradients.</text>
+
+</svg>

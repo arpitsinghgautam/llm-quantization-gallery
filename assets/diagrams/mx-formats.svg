@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#D4A027" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">MX Formats (MXFP8/MXFP6/MXFP4)</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">MXFP8 / MXFP6 / MXFP4 / MXINT8</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- MX Formats: block floating point -->
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Microscaling: 32 elements share one 8-bit exponent; each element stores its own mantissa</text>
+
+  <!-- Block layout -->
+  <rect x="25" y="115" width="750" height="130" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="45" y="140" font-family="monospace" font-size="11" font-weight="bold" fill="#333">MX block structure (32 elements)</text>
+
+  <!-- Shared exponent -->
+  <rect x="45" y="153" width="80" height="75" rx="4" fill="#D4A027" opacity="0.25" stroke="#D4A027" stroke-width="2"/>
+  <text x="85" y="178" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">E8M0</text>
+  <text x="85" y="196" font-family="monospace" font-size="10" fill="#D4A027" text-anchor="middle">shared</text>
+  <text x="85" y="212" font-family="monospace" font-size="10" fill="#D4A027" text-anchor="middle">8-bit exp</text>
+
+  <!-- Element mantissas -->
+  <text x="145" y="175" font-family="monospace" font-size="18" fill="#aaa" text-anchor="middle">×</text>
+
+  <!-- 8 sample element boxes -->
+  <rect x="165" y="153" width="30" height="75" rx="2" fill="#D4A027" opacity="0.12" stroke="#D4A027" stroke-width="0.8"/>
+  <text x="180" y="190" font-family="monospace" font-size="9" fill="#333" text-anchor="middle">e₁</text>
+  <rect x="200" y="153" width="30" height="75" rx="2" fill="#D4A027" opacity="0.12" stroke="#D4A027" stroke-width="0.8"/>
+  <text x="215" y="190" font-family="monospace" font-size="9" fill="#333" text-anchor="middle">e₂</text>
+  <rect x="235" y="153" width="30" height="75" rx="2" fill="#D4A027" opacity="0.12" stroke="#D4A027" stroke-width="0.8"/>
+  <text x="250" y="190" font-family="monospace" font-size="9" fill="#333" text-anchor="middle">e₃</text>
+  <rect x="270" y="153" width="30" height="75" rx="2" fill="#D4A027" opacity="0.12" stroke="#D4A027" stroke-width="0.8"/>
+  <text x="285" y="190" font-family="monospace" font-size="9" fill="#333" text-anchor="middle">e₄</text>
+  <text x="325" y="192" font-family="monospace" font-size="14" fill="#aaa" text-anchor="middle">···</text>
+  <rect x="348" y="153" width="30" height="75" rx="2" fill="#D4A027" opacity="0.12" stroke="#D4A027" stroke-width="0.8"/>
+  <text x="363" y="190" font-family="monospace" font-size="9" fill="#333" text-anchor="middle">e₃₂</text>
+
+  <!-- Format table -->
+  <rect x="420" y="153" width="340" height="75" rx="4" fill="white" stroke="#eee" stroke-width="1"/>
+  <text x="435" y="172" font-family="monospace" font-size="10" fill="#555">MXFP8:  8-bit exp + 3-bit mantissa/element</text>
+  <text x="435" y="189" font-family="monospace" font-size="10" fill="#555">MXFP6:  8-bit exp + 2-bit mantissa/element</text>
+  <text x="435" y="206" font-family="monospace" font-size="10" fill="#D4A027">MXFP4:  8-bit exp + 0-bit mantissa (sign only)</text>
+  <text x="435" y="223" font-family="monospace" font-size="10" fill="#555">MXINT8: 8-bit exp + 7-bit signed int/element</text>
+
+  <!-- Advantage over per-tensor -->
+  <rect x="25" y="263" width="750" height="110" rx="6" fill="#D4A027" opacity="0.07" stroke="#D4A027" stroke-width="1.5"/>
+  <text x="45" y="286" font-family="monospace" font-size="11" font-weight="bold" fill="#333">Why block scaling beats per-tensor FP8:</text>
+  <text x="45" y="306" font-family="monospace" font-size="11" fill="#555">Per-tensor: one scale for the whole matrix → must cover the dynamic range of ALL elements → precision wasted on small values</text>
+  <text x="45" y="324" font-family="monospace" font-size="11" fill="#555">MX block: scale per 32 elements → captures local dynamic range → better precision for each cluster of values</text>
+  <text x="45" y="344" font-family="monospace" font-size="11" fill="#D4A027">MX = OCP standard; hardware support: NVIDIA B100/B200 (Blackwell), AMD MI300X, Intel Gaudi 3</text>
+  <text x="45" y="362" font-family="monospace" font-size="11" fill="#555">32-element block = one warp × one cycle on hardware; E8M0 scale is 1 byte per 32 elements (~3% overhead)</text>
+
+  <!-- MXFP4 bit layout detail -->
+  <rect x="25" y="393" width="750" height="77" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="45" y="415" font-family="monospace" font-size="11" font-weight="bold" fill="#333">MXFP4 element format (E2M1): 4 bits per weight</text>
+  <text x="45" y="433" font-family="monospace" font-size="11" fill="#555">  [S] [E1 E0] [M0]  →  value = (-1)^S × 2^{E-1} × (1 + M/2)  (subnormal: E=0 → value = (-1)^S × 0.5 × M)</text>
+  <text x="45" y="451" font-family="monospace" font-size="11" fill="#D4A027">  Representable values: 0, ±0.5, ±1.0, ±1.5, ±2.0, ±3.0, ±4.0, ±6.0  (7 non-zero values + 0)</text>
+  <text x="45" y="469" font-family="monospace" font-size="11" fill="#555">  MXFP4 throughput on B100: ~2× MXFP8; enables W4A4-equivalent with Tensor Core hardware support</text>
+
+</svg>
