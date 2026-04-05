@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#7B68EE" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">PV-Tuning</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W2 A16</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+
+  <!-- Generic diagram for PV-Tuning -->
+  <!-- Fact panel -->
+  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W2 A16</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  vector quantization (codebook-based)</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  fine-tuning data</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     GPU</text>
+  <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     yes</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     qat</text>
+
+  <!-- TL;DR -->
+  <rect x="415" y="80" width="355" height="150" rx="6" fill="#7B68EE" opacity="0.08" stroke="#7B68EE" stroke-width="1.5"/>
+  <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
+  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">PV-Tuning addresses the poor convergence of STE at extreme compression (2-bit vector</text>
+  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">quantization). The STE approximation (treating the quantization round as th</text>
+
+  <!-- Key idea -->
+  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">For a vector-quantized weight block w = C[i] (codebook entry), PV-Tuning updates the</text>
+  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">codebook assignment by: (1) compute the continuous gradient ∇_{w} L as if w were</text>
+  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">free; (2) find the nearest codeboo</text>
+
+  <!-- Bottom -->
+  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="415" font-family="monospace" font-size="11" fill="#7B68EE">https://arxiv.org/abs/2405.14852</text>
+  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: Vladimir Malinovskii, Denis Mazur, Ivan Ilin</text>
+
+</svg>

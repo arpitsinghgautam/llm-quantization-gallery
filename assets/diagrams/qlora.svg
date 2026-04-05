@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#7B68EE" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">QLoRA</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W4A16 (NF4 base) + BF16 LoRA adapters</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- QLoRA: quantized base + LoRA adapters -->
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Frozen 4-bit NF4 base model + trainable BF16 LoRA adapters = fine-tune 65B on 1 GPU</text>
+
+  <!-- Forward pass diagram -->
+  <!-- Input -->
+  <rect x="25" y="130" width="80" height="50" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="65" y="160" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">x (BF16)</text>
+
+  <!-- Main weight -->
+  <rect x="150" y="115" width="170" height="80" rx="6" fill="#7B68EE" opacity="0.12" stroke="#7B68EE" stroke-width="2"/>
+  <text x="235" y="142" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">W (NF4, frozen)</text>
+  <text x="235" y="162" font-family="monospace" font-size="10" fill="#7B68EE" text-anchor="middle">dequant → BF16 × x</text>
+  <text x="235" y="180" font-family="monospace" font-size="9" fill="#888" text-anchor="middle">no gradients flow here</text>
+
+  <!-- LoRA adapters -->
+  <rect x="150" y="220" width="80" height="60" rx="6" fill="#7B68EE" opacity="0.2" stroke="#7B68EE" stroke-width="1.5"/>
+  <text x="190" y="245" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">A (BF16)</text>
+  <text x="190" y="263" font-family="monospace" font-size="10" fill="#7B68EE" text-anchor="middle">rank r</text>
+
+  <rect x="250" y="220" width="70" height="60" rx="6" fill="#7B68EE" opacity="0.2" stroke="#7B68EE" stroke-width="1.5"/>
+  <text x="285" y="245" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">B (BF16)</text>
+  <text x="285" y="263" font-family="monospace" font-size="10" fill="#7B68EE" text-anchor="middle">rank r</text>
+
+  <!-- Scale -->
+  <text x="340" y="160" font-family="monospace" font-size="18" fill="#7B68EE" text-anchor="middle">+</text>
+
+  <!-- Output sum -->
+  <rect x="370" y="130" width="130" height="80" rx="6" fill="#7B68EE" opacity="0.10" stroke="#7B68EE" stroke-width="1.5"/>
+  <text x="435" y="155" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">h = Wx + BAx</text>
+  <text x="435" y="173" font-family="monospace" font-size="10" fill="#7B68EE" text-anchor="middle">W frozen (NF4)</text>
+  <text x="435" y="191" font-family="monospace" font-size="10" fill="#7B68EE" text-anchor="middle">BA trained (BF16)</text>
+
+  <!-- Innovations panel -->
+  <rect x="530" y="115" width="245" height="225" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="550" y="140" font-family="monospace" font-size="11" font-weight="bold" fill="#333">QLoRA innovations:</text>
+  <text x="550" y="162" font-family="monospace" font-size="11" fill="#7B68EE">NF4 data type:</text>
+  <text x="550" y="179" font-family="monospace" font-size="10" fill="#555">quantile-spaced 4-bit normal float</text>
+  <text x="550" y="197" font-family="monospace" font-size="10" fill="#555">optimal for Gaussian weight distrib.</text>
+  <text x="550" y="220" font-family="monospace" font-size="11" fill="#7B68EE">Double quantization:</text>
+  <text x="550" y="237" font-family="monospace" font-size="10" fill="#555">quantize the scales themselves to FP8</text>
+  <text x="550" y="255" font-family="monospace" font-size="10" fill="#555">saves 0.125 bits/weight extra</text>
+  <text x="550" y="278" font-family="monospace" font-size="11" fill="#7B68EE">Paged optimizers:</text>
+  <text x="550" y="295" font-family="monospace" font-size="10" fill="#555">offload optim. states to CPU RAM</text>
+  <text x="550" y="313" font-family="monospace" font-size="10" fill="#555">on OOM spikes during checkpointing</text>
+
+  <!-- Bottom -->
+  <rect x="25" y="365" width="750" height="95" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="45" y="387" font-family="monospace" font-size="11" font-weight="bold" fill="#333">Key: NF4 dequantize before multiply (not INT4 Tensor Core):</text>
+  <text x="45" y="405" font-family="monospace" font-size="11" fill="#555">  W_NF4  →  [dequant to BF16]  →  W_BF16 × x  +  B × A × x</text>
+  <text x="45" y="423" font-family="monospace" font-size="11" fill="#555">Inference uses same NF4 base. LoRA adapters optionally merged post-fine-tuning (re-quantize required).</text>
+  <text x="45" y="441" font-family="monospace" font-size="11" fill="#7B68EE">Fine-tunes Guanaco-65B (4-bit) to near-ChatGPT quality on 1x A100 80GB using 24h training.</text>
+
+</svg>
