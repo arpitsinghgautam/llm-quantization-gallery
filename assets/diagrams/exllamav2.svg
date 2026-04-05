@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#607D8B" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">ExLlamaV2</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W2–W8 A16 (EXL2 mixed per-row format)</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+
+  <!-- Generic diagram for ExLlamaV2 -->
+  <!-- Fact panel -->
+  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W2–W8 A16 (EXL2 mixed per-row format)</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-row mixed precision; per-group withi</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  calibration dataset for Hessian-based ro</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     NVIDIA GPU (Ada Lovelace, Ampere, Hopper</text>
+  <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     systems</text>
+
+  <!-- TL;DR -->
+  <rect x="415" y="80" width="355" height="150" rx="6" fill="#607D8B" opacity="0.08" stroke="#607D8B" stroke-width="1.5"/>
+  <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
+  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">ExLlamaV2 is the fastest open-source inference engine for GPTQ/EXL2 quantized models</text>
+  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">on NVIDIA GPUs. Its EXL2 format enables arbitrary target bit-widths (e.g. 3</text>
+
+  <!-- Key idea -->
+  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">ExLlamaV2's core innovation is the EXL2 quantization format (detailed in the EXL2</text>
+  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">entry) plus highly optimized CUDA kernels that process heterogeneous row precisions</text>
+  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">efficiently. The engine also imple</text>
+
+  <!-- Bottom -->
+  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="415" font-family="monospace" font-size="11" fill="#607D8B"></text>
+  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2023  |  Authors: turboderp</text>
+
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#607D8B" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">SGLang (Quantization)</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W4A16 (GPTQ/AWQ/Marlin), W8A8 (FP8), W4A8 (Marlin W4A8)</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+
+  <!-- Generic diagram for SGLang (Quantization) -->
+  <!-- Fact panel -->
+  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W4A16 (GPTQ/AWQ/Marlin), W8A8 (FP8), W4A8 (Marlin W4A8)</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-group (varies by backend)</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  depends on method</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     NVIDIA GPU (H100/A100/H200); AMD GPU (pa</text>
+  <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     systems</text>
+
+  <!-- TL;DR -->
+  <rect x="415" y="80" width="355" height="150" rx="6" fill="#607D8B" opacity="0.08" stroke="#607D8B" stroke-width="1.5"/>
+  <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
+  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">SGLang is a high-performance LLM serving framework built around RadixAttention for</text>
+  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">efficient prefix caching and structured generation. Its quantization support</text>
+
+  <!-- Key idea -->
+  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">SGLang's quantization stack provides the same kernel backends as vLLM (Marlin, AWQ,</text>
+  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">GPTQ, FP8) within its RadixAttention serving architecture. The key differentiation is</text>
+  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">RadixAttention: a prefix tree</text>
+
+  <!-- Bottom -->
+  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="415" font-family="monospace" font-size="11" fill="#607D8B">https://arxiv.org/abs/2312.07104</text>
+  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: Lianmin Zheng, Liangsheng Yin, Zhiqiang Xie</text>
+
+</svg>
