@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#E87D3E" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">LLM.int8()</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W8A8 (with FP16 outlier decomposition)</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- LLM.int8(): mixed-precision outlier decomposition -->
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Decompose matmul: outlier columns stay FP16, the rest goes INT8</text>
+
+  <!-- Input with outlier columns highlighted -->
+  <rect x="30" y="125" width="180" height="160" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="120" y="147" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">Input X (FP16)</text>
+  <!-- columns, outliers highlighted -->
+  <rect x="45" y="155" width="20" height="120" rx="2" fill="#aaa" opacity="0.3"/>
+  <rect x="70" y="155" width="20" height="120" rx="2" fill="#E84393" opacity="0.5"/>
+  <rect x="95" y="155" width="20" height="120" rx="2" fill="#aaa" opacity="0.3"/>
+  <rect x="120" y="155" width="20" height="120" rx="2" fill="#aaa" opacity="0.3"/>
+  <rect x="145" y="155" width="20" height="120" rx="2" fill="#E84393" opacity="0.5"/>
+  <rect x="170" y="155" width="20" height="120" rx="2" fill="#aaa" opacity="0.3"/>
+  <text x="70" y="290" font-family="monospace" font-size="9" fill="#E84393" text-anchor="middle">out</text>
+  <text x="145" y="290" font-family="monospace" font-size="9" fill="#E84393" text-anchor="middle">out</text>
+
+  <!-- Arrow / decompose -->
+  <text x="230" y="210" font-family="monospace" font-size="20" fill="#E87D3E" text-anchor="middle">→</text>
+  <text x="230" y="228" font-family="monospace" font-size="10" fill="#E87D3E" text-anchor="middle">split</text>
+
+  <!-- INT8 path -->
+  <rect x="260" y="125" width="160" height="70" rx="6" fill="#E87D3E" opacity="0.12" stroke="#E87D3E" stroke-width="1.5"/>
+  <text x="340" y="148" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">INT8 matmul</text>
+  <text x="340" y="165" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">non-outlier cols × W</text>
+  <text x="340" y="182" font-family="monospace" font-size="10" fill="#E87D3E" text-anchor="middle">per-token × per-channel</text>
+
+  <!-- FP16 path -->
+  <rect x="260" y="215" width="160" height="70" rx="6" fill="#E84393" opacity="0.12" stroke="#E84393" stroke-width="1.5"/>
+  <text x="340" y="238" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">FP16 matmul</text>
+  <text x="340" y="255" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">outlier cols × W_out</text>
+  <text x="340" y="272" font-family="monospace" font-size="10" fill="#E84393" text-anchor="middle">~0.1% of channels</text>
+
+  <!-- Sum -->
+  <text x="445" y="210" font-family="monospace" font-size="20" fill="#E87D3E" text-anchor="middle">+</text>
+  <rect x="475" y="160" width="130" height="70" rx="6" fill="#E87D3E" opacity="0.15" stroke="#E87D3E" stroke-width="1.5"/>
+  <text x="540" y="190" font-family="monospace" font-size="12" fill="#222" text-anchor="middle">Output Y</text>
+  <text x="540" y="210" font-family="monospace" font-size="11" fill="#E87D3E" text-anchor="middle">(FP16)</text>
+
+  <!-- Threshold note -->
+  <rect x="630" y="130" width="150" height="80" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="705" y="152" font-family="monospace" font-size="10" fill="#333" text-anchor="middle">Threshold: 6.0</text>
+  <text x="705" y="170" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">|x| &gt; 6 → outlier</text>
+  <text x="705" y="188" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">Emerges at ~6.7B</text>
+  <text x="705" y="205" font-family="monospace" font-size="10" fill="#E87D3E" text-anchor="middle">params / layer</text>
+
+  <!-- Key insight -->
+  <rect x="30" y="310" width="740" height="70" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="332" font-family="monospace" font-size="11" font-weight="bold" fill="#333">Key insight:</text>
+  <text x="50" y="350" font-family="monospace" font-size="11" fill="#555">Massive outliers in activations appear in the same few channels across all tokens &amp; layers (≥6.7B params).</text>
+  <text x="50" y="368" font-family="monospace" font-size="11" fill="#E87D3E">Isolating them in FP16 keeps nearly all compute in INT8 with &lt;1% ppl increase. No calibration needed.</text>
+
+</svg>

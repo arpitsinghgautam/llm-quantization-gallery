@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#E87D3E" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">QuaRot</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W4A4 (with optional KV4)</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- QuaRot: random Hadamard rotations to suppress outliers for W4A4 -->
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Hadamard rotation makes activations outlier-free → enables W4A4 with RTN</text>
+
+  <!-- Original activations -->
+  <rect x="25" y="120" width="180" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="115" y="143" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">Original X</text>
+  <line x1="45" y1="220" x2="45" y2="160" stroke="#E87D3E" stroke-width="4"/>
+  <line x1="70" y1="220" x2="70" y2="200" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="95" y1="220" x2="95" y2="205" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="120" y1="220" x2="120" y2="155" stroke="#E87D3E" stroke-width="4"/>
+  <line x1="145" y1="220" x2="145" y2="203" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="170" y1="220" x2="170" y2="208" stroke="#aaa" stroke-width="1.5"/>
+  <text x="115" y="235" font-family="monospace" font-size="9" fill="#E87D3E" text-anchor="middle">massive outliers</text>
+
+  <!-- Rotation -->
+  <text x="228" y="186" font-family="monospace" font-size="14" fill="#E87D3E" text-anchor="middle">H</text>
+  <text x="228" y="204" font-family="monospace" font-size="22" fill="#E87D3E" text-anchor="middle">→</text>
+
+  <!-- Rotated activations -->
+  <rect x="260" y="120" width="180" height="120" rx="6" fill="#E87D3E" opacity="0.10" stroke="#E87D3E" stroke-width="1.5"/>
+  <text x="350" y="143" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">Rotated HX</text>
+  <line x1="280" y1="220" x2="280" y2="193" stroke="#E87D3E" stroke-width="1.5"/>
+  <line x1="305" y1="220" x2="305" y2="188" stroke="#E87D3E" stroke-width="1.5"/>
+  <line x1="330" y1="220" x2="330" y2="195" stroke="#E87D3E" stroke-width="1.5"/>
+  <line x1="355" y1="220" x2="355" y2="190" stroke="#E87D3E" stroke-width="1.5"/>
+  <line x1="380" y1="220" x2="380" y2="193" stroke="#E87D3E" stroke-width="1.5"/>
+  <line x1="405" y1="220" x2="405" y2="188" stroke="#E87D3E" stroke-width="1.5"/>
+  <text x="350" y="235" font-family="monospace" font-size="9" fill="#E87D3E" text-anchor="middle">outliers spread → near-uniform</text>
+
+  <!-- Weight rotation -->
+  <text x="465" y="186" font-family="monospace" font-size="14" fill="#E87D3E" text-anchor="middle">Hᵀ</text>
+  <text x="465" y="204" font-family="monospace" font-size="22" fill="#E87D3E" text-anchor="middle">→</text>
+  <rect x="498" y="120" width="180" height="120" rx="6" fill="#E87D3E" opacity="0.10" stroke="#E87D3E" stroke-width="1.5"/>
+  <text x="588" y="143" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">WH (rotated W)</text>
+  <text x="588" y="175" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">absorbed offline</text>
+  <text x="588" y="195" font-family="monospace" font-size="10" fill="#E87D3E" text-anchor="middle">→ quantize to INT4</text>
+  <text x="588" y="215" font-family="monospace" font-size="10" fill="#E87D3E" text-anchor="middle">via RTN, no calibration</text>
+
+  <!-- Key: mathematically exact -->
+  <text x="700" y="186" font-family="monospace" font-size="14" fill="#333" text-anchor="middle">=</text>
+  <rect x="716" y="148" width="60" height="64" rx="6" fill="#E87D3E" opacity="0.2" stroke="#E87D3E" stroke-width="1.5"/>
+  <text x="746" y="175" font-family="monospace" font-size="10" fill="#333" text-anchor="middle">same</text>
+  <text x="746" y="193" font-family="monospace" font-size="10" fill="#333" text-anchor="middle">output</text>
+
+  <!-- Rotation properties -->
+  <rect x="25" y="265" width="750" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="45" y="287" font-family="monospace" font-size="11" font-weight="bold" fill="#333">Why Hadamard?</text>
+  <text x="45" y="305" font-family="monospace" font-size="11" fill="#555">H ∈ ℝ^{n×n}, Hᵀ H = nI  →  orthogonal (no output change).  Each output is ±avg of all inputs.</text>
+  <text x="45" y="323" font-family="monospace" font-size="11" fill="#555">Outliers (one large element) get spread equally across all output dims → no single dimension dominates.</text>
+  <text x="45" y="345" font-family="monospace" font-size="11" fill="#E87D3E">Result: W4A4 RTN quality matches W4A16 GPTQ on LLaMA-2-70B. Applied at attention, FFN, and LN fusions.</text>
+
+</svg>

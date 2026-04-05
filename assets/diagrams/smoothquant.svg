@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#E87D3E" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">SmoothQuant</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W8A8</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- SmoothQuant: migrate quantization difficulty from activations to weights -->
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Migrate quantization difficulty: activations → weights via per-channel scale</text>
+
+  <!-- Math: Y = (X diag(s)^-1)(diag(s) W) -->
+  <text x="400" y="135" font-family="monospace" font-size="14" fill="#333" text-anchor="middle">Y = X W  =  (X · diag(s)⁻¹) · (diag(s) · W)</text>
+  <text x="400" y="158" font-family="monospace" font-size="12" fill="#E87D3E" text-anchor="middle">activations divided by s  |  weights multiplied by s</text>
+
+  <!-- Before -->
+  <rect x="30" y="175" width="340" height="140" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="198" font-family="monospace" font-size="12" font-weight="bold" fill="#E87D3E">Before smoothing</text>
+  <text x="50" y="218" font-family="monospace" font-size="11" fill="#555">Activations: huge dynamic range</text>
+  <line x1="60" y1="290" x2="60" y2="230" stroke="#E87D3E" stroke-width="3"/>
+  <line x1="100" y1="290" x2="100" y2="278" stroke="#aaa" stroke-width="1"/>
+  <line x1="140" y1="290" x2="140" y2="275" stroke="#aaa" stroke-width="1"/>
+  <line x1="180" y1="290" x2="180" y2="228" stroke="#E87D3E" stroke-width="3"/>
+  <line x1="220" y1="290" x2="220" y2="280" stroke="#aaa" stroke-width="1"/>
+  <line x1="260" y1="290" x2="260" y2="270" stroke="#aaa" stroke-width="1"/>
+  <line x1="300" y1="290" x2="300" y2="225" stroke="#E87D3E" stroke-width="3"/>
+  <text x="200" y="310" font-family="monospace" font-size="10" fill="#E87D3E" text-anchor="middle">→ hard to quantize to INT8</text>
+
+  <!-- After -->
+  <rect x="430" y="175" width="340" height="140" rx="6" fill="#E87D3E" opacity="0.08" stroke="#E87D3E" stroke-width="1.5"/>
+  <text x="450" y="198" font-family="monospace" font-size="12" font-weight="bold" fill="#E87D3E">After smoothing</text>
+  <text x="450" y="218" font-family="monospace" font-size="11" fill="#555">Both tensors: similar range</text>
+  <line x1="460" y1="290" x2="460" y2="258" stroke="#E87D3E" stroke-width="1.5"/>
+  <line x1="500" y1="290" x2="500" y2="255" stroke="#E87D3E" stroke-width="1.5"/>
+  <line x1="540" y1="290" x2="540" y2="260" stroke="#E87D3E" stroke-width="1.5"/>
+  <line x1="580" y1="290" x2="580" y2="253" stroke="#E87D3E" stroke-width="1.5"/>
+  <line x1="620" y1="290" x2="620" y2="258" stroke="#E87D3E" stroke-width="1.5"/>
+  <line x1="660" y1="290" x2="660" y2="255" stroke="#E87D3E" stroke-width="1.5"/>
+  <line x1="700" y1="290" x2="700" y2="260" stroke="#E87D3E" stroke-width="1.5"/>
+  <text x="600" y="310" font-family="monospace" font-size="10" fill="#E87D3E" text-anchor="middle">→ INT8 quantizable with low error</text>
+
+  <!-- Scale selection -->
+  <rect x="30" y="335" width="740" height="80" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="358" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Scale selection:  s_j = max(|X_j|)^α / max(|W_j|)^(1-α)</text>
+  <text x="50" y="378" font-family="monospace" font-size="11" fill="#555">α=0.5 balances difficulty equally.  α→1 shifts all difficulty to weights.  Layer-wise search for α.</text>
+  <text x="50" y="398" font-family="monospace" font-size="11" fill="#E87D3E">Scale absorbed into preceding LayerNorm weight → no runtime overhead. Enables W8A8 INT8 GEMM.</text>
+
+</svg>

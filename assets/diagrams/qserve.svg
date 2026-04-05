@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#E87D3E" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">QServe</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W4A8KV4</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+
+  <!-- Generic diagram for QServe -->
+  <!-- Fact panel -->
+  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W4A8KV4</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-group (W4, g=128); per-token (A8); p</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  small calibration set for weight quantiz</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     NVIDIA GPU (A100/H100); QoQ (Quarot-on-Q</text>
+  <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     ptq_weight_activation</text>
+
+  <!-- TL;DR -->
+  <rect x="415" y="80" width="355" height="150" rx="6" fill="#E87D3E" opacity="0.08" stroke="#E87D3E" stroke-width="1.5"/>
+  <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
+  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">QServe is a system co-design paper targeting W4A8KV4 quantization for</text>
+  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">throughput-optimized LLM serving. Weights are stored at INT4 (per-group), activations</text>
+  <text x="435" y="167" font-family="monospace" font-size="11" fill="#555">at I</text>
+
+  <!-- Key idea -->
+  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">QServe's "progressive quantization" solves the W4A8 quality problem: INT4 Tensor</text>
+  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">Cores require weights in INT4, but directly multiplying INT4 weights by INT8</text>
+  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">activations produces poor results due to l</text>
+
+  <!-- Bottom -->
+  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="415" font-family="monospace" font-size="11" fill="#E87D3E">https://arxiv.org/abs/2405.04532</text>
+  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: Yujun Lin, Haotian Tang, Shang Yang</text>
+
+</svg>
