@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#3DAD78" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">QAQ</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W16A16KV2–KV4 (mixed)</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+
+  <!-- Generic diagram for QAQ -->
+  <!-- Fact panel -->
+  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W16A16KV2–KV4 (mixed)</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-token, adaptive bit-width</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  none</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     GPU</text>
+  <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     kv_cache</text>
+
+  <!-- TL;DR -->
+  <rect x="415" y="80" width="355" height="150" rx="6" fill="#3DAD78" opacity="0.08" stroke="#3DAD78" stroke-width="1.5"/>
+  <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
+  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">QAQ adaptively allocates bit-widths across KV cache entries based on their predicted</text>
+  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">importance to the attention output. Tokens that receive high attention scor</text>
+
+  <!-- Key idea -->
+  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">QAQ uses a proxy for KV importance: the accumulated attention scores that a token has</text>
+  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">received across all heads and layers so far. Tokens with high accumulated attention</text>
+  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">(estimated from running statis</text>
+
+  <!-- Bottom -->
+  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="415" font-family="monospace" font-size="11" fill="#3DAD78">https://arxiv.org/abs/2403.04643</text>
+  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: Shichen Dong, Wen Cheng, Jiayu Qin</text>
+
+</svg>

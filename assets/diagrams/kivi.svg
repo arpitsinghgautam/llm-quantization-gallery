@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#3DAD78" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">KIVI</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W16A16KV2</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- KIVI: per-channel K, per-token V quantization -->
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Asymmetric granularity: K quantized per-group (g=16 channels), V per-token</text>
+
+  <!-- Attention equation -->
+  <text x="400" y="130" font-family="monospace" font-size="13" fill="#333" text-anchor="middle">Attention(Q, K, V)  →  Q · Q(K)ᵀ / √d  →  softmax  →  Q(V)</text>
+
+  <!-- K quantization box -->
+  <rect x="30" y="155" width="340" height="155" rx="6" fill="#3DAD78" opacity="0.09" stroke="#3DAD78" stroke-width="1.5"/>
+  <text x="200" y="178" font-family="monospace" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Key (K) — per-group-channel quantization</text>
+  <!-- K tensor grid -->
+  <text x="55" y="200" font-family="monospace" font-size="10" fill="#555">channel →</text>
+  <rect x="55" y="207" width="280" height="20" rx="2" fill="#3DAD78" opacity="0.25"/>
+  <text x="195" y="221" font-family="monospace" font-size="9" fill="#fff" text-anchor="middle">token 1</text>
+  <rect x="55" y="229" width="280" height="20" rx="2" fill="#3DAD78" opacity="0.18"/>
+  <text x="195" y="243" font-family="monospace" font-size="9" fill="#3DAD78" text-anchor="middle">token 2</text>
+  <rect x="55" y="251" width="280" height="20" rx="2" fill="#3DAD78" opacity="0.25"/>
+  <!-- per-channel labels -->
+  <text x="200" y="288" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">scale per group of 16 channels</text>
+  <text x="200" y="303" font-family="monospace" font-size="10" fill="#3DAD78" text-anchor="middle">channels stable across tokens → low-variance scale</text>
+
+  <!-- V quantization box -->
+  <rect x="430" y="155" width="340" height="155" rx="6" fill="#3DAD78" opacity="0.09" stroke="#3DAD78" stroke-width="1.5"/>
+  <text x="600" y="178" font-family="monospace" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Value (V) — per-token quantization</text>
+  <!-- V tensor grid — tall columns per token -->
+  <rect x="450" y="207" width="30" height="80" rx="2" fill="#3DAD78" opacity="0.30"/>
+  <rect x="490" y="207" width="30" height="80" rx="2" fill="#3DAD78" opacity="0.20"/>
+  <rect x="530" y="207" width="30" height="80" rx="2" fill="#3DAD78" opacity="0.30"/>
+  <rect x="570" y="207" width="30" height="80" rx="2" fill="#3DAD78" opacity="0.20"/>
+  <rect x="610" y="207" width="30" height="80" rx="2" fill="#3DAD78" opacity="0.30"/>
+  <text x="450" y="300" font-family="monospace" font-size="9" fill="#3DAD78">t1</text>
+  <text x="490" y="300" font-family="monospace" font-size="9" fill="#3DAD78">t2</text>
+  <text x="530" y="300" font-family="monospace" font-size="9" fill="#3DAD78">t3</text>
+  <text x="600" y="288" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">scale per token (1 scale / token)</text>
+  <text x="600" y="303" font-family="monospace" font-size="10" fill="#3DAD78" text-anchor="middle">token norms vary → per-token scale</text>
+
+  <!-- Residual / recent tokens -->
+  <rect x="30" y="330" width="740" height="65" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="352" font-family="monospace" font-size="11" font-weight="bold" fill="#333">Residual (sliding) cache:</text>
+  <text x="50" y="370" font-family="monospace" font-size="11" fill="#555">Most recent r=32 tokens kept at FP16 (not quantized). Protects attention sink + recency. Concatenated before attention.</text>
+  <text x="50" y="388" font-family="monospace" font-size="11" fill="#3DAD78">2-bit K+V (g=16): 75% KV memory cut. LLaMA-2-7B: &lt;0.3 ppl vs FP16 at 2K context. 2.35× throughput.</text>
+
+  <!-- Implementation note -->
+  <rect x="30" y="415" width="740" height="55" rx="6" fill="#3DAD78" opacity="0.07" stroke="#3DAD78" stroke-width="0.8"/>
+  <text x="50" y="437" font-family="monospace" font-size="11" fill="#555">Implemented as a FlashAttention-2 plugin. Dequantization fused into attention kernel — &lt;5% compute overhead.</text>
+  <text x="50" y="455" font-family="monospace" font-size="11" fill="#3DAD78">No calibration needed. Works with any model out-of-the-box. INT2 and INT4 both supported.</text>
+
+</svg>
