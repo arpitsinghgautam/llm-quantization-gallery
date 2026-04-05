@@ -44,7 +44,7 @@
 | 2023-10-20 | AutoAWQ | Systems | W4A16 (AWQ) | — |
 | 2023-10-22 | EXL2 | PTQ W-only | W2–W8 A16 (mixed per-row, target average bit-width) | — |
 | 2023-10-22 | ExLlamaV2 | Systems | W2–W8 A16 (EXL2 mixed per-row format) | — |
-| 2023-10-26 | ZeroQuant-HERO | PTQ W+A | W4+W6 A8 (mixed: sensitive layers at FP6, rest at W4A8) | [paper](https://arxiv.org/abs/2312.08583) |
+| 2023-10-26 | ZeroQuant(4+2) | PTQ W+A | W4+W6 A8 (mixed: sensitive layers at FP6, rest at W4A8) | [paper](https://arxiv.org/abs/2312.08583) |
 | 2023-10-31 | Atom | PTQ W+A | W4A4 (mixed with W8 for sensitive layers) | [paper](https://arxiv.org/abs/2310.19102) |
 | 2023-11-19 | HQQ | PTQ W-only | W2/W3/W4/W8 A16 | — |
 | 2024-01-08 | GGUF I-quants | PTQ W-only | W1/W2/W3/W4 A16 (fractional effective bits) | — |

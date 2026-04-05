@@ -1261,8 +1261,8 @@
   diagram: assets/diagrams/zeroquant-fp.svg
   diagram_caption: "FP4/FP8 formats: non-uniform grid covers activation dynamic range better than INT8."
 
-- id: zeroquant-hero
-  name: ZeroQuant-HERO
+- id: zeroquant-4plus2
+  name: "ZeroQuant(4+2)"
   full_name: "ZeroQuant(4+2): Redefining LLMs Quantization with a New FP6-Centric Strategy for Diverse Generative Tasks"
   category: ptq_weight_activation
   subcategory: fp6-w4a8
@@ -1305,7 +1305,7 @@
   superseded_by: []
   related: ["zeroquant-fp", "zeroquant-v2", "fp6-llm"]
 
-  diagram: assets/diagrams/zeroquant-hero.svg
+  diagram: assets/diagrams/zeroquant-4plus2.svg
   diagram_caption: "ZeroQuant(4+2): sensitive layers at FP6, rest at W4A8; mixed-precision layer assignment."
 
 - id: outlier-suppression

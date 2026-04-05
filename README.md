@@ -102,8 +102,8 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [vllm-quant](#vllm-quant) | Systems | 2023 | 4 | 16 | — | no | no | [paper](https://arxiv.org/abs/2309.06180) |
 | [wkvquant](#wkvquant) | KV Quant | 2024 | 4 | 16 | 4 | yes | no | [paper](https://arxiv.org/abs/2402.12065) |
 | [zeroquant](#zeroquant) | PTQ W+A | 2022 | 8 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2206.01861) |
+| [zeroquant-4plus2](#zeroquant-4plus2) | PTQ W+A | 2023 | 4+W6 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2312.08583) |
 | [zeroquant-fp](#zeroquant-fp) | PTQ W+A | 2023 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2307.09782) |
-| [zeroquant-hero](#zeroquant-hero) | PTQ W+A | 2023 | 4+W6 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2312.08583) |
 | [zeroquant-v2](#zeroquant-v2) | PTQ W+A | 2023 | 4/W8 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2303.08302) |
 | [zipcache](#zipcache) | KV Quant | 2024 | 16 | 16 | 4 | no | no | [paper](https://arxiv.org/abs/2405.14256) |
 
@@ -926,9 +926,9 @@ Three components: (1) Outlier channel detection — identify top-k outlier activ
 
 ---
 
-### ZeroQuant-HERO · W4+W6 A8 (mixed: sensitive layers at FP6, rest at W4A8) · PTQ W+A · 2023-10 {#zeroquant-hero}
+### ZeroQuant(4+2) · W4+W6 A8 (mixed: sensitive layers at FP6, rest at W4A8) · PTQ W+A · 2023-10 {#zeroquant-4plus2}
 
-<img src="assets/diagrams/zeroquant-hero.svg" width="640" alt="ZeroQuant-HERO diagram">
+<img src="assets/diagrams/zeroquant-4plus2.svg" width="640" alt="ZeroQuant(4+2) diagram">
 <p><em>ZeroQuant(4+2): sensitive layers at FP6, rest at W4A8; mixed-precision layer assignment.</em></p>
 
 > ZeroQuant(4+2) extends the ZeroQuant series by proposing a mixed W4+W6 strategy: the majority of layers use W4A8 (INT4 weight, INT8 activation) for high compression, while the most sensitive layers (typically the first and last layers, plus selected attention layers) use FP6 weights for better precision. The sensitivity is measured by the ZeroQuant block-wise reconstruction loss. The paper also explores FP8 training as a natural extension of the ZeroQuant framework and provides a comprehensive study of mixed-precision strategies across model families.
@@ -2514,8 +2514,8 @@ graph LR
     zeroquant-v2["ZeroQuant-V2"] --> zeroquant["ZeroQuant"]
     zeroquant-fp["ZeroQuant-FP"] --> zeroquant-v2["ZeroQuant-V2"]
     zeroquant-fp["ZeroQuant-FP"] --> zeroquant["ZeroQuant"]
-    zeroquant-hero["ZeroQuant-HERO"] --> zeroquant-fp["ZeroQuant-FP"]
-    zeroquant-hero["ZeroQuant-HERO"] --> fp6-llm["FP6-LLM"]
+    zeroquant-4plus2["ZeroQuant(4+2)"] --> zeroquant-fp["ZeroQuant-FP"]
+    zeroquant-4plus2["ZeroQuant(4+2)"] --> fp6-llm["FP6-LLM"]
     outlier-suppression["Outlier Suppression"] --> rtn["RTN"]
     outlier-suppression-plus["Outlier Suppression+"] --> outlier-suppression["Outlier Suppression"]
     outlier-suppression-plus["Outlier Suppression+"] --> smoothquant["SmoothQuant"]
