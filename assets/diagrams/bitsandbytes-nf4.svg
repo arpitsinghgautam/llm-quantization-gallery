@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#4A90D9" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">NF4 / QLoRA</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W4A16 (NF4)</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+
+  <!-- Generic diagram for NF4 / QLoRA -->
+  <!-- Fact panel -->
+  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W4A16 (NF4)</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-group, g=64 (double quantization)</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  none for quantization; LoRA adapters are</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     GPU (bitsandbytes CUDA kernels)</text>
+  <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     ptq_weight_only</text>
+
+  <!-- TL;DR -->
+  <rect x="415" y="80" width="355" height="150" rx="6" fill="#4A90D9" opacity="0.08" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
+  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">The QLoRA paper introduced the NF4 (Normal Float 4-bit) data type: a 4-bit format</text>
+  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">whose quantization levels are spaced at the quantiles of the standard normal d</text>
+
+  <!-- Key idea -->
+  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">NF4 construction: given a standard normal distribution, compute the 16 quantiles q₀,</text>
+  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">q₁, ..., q₁₅ (including ±∞ boundaries). Normalize to [-1, 1]. These 16 values are the</text>
+  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">NF4 codebook. Quantize weight</text>
+
+  <!-- Bottom -->
+  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="415" font-family="monospace" font-size="11" fill="#4A90D9">https://arxiv.org/abs/2305.14314</text>
+  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2023  |  Authors: Tim Dettmers, Artidoro Pagnoni, Ari Holtzman</text>
+
+</svg>

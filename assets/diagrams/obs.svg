@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#4A90D9" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">OBS</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">n/a (pruning framework; later adapted to quantization)</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+
+  <!-- Generic diagram for OBS -->
+  <!-- Fact panel -->
+  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    n/a (pruning framework; later adapted to quantization)</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-weight</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  training data (Hessian computed during t</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     n/a (algorithm, not LLM-specific)</text>
+  <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     ptq_weight_only</text>
+
+  <!-- TL;DR -->
+  <rect x="415" y="80" width="355" height="150" rx="6" fill="#4A90D9" opacity="0.08" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
+  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">Optimal Brain Surgeon (OBS) is the classical second-order framework for weight</text>
+  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">pruning (and later, quantization). It computes, for each weight w_q, the increase</text>
+
+  <!-- Key idea -->
+  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">For a network with loss L(w) ≈ L(w₀) + ½(w−w₀)^T H (w−w₀), removing weight w_q</text>
+  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">introduces error δL = w_q² / (2[H⁻¹]_qq). The optimal compensation update for the</text>
+  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">remaining weights is Δw = −(w_q / [H⁻¹]</text>
+
+  <!-- Bottom -->
+  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="415" font-family="monospace" font-size="11" fill="#4A90D9">https://authors.library.caltech.edu/55952/1/Optimal%20Brain%20Surgeon.pdf</text>
+  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 1993  |  Authors: Babak Hassibi, David G. Stork, Gregory J. Wolff</text>
+
+</svg>

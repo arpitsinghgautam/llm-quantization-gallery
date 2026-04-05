@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#4A90D9" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">HQQ</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W2/W3/W4/W8 A16</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- HQQ: half-quadratic quantization -->
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Find optimal scale s and zero-point z by minimizing a robust (Huber-like) loss — no data needed</text>
+
+  <!-- Loss comparison: MSE vs HQQ -->
+  <rect x="30" y="120" width="350" height="260" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="205" y="145" font-family="monospace" font-size="12" font-weight="bold" fill="#E87D3E">Standard (MSE loss)</text>
+  <text x="205" y="163" font-family="monospace" font-size="11" fill="#555" text-anchor="middle">min_{s,z} ||W - Q(W;s,z)||²</text>
+  <!-- MSE loss curve - parabolic, non-robust -->
+  <polyline points="60,340 100,290 140,240 180,210 220,215 260,240 300,290 340,340"
+    fill="none" stroke="#E87D3E" stroke-width="2"/>
+  <text x="205" y="360" font-family="monospace" font-size="10" fill="#E87D3E" text-anchor="middle">sensitive to outlier weights (tails)</text>
+
+  <rect x="420" y="120" width="350" height="260" rx="6" fill="#4A90D9" opacity="0.08" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="595" y="145" font-family="monospace" font-size="12" font-weight="bold" fill="#4A90D9">HQQ (Half-Quadratic)</text>
+  <text x="595" y="163" font-family="monospace" font-size="11" fill="#555" text-anchor="middle">min_{s,z} Σ ρ(w_i - Q(w_i;s,z))</text>
+  <!-- Huber-like curve - quadratic near 0, linear at tails -->
+  <polyline points="440,340 480,300 520,260 560,228 600,220 640,228 680,260 720,300 760,340"
+    fill="none" stroke="#4A90D9" stroke-width="2"/>
+  <polyline points="440,330 480,295 520,263"
+    fill="none" stroke="#4A90D9" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <polyline points="680,263 720,295 760,330"
+    fill="none" stroke="#4A90D9" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <text x="595" y="360" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">robust: outlier weights get less influence</text>
+
+  <!-- Bottom bar -->
+  <rect x="30" y="405" width="740" height="65" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="427" font-family="monospace" font-size="11" font-weight="bold" fill="#333">Optimization:</text>
+  <text x="50" y="445" font-family="monospace" font-size="11" fill="#555">Alternating half-quadratic: fix auxiliary u_i, solve for (s, z) in closed form; update u_i from residuals.</text>
+  <text x="50" y="463" font-family="monospace" font-size="11" fill="#4A90D9">No calibration data. W4 quality competitive with GPTQ. W2 better than RTN. Runs in seconds per layer.</text>
+
+</svg>

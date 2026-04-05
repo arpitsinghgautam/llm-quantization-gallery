@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#4A90D9" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">SpQR</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W3/W4 A16 (sparse overlay)</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- SpQR: sparse-quantized representation -->
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Hybrid: ~1% sensitive weights at FP16 sparse; the rest at INT3/4 dense</text>
+
+  <!-- Weight matrix visualization -->
+  <rect x="30" y="120" width="350" height="230" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="205" y="143" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">Weight matrix W (one layer)</text>
+  <!-- Dense quantized part -->
+  <rect x="50" y="155" width="310" height="170" rx="3" fill="#4A90D9" opacity="0.10"/>
+  <text x="205" y="225" font-family="monospace" font-size="12" fill="#4A90D9" text-anchor="middle">W_int (INT3/4)</text>
+  <text x="205" y="243" font-family="monospace" font-size="11" fill="#555" text-anchor="middle">~99% of weights</text>
+  <text x="205" y="261" font-family="monospace" font-size="11" fill="#555" text-anchor="middle">per-group quantized</text>
+  <!-- Sparse overlay dots -->
+  <circle cx="100" cy="175" r="5" fill="#E84393" opacity="0.9"/>
+  <circle cx="250" cy="188" r="5" fill="#E84393" opacity="0.9"/>
+  <circle cx="80" cy="280" r="5" fill="#E84393" opacity="0.9"/>
+  <circle cx="320" cy="255" r="5" fill="#E84393" opacity="0.9"/>
+  <circle cx="175" cy="303" r="5" fill="#E84393" opacity="0.9"/>
+  <text x="205" y="342" font-family="monospace" font-size="10" fill="#E84393" text-anchor="middle">pink dots = sensitive weights stored as sparse FP16</text>
+
+  <!-- Arrow -->
+  <text x="410" y="240" font-family="monospace" font-size="20" fill="#4A90D9" text-anchor="middle">→</text>
+
+  <!-- Decomposition -->
+  <rect x="440" y="120" width="335" height="230" rx="6" fill="#4A90D9" opacity="0.06" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="607" y="143" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">Storage layout</text>
+
+  <rect x="455" y="155" width="305" height="80" rx="4" fill="#4A90D9" opacity="0.15" stroke="#4A90D9" stroke-width="1"/>
+  <text x="607" y="183" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">Dense INT3/INT4 block</text>
+  <text x="607" y="201" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">+ per-group scale (FP16) + zero-pt</text>
+  <text x="607" y="219" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">~3.0 bits/weight (avg)</text>
+
+  <rect x="455" y="248" width="305" height="80" rx="4" fill="#E84393" opacity="0.12" stroke="#E84393" stroke-width="1"/>
+  <text x="607" y="275" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">Sparse FP16 overlay</text>
+  <text x="607" y="293" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">(row_idx, col_idx, fp16_value)</text>
+  <text x="607" y="311" font-family="monospace" font-size="10" fill="#E84393" text-anchor="middle">~1% of weights, ~0.5 bits extra avg</text>
+
+  <!-- Bottom bar -->
+  <rect x="30" y="375" width="740" height="85" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="397" font-family="monospace" font-size="11" font-weight="bold" fill="#333">Sensitivity scoring:</text>
+  <text x="50" y="415" font-family="monospace" font-size="11" fill="#555">S(w_ij) = w_ij² × [H]_ii  where H is the layer input Hessian (same as GPTQ).</text>
+  <text x="50" y="433" font-family="monospace" font-size="11" fill="#555">Top-k% by sensitivity → FP16 sparse; remainder → GPTQ INT3/4 with error compensation.</text>
+  <text x="50" y="451" font-family="monospace" font-size="11" fill="#4A90D9">Near-lossless 3-bit: &lt;1% relative ppl increase on LLaMA-1-65B. Requires sparse matmul kernel.</text>
+
+</svg>

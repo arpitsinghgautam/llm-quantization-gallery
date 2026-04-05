@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#4A90D9" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">AWQ</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W4A16</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- AWQ: activation-magnitude-guided weight scaling -->
+  <text x="400" y="110" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Scale salient weight channels by activation magnitude before quantization</text>
+
+  <!-- Step 1: identify salient channels -->
+  <rect x="30" y="130" width="190" height="110" rx="6" fill="#4A90D9" opacity="0.10" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="125" y="152" font-family="monospace" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">1. Identify salient channels</text>
+  <text x="125" y="172" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">‖x_j‖  per input channel j</text>
+  <text x="125" y="192" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">top-1% channels →</text>
+  <text x="125" y="212" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">keep at higher precision</text>
+
+  <!-- Step 2: compute scale -->
+  <rect x="250" y="130" width="190" height="110" rx="6" fill="#4A90D9" opacity="0.10" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="345" y="152" font-family="monospace" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">2. Compute scale s</text>
+  <text x="345" y="172" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">s_j = (‖x_j‖ / mean‖x‖)^α</text>
+  <text x="345" y="192" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">α ∈ [0,1], grid-searched</text>
+  <text x="345" y="212" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">per-channel scale factor</text>
+
+  <!-- Step 3: transform -->
+  <rect x="470" y="130" width="190" height="110" rx="6" fill="#4A90D9" opacity="0.10" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="565" y="152" font-family="monospace" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">3. Scale &amp; quantize W</text>
+  <text x="565" y="172" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">Ŵ = Q(W · diag(s))</text>
+  <text x="565" y="192" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">absorb s⁻¹ into prev. layer</text>
+  <text x="565" y="212" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">mathematically equivalent</text>
+
+  <!-- Diagram: before/after activation distribution -->
+  <rect x="30" y="270" width="350" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="292" font-family="monospace" font-size="11" fill="#333">Before: unscaled activations</text>
+  <!-- spike -->
+  <line x1="80" y1="370" x2="80" y2="310" stroke="#E87D3E" stroke-width="2"/>
+  <line x1="120" y1="370" x2="120" y2="340" stroke="#aaa" stroke-width="1"/>
+  <line x1="160" y1="370" x2="160" y2="345" stroke="#aaa" stroke-width="1"/>
+  <line x1="200" y1="370" x2="200" y2="338" stroke="#aaa" stroke-width="1"/>
+  <line x1="240" y1="370" x2="240" y2="350" stroke="#aaa" stroke-width="1"/>
+  <line x1="280" y1="370" x2="280" y2="305" stroke="#E87D3E" stroke-width="2"/>
+  <text x="80" y="298" font-family="monospace" font-size="9" fill="#E87D3E" text-anchor="middle">outlier</text>
+  <text x="280" y="295" font-family="monospace" font-size="9" fill="#E87D3E" text-anchor="middle">outlier</text>
+
+  <rect x="400" y="270" width="360" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="420" y="292" font-family="monospace" font-size="11" fill="#333">After: activations ÷ s, weights × s</text>
+  <line x1="450" y1="370" x2="450" y2="335" stroke="#4A90D9" stroke-width="1.5"/>
+  <line x1="490" y1="370" x2="490" y2="330" stroke="#4A90D9" stroke-width="1.5"/>
+  <line x1="530" y1="370" x2="530" y2="328" stroke="#4A90D9" stroke-width="1.5"/>
+  <line x1="570" y1="370" x2="570" y2="332" stroke="#4A90D9" stroke-width="1.5"/>
+  <line x1="610" y1="370" x2="610" y2="325" stroke="#4A90D9" stroke-width="1.5"/>
+  <line x1="650" y1="370" x2="650" y2="330" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="700" y="345" font-family="monospace" font-size="10" fill="#4A90D9">balanced</text>
+
+  <rect x="30" y="415" width="730" height="45" rx="6" fill="#F0F9FF" stroke="#4A90D9" stroke-width="0.8"/>
+  <text x="50" y="436" font-family="monospace" font-size="11" fill="#555">No gradient needed. Calibration: small activation sample. Group size 128. Hardware-friendly W4A16.</text>
+  <text x="50" y="452" font-family="monospace" font-size="11" fill="#555">Supported by: AutoAWQ · vLLM · TGI · TensorRT-LLM · llama.cpp</text>
+
+</svg>

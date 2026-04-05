@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#4A90D9" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">AQLM</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W2 A16 (avg ~2 bits)</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+  <!-- AQLM: additive multi-codebook quantization -->
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Additive quantization: 8 weights = sum of M codebook lookups</text>
+
+  <!-- Weight block -->
+  <rect x="30" y="120" width="120" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="90" y="145" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">w ∈ ℝ⁸</text>
+  <text x="90" y="163" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">FP16 weight block</text>
+  <text x="90" y="183" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">(8 values)</text>
+  <text x="90" y="210" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">16 bytes → 2 bytes</text>
+
+  <!-- Codebook 1 -->
+  <rect x="200" y="120" width="160" height="100" rx="6" fill="#4A90D9" opacity="0.12" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="280" y="145" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">Codebook C₁</text>
+  <text x="280" y="163" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">256 entries × 8 dims</text>
+  <text x="280" y="183" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">find nearest: i₁</text>
+  <text x="280" y="203" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">store 8 bits</text>
+
+  <!-- Codebook 2 -->
+  <rect x="200" y="235" width="160" height="100" rx="6" fill="#4A90D9" opacity="0.12" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="280" y="260" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">Codebook C₂</text>
+  <text x="280" y="278" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">256 entries × 8 dims</text>
+  <text x="280" y="298" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">find nearest: i₂</text>
+  <text x="280" y="318" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">store 8 bits</text>
+
+  <!-- Plus sign -->
+  <text x="390" y="185" font-family="monospace" font-size="28" fill="#4A90D9" text-anchor="middle">+</text>
+
+  <!-- Result -->
+  <rect x="420" y="120" width="170" height="215" rx="6" fill="#4A90D9" opacity="0.08" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="505" y="145" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">Representation</text>
+  <text x="505" y="165" font-family="monospace" font-size="12" fill="#4A90D9" text-anchor="middle">ŵ = C₁[i₁] + C₂[i₂]</text>
+  <text x="505" y="190" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">i₁, i₂ ∈ {0..255}</text>
+  <text x="505" y="210" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">Store: 2 bytes/8 weights</text>
+  <text x="505" y="230" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">= 2 bits / weight</text>
+  <text x="505" y="260" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">M=2, K=256 codebooks</text>
+  <text x="505" y="278" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">trained by beam search</text>
+  <text x="505" y="298" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">+ GPTQ-style correction</text>
+
+  <!-- Storage comparison -->
+  <rect x="620" y="120" width="155" height="215" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="697" y="145" font-family="monospace" font-size="11" fill="#333" text-anchor="middle">vs. FP16</text>
+  <text x="697" y="170" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">FP16: 16 bytes</text>
+  <text x="697" y="188" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">per 8 weights</text>
+  <text x="697" y="215" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">AQLM: 2 bytes</text>
+  <text x="697" y="233" font-family="monospace" font-size="10" fill="#4A90D9" text-anchor="middle">8× smaller</text>
+  <text x="697" y="260" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">+ shared codebooks</text>
+  <text x="697" y="278" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">amortized over</text>
+  <text x="697" y="296" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">all blocks</text>
+
+  <!-- Bottom bar -->
+  <rect x="30" y="360" width="740" height="80" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="382" font-family="monospace" font-size="11" font-weight="bold" fill="#333">Learning: alternating optimization</text>
+  <text x="50" y="400" font-family="monospace" font-size="11" fill="#555">1. Fix codes (i₁, i₂): update codebooks by least squares  →  min ||W - CI||_F</text>
+  <text x="50" y="418" font-family="monospace" font-size="11" fill="#555">2. Fix codebooks: update codes by beam search  →  min ||W - C[i]||_Hessian</text>
+  <text x="50" y="436" font-family="monospace" font-size="11" fill="#4A90D9">Result: 2-bit LLaMA-2-7B approaches 4-bit GPTQ quality. Supports M=1..4 codebooks.</text>
+
+</svg>
