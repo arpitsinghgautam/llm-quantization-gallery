@@ -1,7 +1,7 @@
 import { ThemeToggle } from './ThemeToggle'
 import { navigateTo } from '../router'
 
-const GITHUB_URL = 'https://github.com/arpitsinghgautam/quantization_gallery'
+const GITHUB_URL = 'https://github.com/arpitsinghgautam/llm-quantization-gallery'
 
 interface HeaderProps {
   count: number

@@ -25,6 +25,15 @@ const CATEGORY_LABEL: Record<string, string> = {
 
 const GITHUB_URL = 'https://github.com/arpitsinghgautam/llm-quantization-gallery'
 
+const SOCIAL_LINKS = [
+  { label: 'arpitsinghgautam.me', href: 'https://arpitsinghgautam.me/' },
+  { label: 'Google Scholar', href: 'https://scholar.google.com/citations?hl=en&user=BqFcF_IAAAAJ' },
+  { label: 'GitHub', href: 'https://github.com/arpitsinghgautam' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/arpitsinghgautam' },
+  { label: 'Twitter / X', href: 'https://twitter.com/Asg_Wolverine' },
+  { label: 'Email', href: 'mailto:arpitsinghgautam777@gmail.com' },
+]
+
 export function HomeView() {
   const { methods, meta } = useMethods()
 
@@ -41,11 +50,29 @@ export function HomeView() {
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
         LLM Quantization Gallery
       </h1>
-      <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+
+      {/* Author byline */}
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+        By{' '}
+        <a href="https://arpitsinghgautam.me/" target="_blank" rel="noopener noreferrer"
+          className="font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+          Arpit Singh Gautam
+        </a>
+        {' '}· Data Scientist &amp; Researcher
+      </p>
+      <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-400 dark:text-gray-500 mb-2">
+        {SOCIAL_LINKS.map(l => (
+          <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer"
+            className="hover:text-blue-600 dark:hover:text-blue-400 underline-offset-2 hover:underline">
+            {l.label}
+          </a>
+        ))}
+      </div>
+      <p className="text-xs text-gray-400 dark:text-gray-500 mb-6">
         Last updated {meta.lastUpdated} ·{' '}
         <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer"
-          className="underline hover:text-blue-600 dark:hover:text-blue-400">
-          GitHub
+          className="hover:text-blue-600 dark:hover:text-blue-400 underline-offset-2 hover:underline">
+          View on GitHub
         </a>
       </p>
 
