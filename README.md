@@ -1,5 +1,7 @@
 # LLM Quantization Gallery
 
+**Live gallery:** https://arpitsinghgautam.me/llm-quantization-gallery/
+
 A curated, visual reference for LLM quantization methods — **93 methods** across **8 categories**, each with a flowchart diagram, fact sheet, and cross-references.
 
 Modeled after Sebastian Raschka's [llm-architecture-gallery](https://github.com/rasbt/llm-architecture-gallery).

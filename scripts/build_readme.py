@@ -587,6 +587,9 @@ def main():
     readme_parts = []
     readme_parts.append("# LLM Quantization Gallery\n")
     readme_parts.append(
+        "**Live gallery:** https://arpitsinghgautam.me/llm-quantization-gallery/\n"
+    )
+    readme_parts.append(
         f"A curated, visual reference for LLM quantization methods — "
         f"**{len(methods)} methods** across **{n_cats} categories**, "
         f"each with a flowchart diagram, fact sheet, and cross-references.\n"
