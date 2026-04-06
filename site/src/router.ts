@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 
 export type Route =
+  | { view: 'home' }
   | { view: 'gallery' }
   | { view: 'method'; id: string }
   | { view: 'compare'; ids: string[] }
@@ -8,10 +9,11 @@ export type Route =
 
 function parseHash(hash: string): Route {
   const path = hash.replace(/^#\/?/, '') || ''
-  if (!path || path === '/') return { view: 'gallery' }
+  if (!path || path === '/') return { view: 'home' }
 
   const parts = path.split('/').filter(Boolean)
 
+  if (parts[0] === 'gallery') return { view: 'gallery' }
   if (parts[0] === 'method' && parts[1]) {
     return { view: 'method', id: parts[1] }
   }
@@ -22,7 +24,7 @@ function parseHash(hash: string): Route {
     return { view: 'docs', page: parts[1] }
   }
 
-  return { view: 'gallery' }
+  return { view: 'home' }
 }
 
 export function useRouter(): [Route, (hash: string) => void] {

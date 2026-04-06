@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useRouter } from './router'
 import { Header } from './components/Header'
+import { HomeView } from './views/HomeView'
 import { GalleryView } from './views/GalleryView'
 import { MethodView } from './views/MethodView'
 import { CompareView } from './views/CompareView'
@@ -30,6 +31,8 @@ export default function App() {
 
   const renderView = () => {
     switch (route.view) {
+      case 'home':
+        return <HomeView />
       case 'gallery':
         return <GalleryView />
       case 'method':
@@ -39,7 +42,7 @@ export default function App() {
       case 'docs':
         return <DocsView page={route.page} />
       default:
-        return <GalleryView />
+        return <HomeView />
     }
   }
 

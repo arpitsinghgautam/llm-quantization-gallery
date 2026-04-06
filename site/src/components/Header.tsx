@@ -25,6 +25,12 @@ export function Header({ count }: HeaderProps) {
 
         <nav className="flex items-center gap-1" aria-label="Site navigation">
           <button
+            onClick={() => navigateTo('#/gallery')}
+            className="btn-ghost text-sm hidden md:inline-flex"
+          >
+            Gallery
+          </button>
+          <button
             onClick={() => navigateTo('#/docs/notation')}
             className="btn-ghost text-sm hidden md:inline-flex"
           >
