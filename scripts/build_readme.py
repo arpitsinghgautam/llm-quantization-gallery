@@ -156,8 +156,11 @@ def method_anchor(method_id):
     return method_id.lower().replace("_", "-").replace(".", "")
 
 
-def render_card(m):
-    """Render a single method card as Markdown."""
+def render_card(m, path_prefix=""):
+    """Render a single method card as Markdown.
+
+    path_prefix: prepended to relative asset paths (e.g. "../" for docs/methods.md).
+    """
     parts = []
 
     name = m.get("name", m["id"])
@@ -174,7 +177,8 @@ def render_card(m):
     diag = m.get("diagram")
     cap = m.get("diagram_caption", "")
     if diag:
-        parts.append(f'<img src="{diag}" width="640" alt="{name} diagram">')
+        src = path_prefix + diag if diag and not diag.startswith("http") else diag
+        parts.append(f'<img src="{src}" width="640" alt="{name} diagram">')
         if cap:
             parts.append(f"<p><em>{cap}</em></p>")
         parts.append("")
@@ -555,7 +559,7 @@ def main():
             methods_parts.append("*No entries yet in this category.*\n")
         else:
             for m in cat_methods:
-                methods_parts.append(render_card(m))
+                methods_parts.append(render_card(m, path_prefix="../"))
                 methods_parts.append("---\n")
 
     methods_parts.append(render_chronological_section(methods))

@@ -126,7 +126,7 @@ These methods quantize only the weight tensors; activations remain in FP16/BF16.
 <a id="ramp"></a>
 ### RAMP · W2-W8 A16 mixed (per-layer) · PTQ W-only · 2026-03
 
-<img src="assets/diagrams/ramp.svg" width="640" alt="RAMP diagram">
+<img src="../assets/diagrams/ramp.svg" width="640" alt="RAMP diagram">
 <p><em>RAMP: retrieval from a sensitivity database assigns per-layer bit-widths without re-optimization.</em></p>
 
 ```mermaid
@@ -164,7 +164,7 @@ RAMP maintains a database of (layer feature, optimal bit-width) pairs from previ
 <a id="littlebit"></a>
 ### LittleBit · sub-1-bit (effective ~0.1 bits per weight) · PTQ W-only · 2025-09
 
-<img src="assets/diagrams/littlebit.svg" width="640" alt="LittleBit diagram">
+<img src="../assets/diagrams/littlebit.svg" width="640" alt="LittleBit diagram">
 <p><em>LittleBit: weight matrix factorized into FP16 codebook C + ultra-low-bit latent codes Z.</em></p>
 
 ```mermaid
@@ -202,7 +202,7 @@ LittleBit decomposes each weight layer W into W = C * Z, where C is a learned la
 <a id="turboqu"></a>
 ### TurboQuant · W2/W3 A16 (vector quantization) · PTQ W-only · 2025-04
 
-<img src="assets/diagrams/turboqu.svg" width="640" alt="TurboQuant diagram">
+<img src="../assets/diagrams/turboqu.svg" width="640" alt="TurboQuant diagram">
 <p><em>TurboQuant: online codebook update with near-optimal rate-distortion guarantee.</em></p>
 
 ```mermaid
@@ -240,7 +240,7 @@ TurboQuant frames weight quantization as an online learning problem: given a str
 <a id="marlin"></a>
 ### Marlin · W4A16 (INT4), W4A8 (INT4 weight, FP8 activation) · PTQ W-only · 2024-08
 
-<img src="assets/diagrams/marlin.svg" width="640" alt="Marlin diagram">
+<img src="../assets/diagrams/marlin.svg" width="640" alt="Marlin diagram">
 <p><em>Marlin warp layout: prefetch → dequantize → tensor-core accumulate, all pipelined.</em></p>
 
 ```mermaid
@@ -279,7 +279,7 @@ Marlin's kernel decomposes the matmul into tiles processed by persistent warps. 
 <a id="flute"></a>
 ### FLUTE · W3/W4 A16 · PTQ W-only · 2024-07
 
-<img src="assets/diagrams/flute.svg" width="640" alt="FLUTE diagram">
+<img src="../assets/diagrams/flute.svg" width="640" alt="FLUTE diagram">
 <p><em>FLUTE: learned per-group codebook with fused lookup-table decode inside the GEMM kernel.</em></p>
 
 ```mermaid
@@ -319,7 +319,7 @@ For each weight group, FLUTE learns a small codebook (e.g. 16 entries for 4-bit)
 <a id="qtip"></a>
 ### QTIP · W2 A16 · PTQ W-only · 2024-06
 
-<img src="assets/diagrams/qtip.svg" width="640" alt="QTIP diagram">
+<img src="../assets/diagrams/qtip.svg" width="640" alt="QTIP diagram">
 <p><em>QTIP: Hadamard rotation + trellis-coded joint quantization over weight sequences.</em></p>
 
 ```mermaid
@@ -360,7 +360,7 @@ After rotating weights with a random Hadamard matrix, QTIP applies trellis-coded
 <a id="quant-llm"></a>
 ### QuaRot / Quant-LLM (FP6) · W4/W6 A16 · PTQ W-only · 2024-05
 
-<img src="assets/diagrams/quant-llm.svg" width="640" alt="QuaRot / Quant-LLM (FP6) diagram">
+<img src="../assets/diagrams/quant-llm.svg" width="640" alt="QuaRot / Quant-LLM (FP6) diagram">
 <p><em>Mixed FP6/INT4 per-layer assignment with speculative decoding compensation.</em></p>
 
 ```mermaid
@@ -399,7 +399,7 @@ Quant-LLM assigns FP6 quantization to the first and last layers of the transform
 <a id="quip-sharp"></a>
 ### QuIP# · W2/W3/W4 A16 · PTQ W-only · 2024-02
 
-<img src="assets/diagrams/quip-sharp.svg" width="640" alt="QuIP# diagram">
+<img src="../assets/diagrams/quip-sharp.svg" width="640" alt="QuIP# diagram">
 <p><em>Hadamard incoherence + E8 lattice vector quantization for 2-bit PTQ.</em></p>
 
 ```mermaid
@@ -439,7 +439,7 @@ Two innovations over QuIP: (1) Hadamard incoherence — using a randomized Hadam
 <a id="fp6-llm"></a>
 ### FP6-LLM · W6A16 · PTQ W-only · 2024-01
 
-<img src="assets/diagrams/fp6-llm.svg" width="640" alt="FP6-LLM diagram">
+<img src="../assets/diagrams/fp6-llm.svg" width="640" alt="FP6-LLM diagram">
 <p><em>TC-FPx kernel: bitpacked FP6 weights unpacked to FP16 inside Tensor Core matmul.</em></p>
 
 ```mermaid
@@ -478,7 +478,7 @@ The core contribution is a CUDA kernel strategy called TC-FPx that enables arbit
 <a id="aqlm"></a>
 ### AQLM · W2 A16 (avg ~2 bits) · PTQ W-only · 2024-01
 
-<img src="assets/diagrams/aqlm.svg" width="640" alt="AQLM diagram">
+<img src="../assets/diagrams/aqlm.svg" width="640" alt="AQLM diagram">
 <p><em>Additive multi-codebook quantization: 8 weights = 2 index lookups.</em></p>
 
 ```mermaid
@@ -518,7 +518,7 @@ Each weight block w ∈ ℝ⁸ is approximated as ŵ = Σ_{m=1}^{M} C_m[i_m], wh
 <a id="gguf-iquants"></a>
 ### GGUF I-quants · W1/W2/W3/W4 A16 (fractional effective bits) · PTQ W-only · 2024-01
 
-<img src="assets/diagrams/gguf-iquants.svg" width="640" alt="GGUF I-quants diagram">
+<img src="../assets/diagrams/gguf-iquants.svg" width="640" alt="GGUF I-quants diagram">
 <p><em>Importance-weighted lattice quantization: imatrix guides bit allocation per row.</em></p>
 
 ```mermaid
@@ -557,7 +557,7 @@ The imatrix records ‖x_j‖² per row j (the squared norm of input activations
 <a id="hqq"></a>
 ### HQQ · W2/W3/W4/W8 A16 · PTQ W-only · 2023-11
 
-<img src="assets/diagrams/hqq.svg" width="640" alt="HQQ diagram">
+<img src="../assets/diagrams/hqq.svg" width="640" alt="HQQ diagram">
 <p><em>Robust half-quadratic loss minimization for scale/zero-point — no calibration data needed.</em></p>
 
 ```mermaid
@@ -597,7 +597,7 @@ Standard RTN minimizes ‖W − Q(W)‖² w.r.t. the scale s and zero-point z, b
 <a id="exl2"></a>
 ### EXL2 · W2–W8 A16 (mixed per-row, target average bit-width) · PTQ W-only · 2023-10
 
-<img src="assets/diagrams/exl2.svg" width="640" alt="EXL2 diagram">
+<img src="../assets/diagrams/exl2.svg" width="640" alt="EXL2 diagram">
 <p><em>EXL2: each weight matrix row assigned a different bit-width by Hessian importance.</em></p>
 
 ```mermaid
@@ -636,7 +636,7 @@ EXL2 quantization proceeds in two passes: (1) compute per-row Hessian importance
 <a id="autoround"></a>
 ### AutoRound · W4A16 · PTQ W-only · 2023-09
 
-<img src="assets/diagrams/autoround.svg" width="640" alt="AutoRound diagram">
+<img src="../assets/diagrams/autoround.svg" width="640" alt="AutoRound diagram">
 <p><em>Sign gradient descent optimizes rounding direction per weight jointly within each block.</em></p>
 
 ```mermaid
@@ -676,7 +676,7 @@ AutoRound uses Signed Gradient Descent (SignSGD) to optimize rounding decisions.
 <a id="omniquant"></a>
 ### OmniQuant · W4A16 (weight-only mode); W4A8, W6A6 (W+A mode) · PTQ W-only · 2023-08
 
-<img src="assets/diagrams/omniquant.svg" width="640" alt="OmniQuant diagram">
+<img src="../assets/diagrams/omniquant.svg" width="640" alt="OmniQuant diagram">
 <p><em>Learnable clipping range and equivalent transformation, optimized by backprop through frozen weights.</em></p>
 
 ```mermaid
@@ -717,7 +717,7 @@ OmniQuant frames quantization as an optimization problem: given a block of trans
 <a id="gguf-kquants"></a>
 ### GGUF K-quants · W2/W3/W4/W5/W6 A16 · PTQ W-only · 2023-08
 
-<img src="assets/diagrams/gguf-kquants.svg" width="640" alt="GGUF K-quants diagram">
+<img src="../assets/diagrams/gguf-kquants.svg" width="640" alt="GGUF K-quants diagram">
 <p><em>Hierarchical two-level K-quant: inner-block scales quantized relative to a FP16 super-block scale.</em></p>
 
 ```mermaid
@@ -757,7 +757,7 @@ The hierarchy is: weights at b bits → inner-block scale at b' bits → super-b
 <a id="quip"></a>
 ### QuIP · W2/W4 A16 · PTQ W-only · 2023-07
 
-<img src="assets/diagrams/quip.svg" width="640" alt="QuIP diagram">
+<img src="../assets/diagrams/quip.svg" width="640" alt="QuIP diagram">
 <p><em>Random orthogonal rotation makes weights incoherent; uniform quantization then works at 2-bit.</em></p>
 
 ```mermaid
@@ -798,7 +798,7 @@ The weight matrix W is transformed as W̃ = U W Vᵀ where U and V are random or
 <a id="squeezellm"></a>
 ### SqueezeLLM · W4 A16 (sparse overlay) · PTQ W-only · 2023-06
 
-<img src="assets/diagrams/squeezellm.svg" width="640" alt="SqueezeLLM diagram">
+<img src="../assets/diagrams/squeezellm.svg" width="640" alt="SqueezeLLM diagram">
 <p><em>k-means non-uniform quantization + sensitivity-based sparse FP16 overlay.</em></p>
 
 ```mermaid
@@ -837,7 +837,7 @@ Two components work together: (1) Sensitivity-guided sparse extraction — Fishe
 <a id="spqr"></a>
 ### SpQR · W3/W4 A16 (sparse overlay) · PTQ W-only · 2023-06
 
-<img src="assets/diagrams/spqr.svg" width="640" alt="SpQR diagram">
+<img src="../assets/diagrams/spqr.svg" width="640" alt="SpQR diagram">
 <p><em>Sensitive weights kept as FP16 sparse; rest quantized to INT3/INT4.</em></p>
 
 ```mermaid
@@ -878,7 +878,7 @@ SpQR extends GPTQ with a hybrid representation: each weight w_ij is scored by it
 <a id="owq"></a>
 ### OWQ · W3/W4 A16 (mixed) · PTQ W-only · 2023-06
 
-<img src="assets/diagrams/owq.svg" width="640" alt="OWQ diagram">
+<img src="../assets/diagrams/owq.svg" width="640" alt="OWQ diagram">
 <p><em>Hessian-ranked column selection: top columns stay FP16, rest go INT3/4.</em></p>
 
 ```mermaid
@@ -917,7 +917,7 @@ For each linear layer, compute the Hessian diagonal [H]_jj = E[x_j²] (mean squa
 <a id="awq"></a>
 ### AWQ · W4A16 · PTQ W-only · 2023-06
 
-<img src="assets/diagrams/awq.svg" width="640" alt="AWQ diagram">
+<img src="../assets/diagrams/awq.svg" width="640" alt="AWQ diagram">
 <p><em>Activation-magnitude-guided channel scaling before standard quantization.</em></p>
 
 ```mermaid
@@ -956,7 +956,7 @@ For each linear layer, AWQ observes per-channel activation magnitudes s̃j = mea
 <a id="bitsandbytes-nf4"></a>
 ### NF4 / QLoRA · W4A16 (NF4) · PTQ W-only · 2023-05
 
-<img src="assets/diagrams/bitsandbytes-nf4.svg" width="640" alt="NF4 / QLoRA diagram">
+<img src="../assets/diagrams/bitsandbytes-nf4.svg" width="640" alt="NF4 / QLoRA diagram">
 <p><em>NF4 quantile grid: 16 levels at Gaussian quantiles; double-quantized per-group scale.</em></p>
 
 ```mermaid
@@ -995,7 +995,7 @@ NF4 construction: given a standard normal distribution, compute the 16 quantiles
 <a id="gptq"></a>
 ### GPTQ · W3/W4 A16 · PTQ W-only · 2022-10
 
-<img src="assets/diagrams/gptq.svg" width="640" alt="GPTQ diagram">
+<img src="../assets/diagrams/gptq.svg" width="640" alt="GPTQ diagram">
 <p><em>Column-wise error compensation via inverse Hessian redistribution.</em></p>
 
 ```mermaid
@@ -1036,7 +1036,7 @@ For each linear layer, GPTQ estimates H = 2 X Xᵀ (the expected squared input) 
 <a id="obq"></a>
 ### OBQ · W3/W4 A16 · PTQ W-only · 2022-08
 
-<img src="assets/diagrams/obq.svg" width="640" alt="OBQ diagram">
+<img src="../assets/diagrams/obq.svg" width="640" alt="OBQ diagram">
 <p><em>Optimal Brain Surgeon applied per-weight with exact error propagation.</em></p>
 
 ```mermaid
@@ -1078,7 +1078,7 @@ For each weight wq selected for quantization, the OBS update is: δ W = −(wq �
 <a id="obs"></a>
 ### OBS · n/a (pruning framework; later adapted to quantization) · PTQ W-only · 1993-01
 
-<img src="assets/diagrams/obs.svg" width="640" alt="OBS diagram">
+<img src="../assets/diagrams/obs.svg" width="640" alt="OBS diagram">
 <p><em>OBS: second-order weight change formulation and exact Hessian-based compensation.</em></p>
 
 ```mermaid
@@ -1116,7 +1116,7 @@ For a network with loss L(w) ≈ L(w₀) + ½(w−w₀)^T H (w−w₀), removing
 <a id="rtn"></a>
 ### RTN · W4A16 · PTQ W-only · unknown
 
-<img src="assets/diagrams/rtn.svg" width="640" alt="RTN diagram">
+<img src="../assets/diagrams/rtn.svg" width="640" alt="RTN diagram">
 <p><em>Round-to-nearest: scale, round, clip — the universal baseline.</em></p>
 
 ```mermaid
@@ -1159,7 +1159,7 @@ Quantizing both weights and activations enables integer matrix multiplication (W
 <a id="paroquant"></a>
 ### ParoQuant · W4A8 (reasoning-model optimized) · PTQ W+A · 2025-11
 
-<img src="assets/diagrams/paroquant.svg" width="640" alt="ParoQuant diagram">
+<img src="../assets/diagrams/paroquant.svg" width="640" alt="ParoQuant diagram">
 <p><em>ParoQuant: pairwise Givens rotation targets outlier-channel pairs for efficient reasoning LLM quantization.</em></p>
 
 ```mermaid
@@ -1198,7 +1198,7 @@ For each attention/FFN layer, ParoQuant identifies (outlier, small) channel pair
 <a id="resq"></a>
 ### ResQ · W4A8 with FP16 low-rank residual for outlier subspace · PTQ W+A · 2025-01
 
-<img src="assets/diagrams/resq.svg" width="640" alt="ResQ diagram">
+<img src="../assets/diagrams/resq.svg" width="640" alt="ResQ diagram">
 <p><em>ResQ: PCA decomposes activations into outlier subspace (FP16) and clean subspace (INT8).</em></p>
 
 ```mermaid
@@ -1237,7 +1237,7 @@ PCA is run on calibration activations to identify the top-k principal components
 <a id="flatquant"></a>
 ### FlatQuant · W4A4 · PTQ W+A · 2024-10
 
-<img src="assets/diagrams/flatquant.svg" width="640" alt="FlatQuant diagram">
+<img src="../assets/diagrams/flatquant.svg" width="640" alt="FlatQuant diagram">
 <p><em>Per-layer learned affine transformations optimize weight/activation flatness for W4A4.</em></p>
 
 ```mermaid
@@ -1277,7 +1277,7 @@ For each layer, FlatQuant learns a pair of transformations (T_W, T_X) that appro
 <a id="duquant"></a>
 ### DuQuant · W4A4 · PTQ W+A · 2024-06
 
-<img src="assets/diagrams/duquant.svg" width="640" alt="DuQuant diagram">
+<img src="../assets/diagrams/duquant.svg" width="640" alt="DuQuant diagram">
 <p><em>Dual rotation: channel Hadamard (spatial) + token-group rotation (temporal) for W4A4.</em></p>
 
 ```mermaid
@@ -1315,7 +1315,7 @@ Two rotation stages: (1) A randomized block-diagonal Hadamard rotation H_c appli
 <a id="spinquant"></a>
 ### SpinQuant · W4A8 / W4A4 · PTQ W+A · 2024-05
 
-<img src="assets/diagrams/spinquant.svg" width="640" alt="SpinQuant diagram">
+<img src="../assets/diagrams/spinquant.svg" width="640" alt="SpinQuant diagram">
 <p><em>Learned rotation on Stiefel manifold minimizes post-rotation quantization error.</em></p>
 
 ```mermaid
@@ -1355,7 +1355,7 @@ SpinQuant parameterizes the rotation as R ∈ O(d) (the orthogonal group) and mi
 <a id="qserve"></a>
 ### QServe · W4A8KV4 · PTQ W+A · 2024-05
 
-<img src="assets/diagrams/qserve.svg" width="640" alt="QServe diagram">
+<img src="../assets/diagrams/qserve.svg" width="640" alt="QServe diagram">
 <p><em>W4A8KV4 system: progressive INT4→INT8 dequant inside kernel; QoQ custom Tensor Core matmul.</em></p>
 
 ```mermaid
@@ -1394,7 +1394,7 @@ QServe's "progressive quantization" solves the W4A8 quality problem: INT4 Tensor
 <a id="quarot"></a>
 ### QuaRot · W4A4 (with optional KV4) · PTQ W+A · 2024-04
 
-<img src="assets/diagrams/quarot.svg" width="640" alt="QuaRot diagram">
+<img src="../assets/diagrams/quarot.svg" width="640" alt="QuaRot diagram">
 <p><em>Hadamard rotation equalizes activation magnitudes, enabling W4A4 without outlier handling.</em></p>
 
 ```mermaid
@@ -1434,7 +1434,7 @@ For each linear layer Y = XW, a random Hadamard matrix H is applied: Y = (XH)(H^
 <a id="affine-quant"></a>
 ### AffineQuant · W4A8 / W4A4 · PTQ W+A · 2024-03
 
-<img src="assets/diagrams/affine-quant.svg" width="640" alt="AffineQuant diagram">
+<img src="../assets/diagrams/affine-quant.svg" width="640" alt="AffineQuant diagram">
 <p><em>Per-channel shift + scale learned jointly; shift absorbed into bias, scale into weights.</em></p>
 
 ```mermaid
@@ -1474,7 +1474,7 @@ For a linear layer Y = XW + b, AffineQuant parameterizes a per-channel transform
 <a id="atom"></a>
 ### Atom · W4A4 (mixed with W8 for sensitive layers) · PTQ W+A · 2023-10
 
-<img src="assets/diagrams/atom.svg" width="640" alt="Atom diagram">
+<img src="../assets/diagrams/atom.svg" width="640" alt="Atom diagram">
 <p><em>W4A4 matmul for non-outlier channels; W8A8 for outlier channels; mixed output summed.</em></p>
 
 ```mermaid
@@ -1516,7 +1516,7 @@ Three components: (1) Outlier channel detection — identify top-k outlier activ
 <a id="zeroquant-4plus2"></a>
 ### ZeroQuant(4+2) · W4+W6 A8 (mixed: sensitive layers at FP6, rest at W4A8) · PTQ W+A · 2023-10
 
-<img src="assets/diagrams/zeroquant-4plus2.svg" width="640" alt="ZeroQuant(4+2) diagram">
+<img src="../assets/diagrams/zeroquant-4plus2.svg" width="640" alt="ZeroQuant(4+2) diagram">
 <p><em>ZeroQuant(4+2): sensitive layers at FP6, rest at W4A8; mixed-precision layer assignment.</em></p>
 
 ```mermaid
@@ -1557,7 +1557,7 @@ Layer sensitivity scoring: run the ZeroQuant quantization on each block independ
 <a id="qllm"></a>
 ### QLLM · W4A8 · PTQ W+A · 2023-10
 
-<img src="assets/diagrams/qllm.svg" width="640" alt="QLLM diagram">
+<img src="../assets/diagrams/qllm.svg" width="640" alt="QLLM diagram">
 <p><em>Channel reassembly: outlier channel split into K sub-channels each within quantizable range.</em></p>
 
 ```mermaid
@@ -1597,7 +1597,7 @@ For an outlier activation channel j with activation x_j that is consistently |x_
 <a id="zeroquant-fp"></a>
 ### ZeroQuant-FP · W4A8 (FP4 weights, FP8 activations) · PTQ W+A · 2023-07
 
-<img src="assets/diagrams/zeroquant-fp.svg" width="640" alt="ZeroQuant-FP diagram">
+<img src="../assets/diagrams/zeroquant-fp.svg" width="640" alt="ZeroQuant-FP diagram">
 <p><em>FP4/FP8 formats: non-uniform grid covers activation dynamic range better than INT8.</em></p>
 
 ```mermaid
@@ -1638,7 +1638,7 @@ For activations quantized per-token, FP8 E4M3 (4 exponent bits, 3 mantissa) cove
 <a id="outlier-suppression-plus"></a>
 ### Outlier Suppression+ · W8A8, W6A6 · PTQ W+A · 2023-04
 
-<img src="assets/diagrams/outlier-suppression-plus.svg" width="640" alt="Outlier Suppression+ diagram">
+<img src="../assets/diagrams/outlier-suppression-plus.svg" width="640" alt="Outlier Suppression+ diagram">
 <p><em>Optimal per-channel shift and scale, solved analytically to minimize quantization error.</em></p>
 
 ```mermaid
@@ -1678,7 +1678,7 @@ For a linear operation Y = XW + b, we seek channel-wise transformations X' = (X 
 <a id="rptq"></a>
 ### RPTQ · W4A8 · PTQ W+A · 2023-04
 
-<img src="assets/diagrams/rptq.svg" width="640" alt="RPTQ diagram">
+<img src="../assets/diagrams/rptq.svg" width="640" alt="RPTQ diagram">
 <p><em>Channel reordering: cluster similar-magnitude channels, apply per-cluster quantization scale.</em></p>
 
 ```mermaid
@@ -1716,7 +1716,7 @@ Offline, use k-means clustering on activation channel magnitudes (from calibrati
 <a id="zeroquant-v2"></a>
 ### ZeroQuant-V2 · W4/W8 A8 · PTQ W+A · 2023-03
 
-<img src="assets/diagrams/zeroquant-v2.svg" width="640" alt="ZeroQuant-V2 diagram">
+<img src="../assets/diagrams/zeroquant-v2.svg" width="640" alt="ZeroQuant-V2 diagram">
 <p><em>Low-Rank Compensation: SVD of quantization error added back to quantized weights.</em></p>
 
 ```mermaid
@@ -1758,7 +1758,7 @@ Low-Rank Compensation: given quantization error E = W − Q(W), compute truncate
 <a id="smoothquant"></a>
 ### SmoothQuant · W8A8 · PTQ W+A · 2022-11
 
-<img src="assets/diagrams/smoothquant.svg" width="640" alt="SmoothQuant diagram">
+<img src="../assets/diagrams/smoothquant.svg" width="640" alt="SmoothQuant diagram">
 <p><em>Scale migration: diag(s) moves from activations to weights, equalizing quantization difficulty.</em></p>
 
 ```mermaid
@@ -1799,7 +1799,7 @@ For each linear layer, compute per-channel activation scales as s_j = max_t(|X_{
 <a id="outlier-suppression"></a>
 ### Outlier Suppression · W8A8 · PTQ W+A · 2022-09
 
-<img src="assets/diagrams/outlier-suppression.svg" width="640" alt="Outlier Suppression diagram">
+<img src="../assets/diagrams/outlier-suppression.svg" width="640" alt="Outlier Suppression diagram">
 <p><em>Channel shifting + token clamping center the activation distribution for INT8.</em></p>
 
 ```mermaid
@@ -1838,7 +1838,7 @@ Two components: (1) Channel-wise shifting: for each activation channel j with ex
 <a id="llm-int8"></a>
 ### LLM.int8() · W8A8 (with FP16 outlier decomposition) · PTQ W+A · 2022-08
 
-<img src="assets/diagrams/llm-int8.svg" width="640" alt="LLM.int8() diagram">
+<img src="../assets/diagrams/llm-int8.svg" width="640" alt="LLM.int8() diagram">
 <p><em>Outlier decomposition: FP16 path for outlier columns, INT8 path for the rest.</em></p>
 
 ```mermaid
@@ -1880,7 +1880,7 @@ Given input X ∈ ℝ^{T×d} and weight W ∈ ℝ^{d×d'}, LLM.int8() identifies
 <a id="zeroquant"></a>
 ### ZeroQuant · W8A8 · PTQ W+A · 2022-06
 
-<img src="assets/diagrams/zeroquant.svg" width="640" alt="ZeroQuant diagram">
+<img src="../assets/diagrams/zeroquant.svg" width="640" alt="ZeroQuant diagram">
 <p><em>Per-token dynamic activation scales + per-group static weight scales for W8A8.</em></p>
 
 ```mermaid
@@ -1929,7 +1929,7 @@ Methods that involve gradient updates: either training from scratch with simulat
 <a id="efficientqat"></a>
 ### EfficientQAT · W2/W4 A16 · QAT / QFT · 2024-07
 
-<img src="assets/diagrams/efficientqat.svg" width="640" alt="EfficientQAT diagram">
+<img src="../assets/diagrams/efficientqat.svg" width="640" alt="EfficientQAT diagram">
 <p><em>Two-stage QAT: block-wise STE (parallelizable) then global fine-tuning pass.</em></p>
 
 ```mermaid
@@ -1968,7 +1968,7 @@ Stage 1 (block-wise QAT): for each block i, freeze all other blocks and optimize
 <a id="pv-tuning"></a>
 ### PV-Tuning · W2 A16 · QAT / QFT · 2024-05
 
-<img src="assets/diagrams/pv-tuning.svg" width="640" alt="PV-Tuning diagram">
+<img src="../assets/diagrams/pv-tuning.svg" width="640" alt="PV-Tuning diagram">
 <p><em>Proximal gradient on discrete codebook assignments avoids STE; finds nearest valid code.</em></p>
 
 ```mermaid
@@ -2008,7 +2008,7 @@ For a vector-quantized weight block w = C[i] (codebook entry), PV-Tuning updates
 <a id="bitdistiller"></a>
 ### BitDistiller · W2/W3 A16 · QAT / QFT · 2024-02
 
-<img src="assets/diagrams/bitdistiller.svg" width="640" alt="BitDistiller diagram">
+<img src="../assets/diagrams/bitdistiller.svg" width="640" alt="BitDistiller diagram">
 <p><em>GPTQ init + KL self-distillation from FP16 teacher recovers 2/3-bit model quality.</em></p>
 
 ```mermaid
@@ -2048,7 +2048,7 @@ BitDistiller starts from a GPTQ-quantized model (good PTQ initialization) and fi
 <a id="ir-qlora"></a>
 ### IR-QLoRA · W4A16 (NF4 base) + BF16 LoRA · QAT / QFT · 2024-02
 
-<img src="assets/diagrams/ir-qlora.svg" width="640" alt="IR-QLoRA diagram">
+<img src="../assets/diagrams/ir-qlora.svg" width="640" alt="IR-QLoRA diagram">
 <p><em>Per-layer NF4 level adaptation (information calibration) + confidence-guided LoRA updates.</em></p>
 
 ```mermaid
@@ -2088,7 +2088,7 @@ Two components: (1) Information Calibration — the NF4 quantization levels for 
 <a id="apiq"></a>
 ### ApiQ · W2A16 (base) + BF16 LoRA · QAT / QFT · 2024-02
 
-<img src="assets/diagrams/apiq.svg" width="640" alt="ApiQ diagram">
+<img src="../assets/diagrams/apiq.svg" width="640" alt="ApiQ diagram">
 <p><em>Activation-aware LoRA initialization for 2-bit base — minimizes layer-wise output error.</em></p>
 
 ```mermaid
@@ -2126,7 +2126,7 @@ ApiQ initializes LoRA adapters by minimizing the layer-wise output error: ‖ W_
 <a id="loftq"></a>
 ### LoftQ · W4A16 (quantized base) + BF16 LoRA · QAT / QFT · 2023-10
 
-<img src="assets/diagrams/loftq.svg" width="640" alt="LoftQ diagram">
+<img src="../assets/diagrams/loftq.svg" width="640" alt="LoftQ diagram">
 <p><em>Alternating quantization of residual and SVD initialization of LoRA adapters.</em></p>
 
 ```mermaid
@@ -2168,7 +2168,7 @@ LoftQ alternates between two steps: (1) Fix LoRA adapters (A, B) and quantize th
 <a id="qa-lora"></a>
 ### QA-LoRA · W4A16 (group-wise) · QAT / QFT · 2023-09
 
-<img src="assets/diagrams/qa-lora.svg" width="640" alt="QA-LoRA diagram">
+<img src="../assets/diagrams/qa-lora.svg" width="640" alt="QA-LoRA diagram">
 <p><em>Group-wise LoRA adapters that absorb cleanly into quantization parameters at merge.</em></p>
 
 ```mermaid
@@ -2206,7 +2206,7 @@ In QA-LoRA, LoRA adapters are applied per-group: each rank-r adapter acts on a g
 <a id="llm-qat"></a>
 ### LLM-QAT · W4A8KV4 / W4A8 · QAT / QFT · 2023-05
 
-<img src="assets/diagrams/llm-qat.svg" width="640" alt="LLM-QAT diagram">
+<img src="../assets/diagrams/llm-qat.svg" width="640" alt="LLM-QAT diagram">
 <p><em>Data-free QAT: model generates its own training data, STE backprops through quantization.</em></p>
 
 ```mermaid
@@ -2246,7 +2246,7 @@ Training data is generated by sampling from the (FP16) model itself using temper
 <a id="qlora"></a>
 ### QLoRA · W4A16 (NF4 base) + BF16 LoRA adapters · QAT / QFT · 2023-05
 
-<img src="assets/diagrams/qlora.svg" width="640" alt="QLoRA diagram">
+<img src="../assets/diagrams/qlora.svg" width="640" alt="QLoRA diagram">
 <p><em>NF4 frozen base + BF16 LoRA adapters: fine-tune 65B on one 48GB GPU.</em></p>
 
 ```mermaid
@@ -2286,7 +2286,7 @@ QLoRA freezes the base model weights in NF4 quantization and adds rank-r LoRA ad
 <a id="peqa"></a>
 ### PEQA · W4A16 (INT4 weight) · QAT / QFT · 2023-04
 
-<img src="assets/diagrams/peqa.svg" width="640" alt="PEQA diagram">
+<img src="../assets/diagrams/peqa.svg" width="640" alt="PEQA diagram">
 <p><em>PEQA: fine-tune only per-column scale multipliers γ on frozen INT4 weights.</em></p>
 
 ```mermaid
@@ -2330,7 +2330,7 @@ Methods targeting 1–2 bits per weight, including binary {-1, +1}, ternary {-1,
 <a id="tequila"></a>
 ### Tequila · W1.58 A16 (ternary {-1, 0, +1} PTQ) · Sub-2-bit · 2025-09
 
-<img src="assets/diagrams/tequila.svg" width="640" alt="Tequila diagram">
+<img src="../assets/diagrams/tequila.svg" width="640" alt="Tequila diagram">
 <p><em>Tequila: deadzone-free threshold optimization for ternary {-1,0,+1} PTQ of pretrained LLMs.</em></p>
 
 ```mermaid
@@ -2368,7 +2368,7 @@ Standard ternary quantization assigns w to 0 if |w| < threshold, otherwise to +s
 <a id="bitnet-2b4t"></a>
 ### BitNet b1.58 2B4T · W1.58A8 · Sub-2-bit · 2025-04
 
-<img src="assets/diagrams/bitnet-2b4t.svg" width="640" alt="BitNet b1.58 2B4T diagram">
+<img src="../assets/diagrams/bitnet-2b4t.svg" width="640" alt="BitNet b1.58 2B4T diagram">
 <p><em>BitNet b1.58 2B4T: first open ternary LLM at 2B params; BitNet.cpp CPU inference runtime.</em></p>
 
 ```mermaid
@@ -2407,7 +2407,7 @@ Same architecture as BitNet b1.58 (absmean ternary quantizer, INT8 activations, 
 <a id="spectra"></a>
 ### Spectra · W1.58A8 (ternary), W4A16, FP16 · Sub-2-bit · 2024-07
 
-<img src="assets/diagrams/spectra.svg" width="640" alt="Spectra diagram">
+<img src="../assets/diagrams/spectra.svg" width="640" alt="Spectra diagram">
 <p><em>Spectra: systematic study training ternary, quantized, and FP16 LLMs at matched scales.</em></p>
 
 ```mermaid
@@ -2445,7 +2445,7 @@ Spectra trains each model (54M, 134M, 400M, 830M, 3.9B) independently from scrat
 <a id="matmul-free"></a>
 ### MatMul-free LM · W1.58A8 (ternary weights, similar to BitNet b1.58) · Sub-2-bit · 2024-06
 
-<img src="assets/diagrams/matmul-free.svg" width="640" alt="MatMul-free LM diagram">
+<img src="../assets/diagrams/matmul-free.svg" width="640" alt="MatMul-free LM diagram">
 <p><em>Ternary linear layers + gated linear recurrence: no matrix multiplications in the entire model.</em></p>
 
 ```mermaid
@@ -2485,7 +2485,7 @@ Two innovations: (1) Linear layers use ternary weight matrices (BitNet b1.58 sty
 <a id="bitnet-b158"></a>
 ### BitNet b1.58 · W1.58A8 · Sub-2-bit · 2024-02
 
-<img src="assets/diagrams/bitnet-b158.svg" width="640" alt="BitNet b1.58 diagram">
+<img src="../assets/diagrams/bitnet-b158.svg" width="640" alt="BitNet b1.58 diagram">
 <p><em>Ternary {-1,0,+1} weights via absmean quantizer; matmul becomes add-only (no multiplications).</em></p>
 
 ```mermaid
@@ -2524,7 +2524,7 @@ Each weight matrix W is quantized per-tensor as: γ = mean(|W|), W̃ = clip(roun
 <a id="onebit"></a>
 ### OneBit · W1A16 (sign + magnitude decomposition) · Sub-2-bit · 2024-02
 
-<img src="assets/diagrams/onebit.svg" width="640" alt="OneBit diagram">
+<img src="../assets/diagrams/onebit.svg" width="640" alt="OneBit diagram">
 <p><em>Sign-value decomposition: W = sign(W) × row_scale × col_scale; sign stored at 1-bit.</em></p>
 
 ```mermaid
@@ -2563,7 +2563,7 @@ Decompose W ∈ ℝ^{m×n} as W ≈ s₁ s₂ᵀ ⊙ B where B ∈ {-1,+1}^{m×n
 <a id="billm"></a>
 ### BiLLM · W1 A16 (post-training) · Sub-2-bit · 2024-02
 
-<img src="assets/diagrams/billm.svg" width="640" alt="BiLLM diagram">
+<img src="../assets/diagrams/billm.svg" width="640" alt="BiLLM diagram">
 <p><em>Hessian-weighted greedy 1-bit binarization + sparse FP16 residual for highest-error weights.</em></p>
 
 ```mermaid
@@ -2604,7 +2604,7 @@ For each linear layer, BiLLM solves the binary quantization problem by selecting
 <a id="bitnet"></a>
 ### BitNet · W1A8 · Sub-2-bit · 2023-10
 
-<img src="assets/diagrams/bitnet.svg" width="640" alt="BitNet diagram">
+<img src="../assets/diagrams/bitnet.svg" width="640" alt="BitNet diagram">
 <p><em>BitLinear: binary {-1,+1} weights + INT8 activations, trained from scratch with STE.</em></p>
 
 ```mermaid
@@ -2644,7 +2644,7 @@ Each weight w in a BitLinear layer is binarized as: b = sign(w), and a per-tenso
 <a id="pb-llm"></a>
 ### PB-LLM · W~1–2 A16 (mixed: binary + high-precision for salient weights) · Sub-2-bit · 2023-09
 
-<img src="assets/diagrams/pb-llm.svg" width="640" alt="PB-LLM diagram">
+<img src="../assets/diagrams/pb-llm.svg" width="640" alt="PB-LLM diagram">
 <p><em>Hessian-guided partial binarization: salient weights at FP16, rest binary.</em></p>
 
 ```mermaid
@@ -2690,7 +2690,7 @@ The attention KV cache grows linearly with context length and becomes the domina
 <a id="pmkvq"></a>
 ### PM-KVQ · KV2-KV8 mixed progressive · KV Quant · 2025-05
 
-<img src="assets/diagrams/pmkvq.svg" width="640" alt="PM-KVQ diagram">
+<img src="../assets/diagrams/pmkvq.svg" width="640" alt="PM-KVQ diagram">
 <p><em>PM-KVQ: active CoT reasoning tokens at high precision; concluded chains compressed progressively.</em></p>
 
 ```mermaid
@@ -2728,7 +2728,7 @@ PM-KVQ tracks the "reasoning state" of the KV cache: tokens belonging to the cur
 <a id="rotatekv"></a>
 ### RotateKV · KV2 (2-bit keys and values) · KV Quant · 2025-02
 
-<img src="assets/diagrams/rotatekv.svg" width="640" alt="RotateKV diagram">
+<img src="../assets/diagrams/rotatekv.svg" width="640" alt="RotateKV diagram">
 <p><em>RotateKV: Hadamard rotation of K and V before 2-bit quantization eliminates outliers.</em></p>
 
 ```mermaid
@@ -2766,7 +2766,7 @@ Standard KV tensors have heavy-tailed distributions with outlier channels that d
 <a id="sageattention"></a>
 ### SageAttention · Q8K8V16 (INT8 Q and K for QK^T, FP16 V) · KV Quant · 2024-10
 
-<img src="assets/diagrams/sageattention.svg" width="640" alt="SageAttention diagram">
+<img src="../assets/diagrams/sageattention.svg" width="640" alt="SageAttention diagram">
 <p><em>SageAttention: INT8 Q and K for QK^T matmul, FP16 V for the AV weighted sum.</em></p>
 
 ```mermaid
@@ -2806,7 +2806,7 @@ The QK^T matmul dominates attention FLOPs at long context. SageAttention replace
 <a id="think"></a>
 ### ThinK · W16A16KV4 (with head-dimension pruning) · KV Quant · 2024-07
 
-<img src="assets/diagrams/think.svg" width="640" alt="ThinK diagram">
+<img src="../assets/diagrams/think.svg" width="640" alt="ThinK diagram">
 <p><em>Query-guided key-dimension pruning removes low-QK-correlation dimensions before quantization.</em></p>
 
 ```mermaid
@@ -2844,7 +2844,7 @@ For head h with queries Q ∈ ℝ^{T_q × d} and keys K ∈ ℝ^{T_k × d}, comp
 <a id="palu"></a>
 ### Palu · W16A16KV reduced-rank · KV Quant · 2024-07
 
-<img src="assets/diagrams/palu.svg" width="640" alt="Palu diagram">
+<img src="../assets/diagrams/palu.svg" width="640" alt="Palu diagram">
 <p><em>Low-rank KV projection: cache r-dim k_low instead of d-dim k; reconstruct at attention.</em></p>
 
 ```mermaid
@@ -2883,7 +2883,7 @@ Original: k = x W_K (d→d projection). Palu: factorize W_K ≈ W_K^low W_K^proj
 <a id="pqcache"></a>
 ### PQCache · W16A16KV2-4 (product quantization) · KV Quant · 2024-07
 
-<img src="assets/diagrams/pqcache.svg" width="640" alt="PQCache diagram">
+<img src="../assets/diagrams/pqcache.svg" width="640" alt="PQCache diagram">
 <p><em>PQCache: product quantization of KV vectors — each sub-vector maps to a codebook index.</em></p>
 
 ```mermaid
@@ -2922,7 +2922,7 @@ Each KV vector of dimension d_head is divided into M sub-vectors of dimension d_
 <a id="zipcache"></a>
 ### ZipCache · W16A16KV4 (mixed: salient tokens higher) · KV Quant · 2024-05
 
-<img src="assets/diagrams/zipcache.svg" width="640" alt="ZipCache diagram">
+<img src="../assets/diagrams/zipcache.svg" width="640" alt="ZipCache diagram">
 <p><em>ZipCache: dynamic attention-score tracking assigns higher bits to salient tokens.</em></p>
 
 ```mermaid
@@ -2962,7 +2962,7 @@ ZipCache maintains a running sum of attention scores for each KV position across
 <a id="skvq"></a>
 ### SKVQ · W16A16KV2/KV4 · KV Quant · 2024-05
 
-<img src="assets/diagrams/skvq.svg" width="640" alt="SKVQ diagram">
+<img src="../assets/diagrams/skvq.svg" width="640" alt="SKVQ diagram">
 <p><em>Sliding window of recent KV tokens provides fresh scale statistics for online quantization.</em></p>
 
 ```mermaid
@@ -3001,7 +3001,7 @@ For each KV head, maintain a sliding window of the W most recent raw (FP16) KV v
 <a id="snapkv"></a>
 ### SnapKV · KV selective eviction (variable effective bits) · KV Quant · 2024-04
 
-<img src="assets/diagrams/snapkv.svg" width="640" alt="SnapKV diagram">
+<img src="../assets/diagrams/snapkv.svg" width="640" alt="SnapKV diagram">
 <p><em>SnapKV: observation-window attention selects which past KV entries to retain.</em></p>
 
 ```mermaid
@@ -3042,7 +3042,7 @@ For each head, SnapKV accumulates attention scores over the last W tokens (the o
 <a id="gear"></a>
 ### GEAR · W16A16KV4 (with low-rank residual correction) · KV Quant · 2024-03
 
-<img src="assets/diagrams/gear.svg" width="640" alt="GEAR diagram">
+<img src="../assets/diagrams/gear.svg" width="640" alt="GEAR diagram">
 <p><em>GEAR = quantized KV + low-rank + sparse residual; error decomposition updated incrementally.</em></p>
 
 ```mermaid
@@ -3081,7 +3081,7 @@ GEAR's decomposition: KV = Q(KV) + L R^T + Sparse, where Q(KV) is the INT4 quant
 <a id="qaq"></a>
 ### QAQ · W16A16KV2–KV4 (mixed) · KV Quant · 2024-03
 
-<img src="assets/diagrams/qaq.svg" width="640" alt="QAQ diagram">
+<img src="../assets/diagrams/qaq.svg" width="640" alt="QAQ diagram">
 <p><em>Attention-score-based adaptive bit allocation: high-attention tokens get more KV bits.</em></p>
 
 ```mermaid
@@ -3121,7 +3121,7 @@ QAQ uses a proxy for KV importance: the accumulated attention scores that a toke
 <a id="wkvquant"></a>
 ### WKVQuant · W4A16KV4 · KV Quant · 2024-02
 
-<img src="assets/diagrams/wkvquant.svg" width="640" alt="WKVQuant diagram">
+<img src="../assets/diagrams/wkvquant.svg" width="640" alt="WKVQuant diagram">
 <p><em>Joint weight + KV quantization optimization minimizes compound error in the generation loop.</em></p>
 
 ```mermaid
@@ -3159,7 +3159,7 @@ WKVQuant frames the joint quantization problem as minimizing ‖ f(x; W, K, V) �
 <a id="coupled-quant"></a>
 ### Coupled Quantization · W16A16KV1/KV2 · KV Quant · 2024-02
 
-<img src="assets/diagrams/coupled-quant.svg" width="640" alt="Coupled Quantization diagram">
+<img src="../assets/diagrams/coupled-quant.svg" width="640" alt="Coupled Quantization diagram">
 <p><em>Jointly optimize K and V quantization parameters to minimize attention output error via error cancellation.</em></p>
 
 ```mermaid
@@ -3197,7 +3197,7 @@ The attention output for position t is: o_t = Σ_s softmax(q_t k_s / √d) × v_
 <a id="kivi"></a>
 ### KIVI · W16A16KV2 · KV Quant · 2024-02
 
-<img src="assets/diagrams/kivi.svg" width="640" alt="KIVI diagram">
+<img src="../assets/diagrams/kivi.svg" width="640" alt="KIVI diagram">
 <p><em>K per-group (g=16) asymmetric + V per-token asymmetric + FP16 residual for recent tokens.</em></p>
 
 ```mermaid
@@ -3237,7 +3237,7 @@ For the key cache K ∈ ℝ^{T × d_head}: divide d_head into groups of g=16. Pe
 <a id="kvquant"></a>
 ### KVQuant · W16A16KV4 / KV3 · KV Quant · 2024-01
 
-<img src="assets/diagrams/kvquant.svg" width="640" alt="KVQuant diagram">
+<img src="../assets/diagrams/kvquant.svg" width="640" alt="KVQuant diagram">
 <p><em>KVQuant: non-uniform quantile grid for K/V + per-channel K + sparse FP16 residual.</em></p>
 
 ```mermaid
@@ -3284,7 +3284,7 @@ Hardware-oriented floating-point formats and training recipes for using them. FP
 <a id="deepseek-fp8"></a>
 ### DeepSeek FP8 Training · FP8 (E4M3 forward / E5M2 gradient) with fine-grained block scaling · LP Training · 2024-12
 
-<img src="assets/diagrams/deepseek-fp8.svg" width="640" alt="DeepSeek FP8 Training diagram">
+<img src="../assets/diagrams/deepseek-fp8.svg" width="640" alt="DeepSeek FP8 Training diagram">
 <p><em>Fine-grained FP8: 1×128 weight tiles + 128×128 activation tiles + FP32 accumulation.</em></p>
 
 ```mermaid
@@ -3324,7 +3324,7 @@ DeepSeek's FP8 recipe uses "fine-grained quantization" — smaller tiles than th
 <a id="nvfp4"></a>
 ### NVFP4 · NVFP4 weights + FP8/FP16 activations · LP Training · 2024-03
 
-<img src="assets/diagrams/nvfp4.svg" width="640" alt="NVFP4 diagram">
+<img src="../assets/diagrams/nvfp4.svg" width="640" alt="NVFP4 diagram">
 <p><em>NVFP4: E2M1 per-element + FP8 per-16-block scale; native Blackwell W4A8 Tensor Core support.</em></p>
 
 ```mermaid
@@ -3363,7 +3363,7 @@ NVFP4 stores weights in 4 bits (E2M1 format: values from ±{0.5, 1.0, 1.5, 2.0, 
 <a id="mx-formats"></a>
 ### MX Formats (MXFP8/MXFP6/MXFP4) · MXFP8 / MXFP6 / MXFP4 / MXINT8 · LP Training · 2023-10
 
-<img src="assets/diagrams/mx-formats.svg" width="640" alt="MX Formats (MXFP8/MXFP6/MXFP4) diagram">
+<img src="../assets/diagrams/mx-formats.svg" width="640" alt="MX Formats (MXFP8/MXFP6/MXFP4) diagram">
 <p><em>MX block-float: 32 elements share one 8-bit exponent; elements store mantissa bits.</em></p>
 
 ```mermaid
@@ -3404,7 +3404,7 @@ An MX tensor is divided into contiguous blocks of 32 elements. For each block: (
 <a id="fp8-training"></a>
 ### FP8 Training (Transformer Engine) · FP8 (E4M3 forward / E5M2 gradient) · LP Training · 2022-09
 
-<img src="assets/diagrams/fp8-training.svg" width="640" alt="FP8 Training (Transformer Engine) diagram">
+<img src="../assets/diagrams/fp8-training.svg" width="640" alt="FP8 Training (Transformer Engine) diagram">
 <p><em>FP8 training: E4M3 for forward pass, E5M2 for gradients, with delayed per-tensor scaling.</em></p>
 
 ```mermaid
@@ -3449,7 +3449,7 @@ Mixture-of-Experts models (Mixtral, DeepSeek-MoE, etc.) pose unique quantization
 <a id="mc-moe"></a>
 ### MC-MoE · W2/W4 A16 (per-expert mixed) · MoE Quant · 2024-08
 
-<img src="assets/diagrams/mc-moe.svg" width="640" alt="MC-MoE diagram">
+<img src="../assets/diagrams/mc-moe.svg" width="640" alt="MC-MoE diagram">
 <p><em>MC-MoE: prune low-importance experts first, then mixed-precision quantize remaining experts.</em></p>
 
 ```mermaid
@@ -3488,7 +3488,7 @@ Two-stage compression: (1) Expert pruning — rank experts by score = activation
 <a id="moqe"></a>
 ### MoQE · W2/W4 A16 (expert-specific) · MoE Quant · 2023-10
 
-<img src="assets/diagrams/moqe.svg" width="640" alt="MoQE diagram">
+<img src="../assets/diagrams/moqe.svg" width="640" alt="MoQE diagram">
 <p><em>MoQE: frequency × sensitivity score assigns bit-widths per expert in MoE models.</em></p>
 
 ```mermaid
@@ -3534,7 +3534,7 @@ Software that implements quantization methods in practice: inference engines, CU
 <a id="sglang-quant"></a>
 ### SGLang (Quantization) · W4A16 (GPTQ/AWQ/Marlin), W8A8 (FP8), W4A8 (Marlin W4A8) · Systems · 2024-12
 
-<img src="assets/diagrams/sglang-quant.svg" width="640" alt="SGLang (Quantization) diagram">
+<img src="../assets/diagrams/sglang-quant.svg" width="640" alt="SGLang (Quantization) diagram">
 <p><em>SGLang: RadixAttention prefix KV cache reuse + Marlin/FP8/AWQ quantization backends.</em></p>
 
 ```mermaid
@@ -3577,7 +3577,7 @@ SGLang's quantization stack provides the same kernel backends as vLLM (Marlin, A
 <a id="exllamav2"></a>
 ### ExLlamaV2 · W2–W8 A16 (EXL2 mixed per-row format) · Systems · 2023-10
 
-<img src="assets/diagrams/exllamav2.svg" width="640" alt="ExLlamaV2 diagram">
+<img src="../assets/diagrams/exllamav2.svg" width="640" alt="ExLlamaV2 diagram">
 <p><em>ExLlamaV2: custom CUDA kernels for mixed-precision EXL2 format + paged KV + speculative decode.</em></p>
 
 ```mermaid
@@ -3615,7 +3615,7 @@ ExLlamaV2's core innovation is the EXL2 quantization format (detailed in the EXL
 <a id="autoawq"></a>
 ### AutoAWQ · W4A16 (AWQ) · Systems · 2023-10
 
-<img src="assets/diagrams/autoawq.svg" width="640" alt="AutoAWQ diagram">
+<img src="../assets/diagrams/autoawq.svg" width="640" alt="AutoAWQ diagram">
 <p><em>AutoAWQ: calibrate → scale → quantize → save AWQ model; multi-backend inference.</em></p>
 
 ```mermaid
@@ -3653,7 +3653,7 @@ AutoAWQ wraps the AWQ quantization algorithm: (1) collect per-channel activation
 <a id="vllm-quant"></a>
 ### vLLM (Quantization) · W4A16 (GPTQ/AWQ/Marlin), W8A8 (FP8), W4A8 (Marlin) · Systems · 2023-06
 
-<img src="assets/diagrams/vllm-quant.svg" width="640" alt="vLLM (Quantization) diagram">
+<img src="../assets/diagrams/vllm-quant.svg" width="640" alt="vLLM (Quantization) diagram">
 <p><em>vLLM quantization stack: PagedAttention + pluggable W4/W8/FP8 kernels for production serving.</em></p>
 
 ```mermaid
@@ -3696,7 +3696,7 @@ vLLM's quantization stack is a collection of backend kernels selected by model f
 <a id="mlc-llm"></a>
 ### MLC-LLM · W4A16 (AWQ-style), W8A8, FP16 · Systems · 2023-06
 
-<img src="assets/diagrams/mlc-llm.svg" width="640" alt="MLC-LLM diagram">
+<img src="../assets/diagrams/mlc-llm.svg" width="640" alt="MLC-LLM diagram">
 <p><em>MLC-LLM: TVM compilation to CUDA/Metal/Vulkan/WebGPU with fused W4A16 dequantization kernels.</em></p>
 
 ```mermaid
@@ -3739,7 +3739,7 @@ MLC-LLM compiles each model to a target-specific shared library via TVM. The com
 <a id="llama-cpp"></a>
 ### llama.cpp (GGUF) · W2/W3/W4/W5/W6/W8 A16 (GGUF K-quants and I-quants) · Systems · 2023-03
 
-<img src="assets/diagrams/llama-cpp.svg" width="640" alt="llama.cpp (GGUF) diagram">
+<img src="../assets/diagrams/llama-cpp.svg" width="640" alt="llama.cpp (GGUF) diagram">
 <p><em>llama.cpp: portable C++ runtime with GGUF quantization for CPU/GPU/any-hardware inference.</em></p>
 
 ```mermaid
@@ -3779,7 +3779,7 @@ llama.cpp implements transformer inference from scratch in C++ with portable bac
 <a id="autogptq"></a>
 ### AutoGPTQ · W4/W3/W2 A16 (GPTQ) · Systems · 2023-01
 
-<img src="assets/diagrams/autogptq.svg" width="640" alt="AutoGPTQ diagram">
+<img src="../assets/diagrams/autogptq.svg" width="640" alt="AutoGPTQ diagram">
 <p><em>AutoGPTQ: one-API GPTQ quantization pipeline with multi-backend inference support.</em></p>
 
 ```mermaid
@@ -3820,7 +3820,7 @@ AutoGPTQ provides: (1) a `quantize()` API that iterates over transformer blocks,
 <a id="bitsandbytes"></a>
 ### bitsandbytes · W8A8 (LLM.int8()); W4A16 (NF4/FP4) · Systems · 2022-08
 
-<img src="assets/diagrams/bitsandbytes.svg" width="640" alt="bitsandbytes diagram">
+<img src="../assets/diagrams/bitsandbytes.svg" width="640" alt="bitsandbytes diagram">
 <p><em>bitsandbytes: LLM.int8() and NF4 CUDA kernels for PyTorch quantized inference and fine-tuning.</em></p>
 
 ```mermaid
