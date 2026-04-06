@@ -55,14 +55,16 @@ async function renderOne(file) {
   }
 }
 
-// Run in batches of 6 to avoid hammering the API
-const BATCH = 6
+// Run in batches of 3 with a longer pause to avoid rate-limiting
+const BATCH = 3
 for (let i = 0; i < files.length; i += BATCH) {
   const batch = files.slice(i, i + BATCH)
   await Promise.all(batch.map(renderOne))
-  // Brief pause between batches
-  if (i + BATCH < files.length) await new Promise(r => setTimeout(r, 300))
+  if (i + BATCH < files.length) await new Promise(r => setTimeout(r, 800))
 }
 
 console.log(`\nDone: ${ok} rendered, ${skipped} skipped, ${failed} failed`)
-if (failed > 0) process.exit(1)
+if (failed > 0) {
+  console.warn(`Warning: ${failed} diagram(s) failed. They will fall back to client-side rendering.`)
+  // Don't exit(1) — let the build continue with partial results
+}
