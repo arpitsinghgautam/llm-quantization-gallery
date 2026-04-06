@@ -12,6 +12,9 @@ build/
 Thumbs.db
 .claude/
 
+# Generated Mermaid renders (produced by CI render-mermaid step)
+assets/mermaid-rendered/
+
 # Site build artifacts
 site/node_modules/
 site/dist/

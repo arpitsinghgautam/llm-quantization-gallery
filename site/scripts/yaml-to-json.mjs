@@ -19,9 +19,10 @@ const SITE  = resolve(__dir, '..')              // site/
 const METHODS_YML     = resolve(ROOT,  'methods.yml')
 const METHODS_JSON    = resolve(SITE,  'src/data/methods.json')
 const META_JSON       = resolve(SITE,  'src/data/meta.json')
-const SRC_DIAGRAMS    = resolve(ROOT,  'assets/diagrams')
-const SRC_MERMAID     = resolve(ROOT,  'assets/mermaid')
-const SRC_DOCS        = resolve(ROOT,  'docs')
+const SRC_DIAGRAMS          = resolve(ROOT,  'assets/diagrams')
+const SRC_MERMAID           = resolve(ROOT,  'assets/mermaid')
+const SRC_MERMAID_RENDERED  = resolve(ROOT,  'assets/mermaid-rendered')
+const SRC_DOCS              = resolve(ROOT,  'docs')
 const DEST_ASSETS     = resolve(SITE,  'public/assets')
 const DEST_DOCS       = resolve(SITE,  'public/docs')
 
@@ -149,8 +150,9 @@ function copyDir(src, dest) {
   console.log(`[yaml-to-json] Copied ${src} → ${dest} (${count} files)`)
 }
 
-copyDir(SRC_DIAGRAMS, resolve(DEST_ASSETS, 'diagrams'))
-copyDir(SRC_MERMAID,  resolve(DEST_ASSETS, 'mermaid'))
-copyDir(SRC_DOCS,     DEST_DOCS)
+copyDir(SRC_DIAGRAMS,         resolve(DEST_ASSETS, 'diagrams'))
+copyDir(SRC_MERMAID,         resolve(DEST_ASSETS, 'mermaid'))
+copyDir(SRC_MERMAID_RENDERED, resolve(DEST_ASSETS, 'mermaid-rendered'))
+copyDir(SRC_DOCS,            DEST_DOCS)
 
 console.log('[yaml-to-json] Done.')

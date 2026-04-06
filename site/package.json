@@ -6,6 +6,7 @@
   "scripts": {
     "predev": "node scripts/yaml-to-json.mjs",
     "dev": "vite",
+    "render-mermaid": "node scripts/render-mermaid.mjs",
     "prebuild": "node scripts/yaml-to-json.mjs",
     "build": "tsc && vite build",
     "preview": "vite preview",

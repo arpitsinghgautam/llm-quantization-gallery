@@ -40,6 +40,10 @@ jobs:
         working-directory: site
         run: npm ci
 
+      - name: Render Mermaid diagrams to SVG
+        working-directory: site
+        run: npm run render-mermaid
+
       - name: Build site
         working-directory: site
         env:
