@@ -43,7 +43,7 @@ jobs:
       - name: Build site
         working-directory: site
         env:
-          VITE_BASE_PATH: /quantization_gallery/
+          VITE_BASE_PATH: /llm-quantization-gallery/
         run: npm run build
 
       - name: Upload Pages artifact
