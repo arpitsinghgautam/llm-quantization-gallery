@@ -74,7 +74,7 @@ flowchart LR
     C -->|no ~99%| E[Quantize to\\n3-4 bit group]
     D --> F[Sparse FP16\\n+ dense INT3/4]
     E --> F
-    F --> G[~3.9 bit avg\\nnear-lossless]
+    F --> G[approx 3.9 bit avg\\nnear-lossless]
 """,
 
 "squeezellm": """\
@@ -246,10 +246,10 @@ flowchart LR
 flowchart LR
     A[All layers] --> B[Measure quantization\\nsensitivity per block]
     B --> C[Sort blocks\\nby sensitivity score]
-    C --> D{Top-k%\\nsensitive?}
+    C --> D{Top-k pct?}
     D -->|yes| E[Assign FP6\\nTC-FPx kernel]
     D -->|no| F[Assign W4A8\\nZeroQuant style]
-    E --> G[Mixed 4+2 model\\n~4.X bit average]
+    E --> G[Mixed 4+2 model\\napprox 4.X bits avg]
     F --> G
 """,
 
@@ -686,7 +686,7 @@ flowchart LR
     C --> D[Cast gradients\\nto E5M2 FP8]
     D --> E[FP32 master weights\\n+ optimizer state]
     E --> F[Loss scaling\\nprevents underflow]
-    F --> G[~2x throughput\\nvs BF16]
+    F --> G[approx 2x throughput\\nvs BF16]
 """,
 
 "mx-formats": """\
@@ -707,7 +707,7 @@ flowchart LR
     B --> C[Shared E8 scale\\nper block]
     C --> D[Each element:\\nE2M1 FP4 value]
     D --> E[NVFP4 tensor\\nBlackwell GB200 native]
-    E --> F[~2x memory vs FP8\\nhigher throughput density]
+    E --> F[approx 2x memory vs FP8\\nhigher throughput density]
 """,
 
 "deepseek-fp8": """\

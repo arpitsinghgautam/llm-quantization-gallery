@@ -4,4 +4,4 @@ flowchart LR
     C --> D[Cast gradients\nto E5M2 FP8]
     D --> E[FP32 master weights\n+ optimizer state]
     E --> F[Loss scaling\nprevents underflow]
-    F --> G[~2x throughput\nvs BF16]
+    F --> G[approx 2x throughput\nvs BF16]

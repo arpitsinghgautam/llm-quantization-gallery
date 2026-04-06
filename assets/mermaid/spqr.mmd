@@ -5,4 +5,4 @@ flowchart LR
     C -->|no ~99%| E[Quantize to\n3-4 bit group]
     D --> F[Sparse FP16\n+ dense INT3/4]
     E --> F
-    F --> G[~3.9 bit avg\nnear-lossless]
+    F --> G[approx 3.9 bit avg\nnear-lossless]

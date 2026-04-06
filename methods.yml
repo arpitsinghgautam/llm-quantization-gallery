@@ -4107,8 +4107,13 @@
   subcategory: online-vector-quantization
   year: 2025
   date: 2025-04-28
-  authors: ["unknown"]
-  affiliation: ["unknown"]
+  authors:
+    - Amir Zandieh
+    - Majid Daliri
+    - Majid Hadian
+    - Vahab Mirrokni
+  affiliation:
+    - Google Research
   paper_url: https://arxiv.org/abs/2504.19874
   code_url: null
   blog_url: null
@@ -4151,8 +4156,10 @@
   subcategory: mixed-precision
   year: 2026
   date: 2026-03-31
-  authors: ["unknown"]
-  affiliation: ["unknown"]
+  authors:
+    - Arpit Singh Gautam
+    - Saurabh Jha
+  affiliation: []
   paper_url: https://arxiv.org/abs/2603.17891
   code_url: null
   blog_url: null
@@ -4238,8 +4245,15 @@
   subcategory: rotation-kv
   year: 2025
   date: 2025-02-10
-  authors: ["unknown"]
-  affiliation: ["unknown"]
+  authors:
+    - Zunhai Su
+    - Hanyu Wei
+    - Zhe Chen
+    - Wang Shen
+    - Linge Li
+    - Huangqi Yu
+    - Kehong Yuan
+  affiliation: []
   paper_url: https://www.ijcai.org/proceedings/2025/0690.pdf
   code_url: null
   blog_url: null
@@ -4280,8 +4294,12 @@
   subcategory: latent-factorization
   year: 2025
   date: 2025-09-15
-  authors: ["unknown"]
-  affiliation: ["unknown"]
+  authors:
+    - Banseok Lee
+    - Dongkyu Kim
+    - Youngcheon You
+    - Youngmin Kim
+  affiliation: []
   paper_url: https://neurips.cc/virtual/2025/poster/115061
   code_url: null
   blog_url: null
@@ -4324,8 +4342,19 @@
   subcategory: ternary-ptq
   year: 2025
   date: 2025-09-30
-  authors: ["unknown"]
-  affiliation: ["unknown"]
+  authors:
+    - Hong Huang
+    - Decheng Wu
+    - Rui Cen
+    - Guanghua Yu
+    - Zonghang Li
+    - Kai Liu
+    - Jianchen Zhu
+    - Peng Chen
+    - Xue Liu
+    - Dapeng Wu
+  affiliation:
+    - Tencent
   paper_url: https://arxiv.org/abs/2509.23809
   code_url: null
   blog_url: null
@@ -4368,8 +4397,19 @@
   subcategory: long-cot-kv
   year: 2025
   date: 2025-05-28
-  authors: ["unknown"]
-  affiliation: ["unknown"]
+  authors:
+    - Tengxuan Liu
+    - Shiyao Li
+    - Jiayi Yang
+    - Tianchen Zhao
+    - Feng Zhou
+    - Xiaohui Song
+    - Guohao Dai
+    - Shengen Yan
+    - Huazhong Yang
+    - Yu Wang
+  affiliation:
+    - Tsinghua University
   paper_url: https://arxiv.org/abs/2505.18610
   code_url: null
   blog_url: null
@@ -4411,8 +4451,14 @@
   subcategory: rotation-reasoning
   year: 2025
   date: 2025-11-14
-  authors: ["unknown"]
-  affiliation: ["unknown"]
+  authors:
+    - Yesheng Liang
+    - Haisheng Chen
+    - Zihan Zhang
+    - Song Han
+    - Zhijian Liu
+  affiliation:
+    - MIT
   paper_url: https://arxiv.org/abs/2511.10645
   code_url: null
   blog_url: null
