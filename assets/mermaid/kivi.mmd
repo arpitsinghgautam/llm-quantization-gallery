@@ -1,0 +1,7 @@
+flowchart LR
+    A[Key cache K] --> B[Per-channel\nINT2 quantize]
+    A2[Value cache V] --> C[Per-token\nINT2 quantize]
+    B --> D[Sliding window:\nrecent tokens FP16]
+    C --> D
+    D --> E[2-bit KV cache\nno fine-tuning needed]
+    E --> F[2x longer context\nsame GPU memory]

@@ -9,32 +9,38 @@
 
 
   <!-- Generic diagram for NVFP4 -->
-  <!-- Fact panel -->
-  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <!-- Fact panel (left) -->
+  <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
-  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    NVFP4 weights + FP8/FP16 activations</text>
-  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  block of 16 elements share one FP8 scale</text>
-  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  calibration data for static scale comput</text>
-  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     NVIDIA Blackwell (B100/B200/GB200/RTX 50</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    NVFP4 weights + FP8/FP16 activati…</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  block of 16 elements share one FP…</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  calibration data for static scale…</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     NVIDIA Blackwell (B100/B200/GB200…</text>
   <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
   <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     low_precision_training</text>
 
   <!-- TL;DR -->
-  <rect x="415" y="80" width="355" height="150" rx="6" fill="#D4A027" opacity="0.08" stroke="#D4A027" stroke-width="1.5"/>
+  <rect x="415" y="80" width="355" height="170" rx="6" fill="#D4A027" opacity="0.08" stroke="#D4A027" stroke-width="1.5"/>
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
-  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">NVFP4 is NVIDIA's 4-bit floating-point format introduced for Blackwell-architecture</text>
-  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">GPUs. It uses E2M1 encoding (2 exponent bits, 1 mantissa, 1 sign bit = 4 bit</text>
+  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">NVFP4 is NVIDIA's 4-bit floating-point format</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">introduced for Blackwell-architecture GPUs. It</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">uses E2M1 encoding (2 exponent bits, 1</text>
+  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">mantissa, 1 sign bit = 4 bits total) and pairs</text>
+  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">each block of 16 consecutive weights with an</text>
+  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">FP8 block scale. This differs from MXFP4</text>
 
   <!-- Key idea -->
-  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
-  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">NVFP4 stores weights in 4 bits (E2M1 format: values from ±{0.5, 1.0, 1.5, 2.0, 3.0,</text>
-  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">4.0, 6.0}). Every 16 consecutive weights share one FP8 block scale. At inference,</text>
-  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">weights are dequantized per block</text>
+  <rect x="415" y="260" width="355" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="285" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">NVFP4 stores weights in 4 bits (E2M1 format:</text>
+  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">values from ±{0.5, 1.0, 1.5, 2.0, 3.0, 4.0,</text>
+  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">6.0}). Every 16 consecutive weights share one</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">FP8 block scale. At inference, weights are</text>
+  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">dequantized per block (multiply by FP8 scale)</text>
 
   <!-- Bottom -->
-  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="50" y="415" font-family="monospace" font-size="11" fill="#D4A027"></text>
-  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: NVIDIA Corporation</text>
+  <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#D4A027"></text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: NVIDIA Corporation</text>
 
 </svg>

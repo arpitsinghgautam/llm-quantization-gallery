@@ -1,0 +1,8 @@
+flowchart LR
+    A[Quantized model] --> B[Measure per-block\nreconstruction error]
+    B --> C{Error too high?}
+    C -->|yes| D[Add low-rank\ncompensation matrix]
+    D --> E[W * A_r * B_r\nadded to quantized W]
+    C -->|no| F[Keep quantized block]
+    E --> G[W4A8 or W8A8\n+ LoRC correction]
+    F --> G

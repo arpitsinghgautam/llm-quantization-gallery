@@ -9,8 +9,8 @@
 
 
   <!-- Generic diagram for Spectra -->
-  <!-- Fact panel -->
-  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <!-- Fact panel (left) -->
+  <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
   <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W1.58A8 (ternary), W4A16, FP16</text>
   <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-tensor (ternary)</text>
@@ -20,21 +20,27 @@
   <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     extreme_lowbit</text>
 
   <!-- TL;DR -->
-  <rect x="415" y="80" width="355" height="150" rx="6" fill="#E84393" opacity="0.08" stroke="#E84393" stroke-width="1.5"/>
+  <rect x="415" y="80" width="355" height="170" rx="6" fill="#E84393" opacity="0.08" stroke="#E84393" stroke-width="1.5"/>
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
-  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">Spectra is a comprehensive empirical study and model suite that trains LLMs from</text>
-  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">scratch across three precision regimes — ternary (BitNet b1.58 style), quantize</text>
+  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">Spectra is a comprehensive empirical study and</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">model suite that trains LLMs from scratch</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">across three precision regimes — ternary</text>
+  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">(BitNet b1.58 style), quantized (W4A16 GPTQ),</text>
+  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">and FP16 — at multiple model sizes (54M to</text>
+  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">3.9B parameters) on 300B tokens. The goal is</text>
 
   <!-- Key idea -->
-  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
-  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">Spectra trains each model (54M, 134M, 400M, 830M, 3.9B) independently from scratch in</text>
-  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">all three regimes on the same RedPajama dataset and evaluates on a consistent set of</text>
-  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">downstream tasks and perplexi</text>
+  <rect x="415" y="260" width="355" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="285" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">Spectra trains each model (54M, 134M, 400M,</text>
+  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">830M, 3.9B) independently from scratch in all</text>
+  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">three regimes on the same RedPajama dataset</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">and evaluates on a consistent set of</text>
+  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">downstream tasks and perplexity benchmarks.</text>
 
   <!-- Bottom -->
-  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="50" y="415" font-family="monospace" font-size="11" fill="#E84393">https://arxiv.org/abs/2407.12327</text>
-  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: Ayush Kaushal, Tejas Vaidhya, Arnav Garg</text>
+  <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#E84393">https://arxiv.org/abs/2407.12327</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: Ayush Kaushal, Tejas Vaidhya, Arnav Garg</text>
 
 </svg>

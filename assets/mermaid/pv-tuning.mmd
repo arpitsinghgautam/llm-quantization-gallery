@@ -1,0 +1,8 @@
+flowchart LR
+    A[AQLM codebook\nquantized model] --> B[Directly optimize\ncodebook entries]
+    B --> C[Per-vector gradient\nvia straight-through]
+    C --> D[Update codebook\ncentroids end-to-end]
+    D --> E{Converged?}
+    E -->|no| B
+    E -->|yes| F[Better codebooks\nthan init-only AQLM]
+    F --> G[W2A16 state-of-art\nvector quant]

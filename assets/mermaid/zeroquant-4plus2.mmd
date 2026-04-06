@@ -1,0 +1,8 @@
+flowchart LR
+    A[All layers] --> B[Measure quantization\nsensitivity per block]
+    B --> C[Sort blocks\nby sensitivity score]
+    C --> D{Top-k%\nsensitive?}
+    D -->|yes| E[Assign FP6\nTC-FPx kernel]
+    D -->|no| F[Assign W4A8\nZeroQuant style]
+    E --> G[Mixed 4+2 model\n~4.X bit average]
+    F --> G

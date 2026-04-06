@@ -9,32 +9,38 @@
 
 
   <!-- Generic diagram for BitNet b1.58 2B4T -->
-  <!-- Fact panel -->
-  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <!-- Fact panel (left) -->
+  <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
   <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W1.58A8</text>
-  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-tensor (weights); per-token (activat</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-tensor (weights); per-token (…</text>
   <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  training from scratch on 4T tokens</text>
-  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     CPU (BitNet.cpp); GPU (custom kernels)</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     CPU (BitNet.cpp); GPU (custom ker…</text>
   <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     yes</text>
   <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     extreme_lowbit</text>
 
   <!-- TL;DR -->
-  <rect x="415" y="80" width="355" height="150" rx="6" fill="#E84393" opacity="0.08" stroke="#E84393" stroke-width="1.5"/>
+  <rect x="415" y="80" width="355" height="170" rx="6" fill="#E84393" opacity="0.08" stroke="#E84393" stroke-width="1.5"/>
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
-  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">BitNet b1.58 2B4T is the first openly-released full-scale ternary LLM at 2 billion</text>
-  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">parameters trained on 4 trillion tokens. Microsoft releases model weights, tr</text>
+  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">BitNet b1.58 2B4T is the first openly-released</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">full-scale ternary LLM at 2 billion parameters</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">trained on 4 trillion tokens. Microsoft</text>
+  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">releases model weights, training code, and the</text>
+  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">BitNet.cpp inference library that achieves</text>
+  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">CPU-efficient inference without GPUs. The</text>
 
   <!-- Key idea -->
-  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
-  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">Same architecture as BitNet b1.58 (absmean ternary quantizer, INT8 activations, STE</text>
-  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">training), but at 2B parameters trained on 4T tokens — significantly more data than</text>
-  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">prior BitNet releases. The model</text>
+  <rect x="415" y="260" width="355" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="285" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">Same architecture as BitNet b1.58 (absmean</text>
+  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">ternary quantizer, INT8 activations, STE</text>
+  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">training), but at 2B parameters trained on 4T</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">tokens — significantly more data than prior</text>
+  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">BitNet releases. The model uses the Llama 3</text>
 
   <!-- Bottom -->
-  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="50" y="415" font-family="monospace" font-size="11" fill="#E84393">https://arxiv.org/abs/2504.01234</text>
-  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2025  |  Authors: Shuming Ma, Hongyu Wang, Shaohan Huang</text>
+  <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#E84393">https://arxiv.org/abs/2504.01234</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2025  |  Authors: Shuming Ma, Hongyu Wang, Shaohan Huang</text>
 
 </svg>

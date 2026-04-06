@@ -1,0 +1,6 @@
+flowchart LR
+    A[Weight W\n+ activation stats] --> B[Identify outlier-\ninfluenced columns]
+    B --> C[Outlier cols:\nhigher bit width or FP16]
+    C --> D[Remaining cols:\nlow-bit GPTQ quantize]
+    D --> E[Mixed-precision\nper column]
+    E --> F[Better accuracy\nthan uniform GPTQ]

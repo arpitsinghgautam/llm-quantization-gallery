@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP32/FP16 weight] --> B[Convert to FP6:\nE3M2 or E2M3 format]
+    B --> C[Pack two FP6 values\ninto 12-bit pair]
+    C --> D[TC-FPx CUDA kernel:\nbitwise unpack + GEMM]
+    D --> E[Tensor-core compatible\nhardware efficient]
+    E --> F[W6A16: better than\nW4 accuracy near W8]

@@ -1,0 +1,8 @@
+flowchart LR
+    A[KV cache tokens] --> B[Accumulate attention\nscores online]
+    B --> C{Salient token?}
+    C -->|high attention| D[Keep in FP16 / INT8]
+    C -->|low attention| E[Quantize to INT4\nor INT2]
+    D --> F[Mixed-precision\nKV cache]
+    E --> F
+    F --> G[3x KV compression\nnear-lossless for salient]

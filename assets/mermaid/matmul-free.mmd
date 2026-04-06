@@ -1,0 +1,7 @@
+flowchart LR
+    A[Transformer block] --> B[Replace all linear\nlayers]
+    B --> C[Ternary weights\n-1, 0, +1]
+    C --> D[Binary activations\nHardtanh clipped]
+    D --> E[Attention alternative:\nTokenMixer replaces\nQK^T matmul]
+    E --> F[Pure additions\nno multiplications]
+    F --> G[1-bit W, 1-bit A\ntrue integer inference]

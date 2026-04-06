@@ -1,0 +1,8 @@
+flowchart LR
+    A[KV tensors] --> B{Token type}
+    B -->|sink + outlier tokens| C[FP16 sparse]
+    B -->|normal tokens ~95%| D[Per-channel\nnon-uniform quant]
+    D --> E[NF4-style bins\nKV2/KV3/KV4]
+    C --> F[Compressed KV cache]
+    E --> F
+    F --> G[10M-token context\non single GPU]

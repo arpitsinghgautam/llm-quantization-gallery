@@ -1,0 +1,8 @@
+flowchart LR
+    A[QLoRA model\nINT4 + LoRA] --> B[Measure inter-layer\nfeature correlation]
+    B --> C[Identify redundant\nLoRA rank dimensions]
+    C --> D[Prune redundant\nrank components]
+    D --> E[Reinitialize pruned\nrank with new directions]
+    E --> F{Iterations done?}
+    F -->|no| B
+    F -->|yes| G[Compact LoRA\nbetter QLoRA baseline]

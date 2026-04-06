@@ -1,0 +1,7 @@
+flowchart LR
+    A[Layer output error\nE = trace of H * delta_W^2] --> B[Choose weight\nwith min saliency]
+    B --> C[Set weight to zero\n/ quantize it]
+    C --> D[Update remaining\nweights via H^-1]
+    D --> E{More weights?}
+    E -->|yes| B
+    E -->|no| F[Compressed layer\n+ error compensation]

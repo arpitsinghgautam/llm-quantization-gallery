@@ -1,0 +1,6 @@
+flowchart LR
+    A[INT4 weights\nGPTQ format] --> B[Permute for\nmemory coalescing]
+    B --> C[Marlin kernel:\nfuse dequant + GEMM]
+    C --> D[128-thread warps\npipeline async loads]
+    D --> E[FP16 GEMM throughput\nnear theoretical peak]
+    E --> F[2.4x faster than\ntorch W4A16 baseline]

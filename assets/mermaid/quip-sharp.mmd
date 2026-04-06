@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 Weight W] --> B[Random Hadamard\nrotation H]
+    B --> C[Incoherent W_tilde = HWH^T]
+    C --> D[E8 lattice\ncodebook quantize]
+    D --> E[Store codebook\nindices only]
+    E --> F[Lookup-table\ndecode at inference]
+    F --> G[W2A16\nnear-lossless]

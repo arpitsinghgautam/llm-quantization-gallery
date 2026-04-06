@@ -1,0 +1,9 @@
+flowchart LR
+    A[Input prompt tokens] --> B[Observation window:\nlast W tokens]
+    B --> C[Accumulate attention\nscores over window]
+    C --> D{High cumulative\nattention?}
+    D -->|yes| E[Retain KV pair\nin cache]
+    D -->|no| F[Evict KV pair]
+    E --> G[Compressed KV cache\n+ full window KV]
+    F --> G
+    G --> H[3.6x reduction\nat 16K context]

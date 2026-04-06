@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 weight W] --> B[Random Hadamard\nrotation R]
+    B --> C[Incoherent W_tilde]
+    C --> D[FP6 quantize\nTC-FPx kernel]
+    D --> E[W6A16 Quant-LLM]
+    C --> F[FP4 quantize\nexperimental]
+    F --> G[W4A16 FP4 variant]

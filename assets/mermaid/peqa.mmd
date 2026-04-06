@@ -1,0 +1,6 @@
+flowchart LR
+    A[Quantized base model\nINT4 / INT8] --> B[Freeze quantized\nbase weights]
+    B --> C[Add task-specific\nFP16 bias vectors]
+    C --> D[Fine-tune only\nbias parameters]
+    D --> E[Tiny parameter count\n<< full fine-tune]
+    E --> F[Task-adapted\nquantized model]

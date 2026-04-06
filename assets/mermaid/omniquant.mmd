@@ -1,0 +1,8 @@
+flowchart LR
+    A[Calibration data] --> B[Learnable Weight\nClipping LWC]
+    A --> C[Learnable Equiv\nTransform LET]
+    B --> D[Optimize clip\nthresholds end-to-end]
+    C --> E[Learn channel\nscale and shift]
+    D --> F[Block-wise KD\nfrom FP16 teacher]
+    E --> F
+    F --> G[W4A16, W4A4\nor W6A6 model]

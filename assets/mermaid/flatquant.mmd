@@ -1,0 +1,8 @@
+flowchart LR
+    A[Layer activations] --> B[Learnable Kronecker\naffine transform A]
+    B --> C[Calibrate A per-layer\nto flatten distribution]
+    C --> D{Flat enough?}
+    D -->|no| C
+    D -->|yes| E[Apply A offline to W]
+    E --> F[Flat activation dist\nno rotation overhead]
+    F --> G[W4A4 low-error]

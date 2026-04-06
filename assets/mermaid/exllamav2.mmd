@@ -1,0 +1,6 @@
+flowchart LR
+    A[EXL2 quantized\nmodel file] --> B[Mixed-precision\nper-layer bit assignment]
+    B --> C[ExLlamaV2 kernel:\nfused W4A16 decode]
+    C --> D[Paged attention\ncache management]
+    D --> E[Speculative decoding\noptional]
+    E --> F[Highest single-GPU\ngeneration throughput]

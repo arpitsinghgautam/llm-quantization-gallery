@@ -1,0 +1,6 @@
+flowchart LR
+    A[Activation channels] --> B[Group channels by\nsimilar range]
+    B --> C[Channel reordering:\noutliers grouped together]
+    C --> D[Cluster-wise\nquantization per group]
+    D --> E[Outliers share\nscale within group]
+    E --> F[W4A8 / W4A4\nno decomposition overhead]

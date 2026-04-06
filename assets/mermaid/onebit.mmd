@@ -1,0 +1,7 @@
+flowchart LR
+    A[Weight W] --> B[Sign-value decomp:\nW = V times sign S]
+    B --> C[V: value vectors\nper output channel]
+    C --> D[S: binary sign\nmatrix INT1]
+    D --> E[Forward: W_hat = V times S]
+    E --> F[STE training\nfrom scratch or QAT]
+    F --> G[1-bit with value\nvectors = better than plain binary]

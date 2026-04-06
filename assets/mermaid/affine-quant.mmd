@@ -1,0 +1,8 @@
+flowchart LR
+    A[FP16 model] --> B[Optimize full affine\ntransform matrix T]
+    B --> C[W_equiv = T times W\nX_equiv = X times T^-1]
+    C --> D[Newton-step solver\nfor T efficiently]
+    D --> E{Converged?}
+    E -->|no| B
+    E -->|yes| F[Generalized SmoothQuant:\nfull linear vs diagonal]
+    F --> G[W4A4 / W4A8\nbetter than SmoothQuant]

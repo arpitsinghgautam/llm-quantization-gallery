@@ -1,0 +1,6 @@
+flowchart LR
+    A[2B param architecture\nBitNet b1.58 design] --> B[Train on 4T tokens\nfrom scratch]
+    B --> C[Ternary weights -1/0/+1\nthroughout training]
+    C --> D[INT8 activations\nAbsMax quantization]
+    D --> E[First open-source\n1-bit 2B model]
+    E --> F[Competitive with\nFP16 Llama-3.2-1B/3B]

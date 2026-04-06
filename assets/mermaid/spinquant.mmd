@@ -1,0 +1,7 @@
+flowchart LR
+    A[Random rotation R_0] --> B[Optimize via\nCayley SGD]
+    B --> C{Stiefel manifold\nconstraint met?}
+    C -->|no| B
+    C -->|yes| D[Learned R*\northogonal matrix]
+    D --> E[Fold into W and X offline]
+    E --> F[W4A4 / W4A8\nlow-outlier inference]

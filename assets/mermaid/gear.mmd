@@ -1,0 +1,7 @@
+flowchart LR
+    A[KV cache] --> B[Quantize to INT4]
+    B --> C[Quantization\nerror residual E]
+    C --> D[SVD low-rank\napprox of E]
+    D --> E[Store: INT4 KV\n+ low-rank E_hat]
+    E --> F[Dequant + low-rank\ncorrection at runtime]
+    F --> G[Near-lossless\nKV at 4-bit avg]

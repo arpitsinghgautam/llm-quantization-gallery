@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 Weights + Activations] --> B[Handle outliers:\npairwise rotation: pair outlie]
+    B --> C[Quantize weights\nto low-bit]
+    B --> D[Quantize activations\nto low-bit]
+    C --> E[INT GEMM\ntensor cores]
+    D --> E
+    E --> F[W4A8 (reasoning-model optimized)\nquantized inference]

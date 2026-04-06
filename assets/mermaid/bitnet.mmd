@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 training] --> B[Binary weights\n+1 or -1 via sign]
+    B --> C[Straight-through\nestimator STE]
+    C --> D[Scale factor\nalpha = mean of abs W]
+    D --> E[W_tilde = alpha times sign W]
+    E --> F[MatMuls replaced\nby additions + scaling]
+    F --> G[1-bit LLM\ntraining from scratch]

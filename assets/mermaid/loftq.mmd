@@ -1,0 +1,9 @@
+flowchart LR
+    A[FP16 pretrained W] --> B[SVD: W approx A times B\nlow-rank init]
+    B --> C[Quantize W - A times B\nresidual to INT4]
+    C --> D[New residual\nR = W - Q_int4]
+    D --> E[SVD of R to update\nA and B]
+    E --> F{Iterations done?}
+    F -->|no| C
+    F -->|yes| G[Aligned INT4 base\n+ LoRA A, B init]
+    G --> H[Fine-tune A, B\nbetter start than random]

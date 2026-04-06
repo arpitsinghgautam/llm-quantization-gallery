@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nno]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto W2/W3 A16 (vector quantization)]
+    D --> E[Outlier handling:\nnear-optimal rate-distortion c]
+    E --> F[Quantized model\nW2/W3 A16 (vector quantization)]

@@ -1,0 +1,8 @@
+flowchart LR
+    A[GGUF file] --> B[Load quantized\nweights + metadata]
+    B --> C{Quant type}
+    C -->|Q4_K_M| D[K-quant:\nImportance-weighted\ngroup quant]
+    C -->|IQ4_XS| E[I-quant:\nLattice codebook\nactivation-aware]
+    D --> F[CPU or GPU\nmetal / CUDA / Vulkan]
+    E --> F
+    F --> G[Cross-platform\nLLM inference]

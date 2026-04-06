@@ -1,0 +1,7 @@
+flowchart LR
+    A[Weight col w in R^d] --> B[Split into\nm sub-vectors]
+    B --> C[M learned\ncodebooks C_1 to C_m]
+    C --> D[Find nearest\ncentroid per sub-vec]
+    D --> E[Store M indices\nper group]
+    E --> F[Decode w_hat = sum C_i idx_i]
+    F --> G[2-3 bit\neffective storage]

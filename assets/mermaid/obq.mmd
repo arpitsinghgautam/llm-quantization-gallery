@@ -1,0 +1,8 @@
+flowchart LR
+    A[Weight matrix W\n+ Hessian H] --> B[Compute per-weight\nsaliency score]
+    B --> C[Select least-salient\nweight]
+    C --> D[Quantize it to\nlow-bit value]
+    D --> E[Redistribute error:\nW remaining -= delta * H^-1 row]
+    E --> F{All weights\nquantized?}
+    F -->|no| B
+    F -->|yes| G[Low-bit W\nwith OBS error comp]

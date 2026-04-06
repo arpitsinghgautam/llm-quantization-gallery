@@ -1,0 +1,9 @@
+flowchart LR
+    A[Tensor block\n32 elements] --> B[Shared scale\nexponent E8]
+    B --> C{MX format}
+    C -->|MXFP8| D[E4M3 or E5M2\nper element]
+    C -->|MXFP4| E[E2M1\nper element]
+    C -->|MXINT8| F[INT8\nper element]
+    D --> G[OCP standard\nBlackwell / MI300X]
+    E --> G
+    F --> G

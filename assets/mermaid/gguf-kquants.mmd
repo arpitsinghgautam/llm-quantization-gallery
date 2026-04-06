@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 weight block\n256 elements] --> B[Compute importance\nvia activation norms]
+    B --> C[Scale important\ngroups more finely]
+    C --> D[Super-block scale\n+ sub-block scales]
+    D --> E[Pack to target bit\nQ2_K to Q8_K]
+    E --> F[Better accuracy than\nuniform at same bits]

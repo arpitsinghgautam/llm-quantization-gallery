@@ -9,32 +9,38 @@
 
 
   <!-- Generic diagram for FlatQuant -->
-  <!-- Fact panel -->
-  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <!-- Fact panel (left) -->
+  <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
   <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W4A4</text>
-  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-group (weights); per-token (activati</text>
-  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  calibration set for per-layer rotation l</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-group (weights); per-token (a…</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  calibration set for per-layer rot…</text>
   <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     GPU</text>
   <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
   <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     ptq_weight_activation</text>
 
   <!-- TL;DR -->
-  <rect x="415" y="80" width="355" height="150" rx="6" fill="#E87D3E" opacity="0.08" stroke="#E87D3E" stroke-width="1.5"/>
+  <rect x="415" y="80" width="355" height="170" rx="6" fill="#E87D3E" opacity="0.08" stroke="#E87D3E" stroke-width="1.5"/>
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
-  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">FlatQuant argues that the key property needed for good quantization is "flatness" of</text>
-  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">the post-transformation weight/activation landscape, not just outlier suppr</text>
+  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">FlatQuant argues that the key property needed</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">for good quantization is &quot;flatness&quot; of the</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">post-transformation weight/activation</text>
+  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">landscape, not just outlier suppression. It</text>
+  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">learns per-layer linear transformations (not</text>
+  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">necessarily restricted to orthogonal matrices)</text>
 
   <!-- Key idea -->
-  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
-  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">For each layer, FlatQuant learns a pair of transformations (T_W, T_X) that</text>
-  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">approximately diagonalize the per-group weight and activation distributions — making</text>
-  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">the quantization error approximately ind</text>
+  <rect x="415" y="260" width="355" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="285" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">For each layer, FlatQuant learns a pair of</text>
+  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">transformations (T_W, T_X) that approximately</text>
+  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">diagonalize the per-group weight and</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">activation distributions — making the</text>
+  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">quantization error approximately independent</text>
 
   <!-- Bottom -->
-  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="50" y="415" font-family="monospace" font-size="11" fill="#E87D3E">https://arxiv.org/abs/2410.09426</text>
-  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: Yuxuan Sun, Chengyu Du, Shu Yang</text>
+  <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#E87D3E">https://arxiv.org/abs/2410.09426</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: Yuxuan Sun, Chengyu Du, Shu Yang</text>
 
 </svg>

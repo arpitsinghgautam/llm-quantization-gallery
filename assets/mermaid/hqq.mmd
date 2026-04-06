@@ -1,0 +1,7 @@
+flowchart LR
+    A[Weight W] --> B[Minimize L1\nnorm W - Q W_s_z]
+    B --> C[Proximal\niterative solve]
+    C --> D{Converged?}
+    D -->|no| B
+    D -->|yes| E[Optimal scale s\nzero-point z]
+    E --> F[No calibration data\nW4/W2 in under 1 min]

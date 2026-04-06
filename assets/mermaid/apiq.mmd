@@ -1,0 +1,6 @@
+flowchart LR
+    A[Calibration activations] --> B[Compute activation\ncovariance stats]
+    B --> C[Design per-layer\nquantization grid]
+    C --> D[Grid aligned to\nactivation principal components]
+    D --> E[Quantize W on\naligned grid]
+    E --> F[Better W4A16\nactivation-aware grid]

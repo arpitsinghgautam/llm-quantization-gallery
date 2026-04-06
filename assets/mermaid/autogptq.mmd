@@ -1,0 +1,9 @@
+flowchart LR
+    A[FP16 model] --> B[Load calibration\ndataset]
+    B --> C[Run GPTQ per layer:\nHessian + error comp]
+    C --> D[Save GPTQ weights\n+ scales to disk]
+    D --> E[Load quantized model]
+    E --> F{Backend}
+    F -->|ExLlamaV2| G[W4A16 fast decode]
+    F -->|Marlin| H[W4A16 throughput]
+    F -->|CUDA| I[Standard W4A16]

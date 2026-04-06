@@ -1,0 +1,6 @@
+flowchart LR
+    A[Train LLM from scratch\non internet-scale data] --> B[INT4 / INT8 / FP16\nweight formats]
+    B --> C[No quantization error:\nweights never float]
+    C --> D[Release family:\nSpectra-99M to 3.9B]
+    D --> E[Benchmark across\nbit-widths and tasks]
+    E --> F[Integer-trained models\noutperform PTQ at same bits]

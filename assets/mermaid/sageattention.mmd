@@ -1,0 +1,7 @@
+flowchart LR
+    A[Query Q and Key K\nFP16] --> B[Per-token smooth\nquantization to INT8]
+    B --> C[INT8 GEMM:\nQK^T on tensor cores]
+    C --> D[Dequantize result\nbefore softmax]
+    D --> E[Softmax in FP32]
+    E --> F[FP16 Value V\nweighted sum AV]
+    F --> G[2x attention speedup\nnear-zero quality loss]

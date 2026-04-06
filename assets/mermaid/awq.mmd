@@ -1,0 +1,6 @@
+flowchart LR
+    A[Calibration\nActivations X] --> B[Per-channel\nmagnitude norm_x_j]
+    B --> C[Scale s_j = norm_x_j ^ alpha]
+    C --> D[W_hat = Q of W times diag_s]
+    D --> E[Absorb s^-1 into\nprevious layer]
+    E --> F[W4A16\ndeployment]

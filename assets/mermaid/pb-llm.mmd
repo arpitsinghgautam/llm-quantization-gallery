@@ -1,0 +1,8 @@
+flowchart LR
+    A[FP16 LLM weights] --> B[Compute per-weight\nHessian sensitivity]
+    B --> C{Salient weight?}
+    C -->|yes top-p%| D[Keep in FP16\nor INT8]
+    C -->|no| E[Binarize to +1/-1]
+    E --> F[Scale factor\nper group]
+    D --> G[Mixed: FP16 salient\n+ binary rest]
+    F --> G

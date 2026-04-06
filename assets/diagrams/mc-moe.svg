@@ -9,8 +9,8 @@
 
 
   <!-- Generic diagram for MC-MoE -->
-  <!-- Fact panel -->
-  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <!-- Fact panel (left) -->
+  <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
   <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W2/W4 A16 (per-expert mixed)</text>
   <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-expert</text>
@@ -20,21 +20,27 @@
   <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     moe</text>
 
   <!-- TL;DR -->
-  <rect x="415" y="80" width="355" height="150" rx="6" fill="#9B59B6" opacity="0.08" stroke="#9B59B6" stroke-width="1.5"/>
+  <rect x="415" y="80" width="355" height="170" rx="6" fill="#9B59B6" opacity="0.08" stroke="#9B59B6" stroke-width="1.5"/>
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
-  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">MC-MoE (Mixture Compressor for MoE) combines expert pruning with quantization to</text>
-  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">achieve higher compression of MoE models than quantization alone. Experts are f</text>
+  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">MC-MoE (Mixture Compressor for MoE) combines</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">expert pruning with quantization to achieve</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">higher compression of MoE models than</text>
+  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">quantization alone. Experts are first analyzed</text>
+  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">for their contribution to model outputs (using</text>
+  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">activation frequency and Hessian-based</text>
 
   <!-- Key idea -->
-  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
-  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">Two-stage compression: (1) Expert pruning — rank experts by score =</text>
-  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">activation_frequency × reconstruction_sensitivity. Prune bottom-k% of experts</text>
-  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">entirely (replacing them with the average of nearby ex</text>
+  <rect x="415" y="260" width="355" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="285" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">Two-stage compression: (1) Expert pruning —</text>
+  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">rank experts by score = activation_frequency ×</text>
+  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">reconstruction_sensitivity. Prune bottom-k% of</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">experts entirely (replacing them with the</text>
+  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">average of nearby experts for output</text>
 
   <!-- Bottom -->
-  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="50" y="415" font-family="monospace" font-size="11" fill="#9B59B6">https://arxiv.org/abs/2408.11813</text>
-  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: Wei Zhong, Yixiao Li, Qiushi Sun</text>
+  <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#9B59B6">https://arxiv.org/abs/2408.11813</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: Wei Zhong, Yixiao Li, Qiushi Sun</text>
 
 </svg>

@@ -1,0 +1,8 @@
+flowchart LR
+    A[FP16 Weight W] --> B[Compute Hessian\nH = 2XX^T]
+    B --> C[Cholesky\ndecompose H^-1]
+    C --> D{For each\ncolumn q}
+    D --> E[Quantize col\nto INT4]
+    E --> F[Redistribute error\nto cols q+1 onward]
+    F --> D
+    D --> G[INT4 W\n+ group scales]

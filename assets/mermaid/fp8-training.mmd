@@ -1,0 +1,7 @@
+flowchart LR
+    A[BF16 training] --> B[Cast forward pass\nto E4M3 FP8]
+    B --> C[FP8 GEMM\nH100 tensor cores]
+    C --> D[Cast gradients\nto E5M2 FP8]
+    D --> E[FP32 master weights\n+ optimizer state]
+    E --> F[Loss scaling\nprevents underflow]
+    F --> G[~2x throughput\nvs BF16]

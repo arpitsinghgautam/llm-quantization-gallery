@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 Weight W] --> B[Random orthogonal\nrotation R]
+    B --> C[Incoherent W_tilde = R W R^T]
+    C --> D[Near-Gaussian\ndistribution]
+    D --> E[Uniform scalar\nquantize W_tilde]
+    E --> F[At inference:\ndecode via R^T * Q * R]
+    F --> G[Incoherence enables\nlow-bit near-lossless]

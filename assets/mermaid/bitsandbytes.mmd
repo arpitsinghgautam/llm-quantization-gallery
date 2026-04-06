@@ -1,0 +1,8 @@
+flowchart LR
+    A[Model load] --> B{dtype param}
+    B -->|load_in_8bit| C[LLM.int8\nmixed-precision]
+    B -->|load_in_4bit| D[NF4 or FP4\nquant_type]
+    D --> E[QLoRA-ready\ncompute_dtype BF16]
+    C --> F[8-bit optimizer states]
+    E --> G[paged_adamw_32bit]
+    F --> G

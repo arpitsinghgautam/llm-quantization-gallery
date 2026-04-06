@@ -1,0 +1,8 @@
+flowchart LR
+    A[MoE model] --> B[Profile expert\nactivation frequency]
+    B --> C{Expert usage\nfrequency}
+    C -->|high frequency| D[Keep in INT8\nor FP16]
+    C -->|low frequency| E[Quantize to INT4\nor INT2]
+    D --> F[Mixed-precision\nMoE inference]
+    E --> F
+    F --> G[Better than uniform\nquantization of all experts]

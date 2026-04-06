@@ -1,0 +1,9 @@
+flowchart LR
+    A[LLM layer] --> B{Channel type}
+    B -->|outlier ~1%| C[INT8 / FP16]
+    B -->|normal ~99%| D[INT4 group quant]
+    D --> E[Dynamic per-token\nact quantization]
+    C --> F[INT4 GEMM\nCUTLASS kernels]
+    E --> F
+    F --> G[KV INT4 cache]
+    G --> H[W4A4KV4 serving]

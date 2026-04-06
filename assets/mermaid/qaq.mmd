@@ -1,0 +1,8 @@
+flowchart LR
+    A[KV cache entry] --> B[Compute importance:\naccumulated attn score]
+    B --> C{High attention?}
+    C -->|yes| D[Assign high bit-width\n8-bit or FP16]
+    C -->|no| E[Assign low bit-width\n2-4 bit]
+    D --> F[Quality-adaptive\nmixed KV cache]
+    E --> F
+    F --> G[Dynamic precision\nper generation step]

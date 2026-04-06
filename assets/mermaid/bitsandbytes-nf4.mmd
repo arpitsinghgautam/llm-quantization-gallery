@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 weight values\nof one 64-element block] --> B[Normalize to -1 to 1\nabs max scaling]
+    B --> C[Find nearest NF4 level\nfrom 16 non-uniform bins]
+    C --> D[Store 4-bit NF4 index\nper weight]
+    D --> E[At compute time:\ndequant to BF16]
+    E --> F[Optimal for normal\ndistribution weights]

@@ -1,0 +1,8 @@
+flowchart LR
+    A[FP16 Weight W] --> B[Hadamard rotation\nincoherence preprocessing]
+    B --> C[Near-Gaussian\nweight distribution]
+    C --> D[Trellis-coded quant:\ndynamic programming\nover weight sequence]
+    D --> E[Viterbi-style joint\nerror minimization]
+    E --> F[Store trellis\nstate indices]
+    F --> G[Fast CUDA\ndecode kernel]
+    G --> H[W2A16 state-of-art\n< 0.3 ppl vs FP16]

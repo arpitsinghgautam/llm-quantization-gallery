@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 LLM] --> B[Random Hadamard\nmatrix R]
+    B --> C[Rotate weights offline\nW_tilde = W times R^T]
+    B --> D[Rotate acts online\nX_tilde = X times R]
+    C --> E[Uniform dist\nno outliers]
+    D --> E
+    E --> F[W4A4\nquantization]

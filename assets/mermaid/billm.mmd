@@ -1,0 +1,8 @@
+flowchart LR
+    A[LLM weights] --> B[Bell-shaped analysis:\nidentify salient values]
+    B --> C[Salient set:\nresidual approximation]
+    C --> D[Non-salient set:\nbinary +1/-1]
+    D --> E[Optimal rescaling\nfor binary group]
+    C --> F[Store residuals\nin sparse format]
+    D --> F
+    F --> G[Post-training\n1-bit with residuals]

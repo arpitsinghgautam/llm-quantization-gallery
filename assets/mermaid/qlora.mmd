@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 base model] --> B[Quantize to NF4\n4-bit frozen]
+    B --> C[Frozen NF4\nbase weights]
+    C --> D[LoRA adapters\ndelta W = B times A in BF16]
+    D --> E[Forward: dequant NF4 to BF16 + delta W]
+    E --> F[Backprop only\nthrough adapters A, B]
+    F --> G[65B model\nfits on 48 GB GPU]

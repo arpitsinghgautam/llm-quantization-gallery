@@ -1,0 +1,8 @@
+flowchart LR
+    A[Outlier activation\nchannel j] --> B{Action}
+    B -->|large outlier| C[Channel disassembly:\nsplit into k sub-channels]
+    B -->|near-zero| D[Channel assembly:\nmerge with neighbor]
+    C --> E[Equivalent transform\nno accuracy loss]
+    D --> E
+    E --> F[All channels in\nnormal quantizable range]
+    F --> G[W4A8 / W4A4]

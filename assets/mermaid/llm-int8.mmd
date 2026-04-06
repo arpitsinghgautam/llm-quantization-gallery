@@ -1,0 +1,8 @@
+flowchart LR
+    A[Input X] --> B{Outlier\ndetector}
+    B -->|outlier dims ~0.1%| C[FP16 matmul]
+    B -->|normal dims ~99.9%| D[INT8 quantize]
+    D --> E[INT8 matmul]
+    C --> F[Dequant + combine]
+    E --> F
+    F --> G[FP16 output]

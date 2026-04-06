@@ -1,0 +1,7 @@
+flowchart LR
+    A[MoE experts] --> B[Compute per-expert\nquantization sensitivity]
+    B --> C[Rank experts\nby sensitivity score]
+    C --> D[High sensitivity:\nassign more bits]
+    D --> E[Low sensitivity:\nassign fewer bits]
+    E --> F[Mixed-precision\nbit allocation per expert]
+    F --> G[Better accuracy\nthan uniform MoE quant]

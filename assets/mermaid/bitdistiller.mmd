@@ -1,0 +1,8 @@
+flowchart LR
+    A[FP16 teacher model] --> B[Soft targets\n+ intermediate features]
+    B --> C[Quantized student\nINT2 / INT3]
+    C --> D[Knowledge distillation\nloss KL + MSE]
+    D --> E[Student learns\nto mimic teacher]
+    E --> F{Training done?}
+    F -->|no| C
+    F -->|yes| G[High-quality\nextreme-bit model]

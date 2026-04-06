@@ -1,0 +1,8 @@
+flowchart LR
+    A[Activation channel X_j] --> B[Compute optimal\nshift t_j and scale s_j]
+    B --> C[Shifted X_j_shifted = X_j - t_j]
+    C --> D[Zero-centered\nsymmetric distribution]
+    D --> E[Scale X_j_shifted / s_j]
+    E --> F[INT8 quantize]
+    F --> G[Absorb t_j and s_j\ninto adjacent weights]
+    G --> H[W8A8 / W4A8\nanalytical optimal]

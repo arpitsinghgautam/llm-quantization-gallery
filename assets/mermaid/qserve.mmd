@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 model] --> B[GPTQ W4\nweight quant]
+    B --> C[SmoothAttention\nfor KV4]
+    C --> D[W4 to INT8\nfused dequant kernel]
+    D --> E[INT8 GEMM\ntensor cores]
+    E --> F[W4A8KV4\n2x vs W4A16]

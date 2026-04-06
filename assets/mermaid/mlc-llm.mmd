@@ -1,0 +1,11 @@
+flowchart LR
+    A[Model weights\nFP16 or quantized] --> B[TVM compilation\ntarget-specific tuning]
+    B --> C{Target platform}
+    C -->|CUDA| D[GPU GEMM kernel]
+    C -->|Metal| E[Apple GPU kernel]
+    C -->|WebGPU| F[Browser inference]
+    C -->|x86| G[CPU SIMD kernel]
+    D --> H[Universal LLM\nruntime MLC-LLM]
+    E --> H
+    F --> H
+    G --> H

@@ -1,0 +1,6 @@
+flowchart LR
+    A[Weight block] --> B[Hadamard preprocess:\nincoherence rotation]
+    B --> C[Near-Gaussian\nweight distribution]
+    C --> D[E8-like lattice\ncodebook quantize]
+    D --> E[Store codebook indices\nIQ2_XXS to IQ4_XS]
+    E --> F[Best quality per bit\nin GGUF format]

@@ -1,0 +1,6 @@
+flowchart LR
+    A[K and V tensors\nfrom attention] --> B[Compression strategy:\nrandom Hadamard rotation remov]
+    B --> C[Quantize or prune\nKV to KV2 (2-bit keys and values)]
+    C --> D[Store compressed\nKV cache]
+    D --> E[Decompress during\nattention computation]
+    E --> F[Lower memory\nlonger context]

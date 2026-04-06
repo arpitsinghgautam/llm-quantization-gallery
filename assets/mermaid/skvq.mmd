@@ -1,0 +1,7 @@
+flowchart LR
+    A[KV cache stream] --> B[Sliding window:\nrecent tokens full precision]
+    B --> C[Older tokens:\nchannel reordering]
+    C --> D[Similar-range channels\ngrouped together]
+    D --> E[Group quantize\nKV2 to KV4]
+    E --> F[Clipping migration\nat window boundary]
+    F --> G[Efficient long-context\nwith sliding precision]

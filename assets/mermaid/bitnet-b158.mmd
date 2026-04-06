@@ -1,0 +1,6 @@
+flowchart LR
+    A[Training from scratch] --> B[Ternary weights\n-1, 0, +1]
+    B --> C[Straight-through\nestimator STE]
+    C --> D[AbsMean\nact quantization INT8]
+    D --> E[MatMuls become\nadditions only]
+    E --> F[1.58-bit model\nmatches FP16 at 3B+]

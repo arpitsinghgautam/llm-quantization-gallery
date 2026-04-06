@@ -1,0 +1,6 @@
+flowchart LR
+    A[Weight W] --> B[Fisher info\nsensitivity map]
+    B --> C[Top-k sensitive\nweights → sparse FP16]
+    C --> D[Rest → k-means\nclustered INT4]
+    D --> E[Dense INT4\n+ sparse FP16 residual]
+    E --> F[Non-uniform quant\nbetter than uniform at same bits]

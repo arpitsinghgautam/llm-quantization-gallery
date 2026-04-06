@@ -1,0 +1,10 @@
+flowchart LR
+    A[vLLM engine] --> B{Quant method}
+    B -->|awq| C[AutoAWQ W4A16]
+    B -->|gptq| D[ExLlamaV2 W4A16]
+    B -->|fp8| E[Native FP8\nH100 tensor core]
+    B -->|marlin| F[Marlin INT4\nhigh throughput]
+    C --> G[PagedAttention\ncontinuous batching]
+    D --> G
+    E --> G
+    F --> G

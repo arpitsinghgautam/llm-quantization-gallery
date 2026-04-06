@@ -1,0 +1,6 @@
+flowchart LR
+    A[Weights W] --> B[W4 past-only quant:\nonly prev-gen KV quantized]
+    A2[KV Cache] --> C[Within-group clipping\nfor KV INT4]
+    B --> D[Joint W4KV4\ncombined objective]
+    C --> D
+    D --> E[Better throughput\nthan W4A16 alone]

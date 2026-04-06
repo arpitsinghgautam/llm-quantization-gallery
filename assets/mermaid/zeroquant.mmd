@@ -1,0 +1,9 @@
+flowchart LR
+    A[LLM layer] --> B[Token-wise\nact quant INT8]
+    A --> C[Group-wise\nweight quant INT8]
+    B --> D[INT8 GEMM\ncustom CUDA kernel]
+    C --> D
+    D --> E{High degradation?}
+    E -->|yes| F[Layer-wise KD\nfrom FP16 teacher]
+    F --> G[W8A8 model]
+    E -->|no| G

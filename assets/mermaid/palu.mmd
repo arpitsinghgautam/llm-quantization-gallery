@@ -1,0 +1,7 @@
+flowchart LR
+    A[K proj weight W_K\nd to d] --> B[SVD: W_K approx U_r Sigma V_r^T]
+    B --> C[W_K_low in R^d_times_r\nW_K_proj in R^r_times_d]
+    C --> D[k_low = x W_K_low\nstore in R^r]
+    D --> E[At attention:\ndecode k = k_low W_K_proj]
+    E --> F[r over d ratio\n= compression factor]
+    F --> G[Combinable with\nKV quantization]

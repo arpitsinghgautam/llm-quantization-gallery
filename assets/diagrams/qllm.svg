@@ -9,32 +9,38 @@
 
 
   <!-- Generic diagram for QLLM -->
-  <!-- Fact panel -->
-  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <!-- Fact panel (left) -->
+  <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
   <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W4A8</text>
-  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-channel (after channel reassembly)</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-channel (after channel reasse…</text>
   <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  calibration set</text>
   <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     GPU</text>
   <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
   <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     ptq_weight_activation</text>
 
   <!-- TL;DR -->
-  <rect x="415" y="80" width="355" height="150" rx="6" fill="#E87D3E" opacity="0.08" stroke="#E87D3E" stroke-width="1.5"/>
+  <rect x="415" y="80" width="355" height="170" rx="6" fill="#E87D3E" opacity="0.08" stroke="#E87D3E" stroke-width="1.5"/>
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
-  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">QLLM tackles activation outliers by "channel reassembly": splitting each outlier</text>
-  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">activation channel into multiple sub-channels whose individual amplitudes fall</text>
+  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">QLLM tackles activation outliers by &quot;channel</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">reassembly&quot;: splitting each outlier activation</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">channel into multiple sub-channels whose</text>
+  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">individual amplitudes fall within the</text>
+  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">quantizable range. This is complementary to</text>
+  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">smoothing-based methods: instead of migrating</text>
 
   <!-- Key idea -->
-  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
-  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">For an outlier activation channel j with activation x_j that is consistently |x_j| >></text>
-  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">rest, QLLM splits x_j into K sub-channels by defining: x'_{j,k} = x_j / K for k=1..K,</text>
-  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">and correspondingly splits t</text>
+  <rect x="415" y="260" width="355" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="285" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">For an outlier activation channel j with</text>
+  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">activation x_j that is consistently |x_j| &gt;&gt;</text>
+  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">rest, QLLM splits x_j into K sub-channels by</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">defining: x'_{j,k} = x_j / K for k=1..K, and</text>
+  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">correspondingly splits the weight row w_j into</text>
 
   <!-- Bottom -->
-  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="50" y="415" font-family="monospace" font-size="11" fill="#E87D3E">https://arxiv.org/abs/2310.08041</text>
-  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2023  |  Authors: Jing Liu, Ruihao Gong, Xiuying Wei</text>
+  <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#E87D3E">https://arxiv.org/abs/2310.08041</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2023  |  Authors: Jing Liu, Ruihao Gong, Xiuying Wei</text>
 
 </svg>

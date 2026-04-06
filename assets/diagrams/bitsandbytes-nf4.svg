@@ -9,32 +9,38 @@
 
 
   <!-- Generic diagram for NF4 / QLoRA -->
-  <!-- Fact panel -->
-  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <!-- Fact panel (left) -->
+  <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
   <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W4A16 (NF4)</text>
-  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-group, g=64 (double quantization)</text>
-  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  none for quantization; LoRA adapters are</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-group, g=64 (double quantizat…</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  none for quantization; LoRA adapt…</text>
   <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     GPU (bitsandbytes CUDA kernels)</text>
   <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
   <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     ptq_weight_only</text>
 
   <!-- TL;DR -->
-  <rect x="415" y="80" width="355" height="150" rx="6" fill="#4A90D9" opacity="0.08" stroke="#4A90D9" stroke-width="1.5"/>
+  <rect x="415" y="80" width="355" height="170" rx="6" fill="#4A90D9" opacity="0.08" stroke="#4A90D9" stroke-width="1.5"/>
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
-  <text x="435" y="127" font-family="monospace" font-size="11" fill="#555">The QLoRA paper introduced the NF4 (Normal Float 4-bit) data type: a 4-bit format</text>
-  <text x="435" y="147" font-family="monospace" font-size="11" fill="#555">whose quantization levels are spaced at the quantiles of the standard normal d</text>
+  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">The QLoRA paper introduced the NF4 (Normal</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">Float 4-bit) data type: a 4-bit format whose</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">quantization levels are spaced at the</text>
+  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">quantiles of the standard normal distribution,</text>
+  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">rather than linearly. Because pre-trained LLM</text>
+  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">weights are approximately normally</text>
 
   <!-- Key idea -->
-  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
-  <text x="435" y="297" font-family="monospace" font-size="11" fill="#555">NF4 construction: given a standard normal distribution, compute the 16 quantiles q₀,</text>
-  <text x="435" y="317" font-family="monospace" font-size="11" fill="#555">q₁, ..., q₁₅ (including ±∞ boundaries). Normalize to [-1, 1]. These 16 values are the</text>
-  <text x="435" y="337" font-family="monospace" font-size="11" fill="#555">NF4 codebook. Quantize weight</text>
+  <rect x="415" y="260" width="355" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="285" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">NF4 construction: given a standard normal</text>
+  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">distribution, compute the 16 quantiles q₀, q₁,</text>
+  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">..., q₁₅ (including ±∞ boundaries). Normalize</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">to [-1, 1]. These 16 values are the NF4</text>
+  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">codebook. Quantize weight w as: round(w / s) →</text>
 
   <!-- Bottom -->
-  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="50" y="415" font-family="monospace" font-size="11" fill="#4A90D9">https://arxiv.org/abs/2305.14314</text>
-  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: 2023  |  Authors: Tim Dettmers, Artidoro Pagnoni, Ari Holtzman</text>
+  <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#4A90D9">https://arxiv.org/abs/2305.14314</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2023  |  Authors: Tim Dettmers, Artidoro Pagnoni, Ari Holtzman</text>
 
 </svg>

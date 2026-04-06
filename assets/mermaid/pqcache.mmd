@@ -1,0 +1,7 @@
+flowchart LR
+    A[Key or Value vector v] --> B[Split into m sub-vectors\nof dimension d/m each]
+    B --> C[Assign each sub-vec\nto nearest codebook centroid]
+    C --> D[Store m indices\ninstead of full vector]
+    D --> E[Asymmetric distance:\nscore without full decode]
+    E --> F[Product Quant KV\neffective 2-4 bits]
+    F --> G[Long-context inference\nlower memory footprint]

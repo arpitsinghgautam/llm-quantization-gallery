@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nno]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto W4A16]
+    D --> E[Outlier handling:\nnone — no compensation mechani]
+    E --> F[Quantized model\nW4A16]

@@ -1,0 +1,8 @@
+flowchart LR
+    A[FP16 pretrained\nLLM] --> B[Insert fake quant\nnodes throughout]
+    B --> C[Forward: quantize\nweights + activations]
+    C --> D[Loss on labeled data\nor self-supervised]
+    D --> E[Backprop through\nSTE for quant nodes]
+    E --> F{Converged?}
+    F -->|no| C
+    F -->|yes| G[Quantized LLM\nbetter than PTQ at same bits]

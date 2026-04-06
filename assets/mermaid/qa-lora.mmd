@@ -1,0 +1,6 @@
+flowchart LR
+    A[INT4 quantized\nbase model] --> B[Group-wise LoRA:\nrank = group size]
+    B --> C[Adapter A, B have\nsame granularity as quant groups]
+    C --> D[Fine-tune adapters\nwith QA-aware gradients]
+    D --> E[Merge A, B into\nquantized weights]
+    E --> F[No extra inference\noverhead after merge]

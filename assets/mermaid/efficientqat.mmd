@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 LLM] --> B[Phase 1: Block-AP\nblock-wise quant param train]
+    B --> C[Freeze surrounding blocks\ntrain scales and zeros]
+    C --> D[Phase 2: E2E-QP\nend-to-end quant param finetune]
+    D --> E{All blocks done?}
+    E -->|no| B
+    E -->|yes| F[W4A8 or W2A16\nhigh-quality QAT]

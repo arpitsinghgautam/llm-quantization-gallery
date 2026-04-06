@@ -1,0 +1,8 @@
+flowchart LR
+    A[FP16 model] --> B{Choose format}
+    B -->|weights| C[FP4 vs INT4\ncomparison]
+    B -->|activations| D[FP8 vs INT8\ncomparison]
+    C --> E[FP4 wins on\noutlier robustness]
+    D --> F[FP8 E4M3 wins\nfor activations]
+    E --> G[W4A8 FP-based\nbetter than INT at same bits]
+    F --> G

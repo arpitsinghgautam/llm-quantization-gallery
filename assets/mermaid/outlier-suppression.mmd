@@ -1,0 +1,6 @@
+flowchart LR
+    A[LayerNorm gamma\noutlier generator] --> B[Gamma Migration:\nabsorb scale into\nadjacent linear]
+    B --> C[Smoother activations]
+    C --> D[Token-wise clipping:\nper-token asymmetric quant]
+    D --> E[Optimal clip threshold\nper token]
+    E --> F[W8A8 / W6A6\nno decomposition needed]

@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 model] --> B[Collect activation\nmagnitude stats]
+    B --> C[AWQ: per-channel\nscale optimization]
+    C --> D[Apply scales, quantize\nweights to INT4]
+    D --> E[Save AWQ weights\n+ metadata]
+    E --> F[Fast inference:\ngemm_a16w4 or Marlin kernel]

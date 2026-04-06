@@ -1,0 +1,8 @@
+flowchart LR
+    A[FP16 Act X\noutlier channels] --> B[Compute smooth\nfactor s_j per channel]
+    B --> C[X_tilde = X div diag_s]
+    B --> D[W_tilde = diag_s times W]
+    C --> E[Quantize X_tilde\nto INT8]
+    D --> F[Quantize W_tilde\nto INT8]
+    E --> G[INT8 GEMM\ntensor cores]
+    F --> G

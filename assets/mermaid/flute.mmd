@@ -1,0 +1,7 @@
+flowchart LR
+    A[Weight group\ng elements] --> B[k-means cluster\ninto 2^b centroids]
+    B --> C[Store b-bit indices\nper element]
+    C --> D[FLUTE CUDA kernel:\nlookup indices → FP16]
+    D --> E[Fuse decode +\nGEMM accumulation]
+    E --> F[Single kernel\nno separate dequant]
+    F --> G[W3/W4 throughput\nnear FP16 GEMM]

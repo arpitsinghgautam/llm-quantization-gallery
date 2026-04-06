@@ -838,16 +838,27 @@ def generic_diagram(m, color):
     """Fallback generic diagram for any method."""
     name = m.get("name", m["id"])
     precision = m.get("precision", "")
-    tldr = m.get("tldr", "")[:160] if m.get("tldr") else ""
-    key_idea = m.get("key_idea", "")[:200] if m.get("key_idea") else ""
+    tldr = m.get("tldr", "") if m.get("tldr") else ""
+    key_idea = m.get("key_idea", "") if m.get("key_idea") else ""
     category = m.get("category", "")
     calibration = m.get("calibration", "unknown")
     granularity = m.get("granularity", "unknown")
     hardware = m.get("hardware_target", "unknown")
 
-    # Wrap text (very basic)
-    def wrap(text, width=85):
-        words = text.split()
+    def safe(text):
+        """Escape XML special characters."""
+        return str(text).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+
+    def trunc(text, n=34):
+        """Truncate to n chars with ellipsis."""
+        s = str(text) if text else ""
+        return s if len(s) <= n else s[:n - 1] + "\u2026"
+
+    # Right panel is 355px wide, text starts at x=435 inside rect at x=415+355=770.
+    # Available: 770-435-10 = 325px. Monospace 11px ≈ 6.6px/char → 49 chars max.
+    # Use 46 to be safe with variable glyph widths.
+    def wrap(text, width=46, max_lines=6):
+        words = str(text).split()
         lines = []
         current = ""
         for word in words:
@@ -859,51 +870,59 @@ def generic_diagram(m, color):
                 current = word
         if current:
             lines.append(current)
-        return lines[:4]  # max 4 lines
+        return lines[:max_lines]
 
-    tldr_lines = wrap(tldr) if tldr else []
-    key_lines = wrap(key_idea) if key_idea else []
+    tldr_lines = wrap(tldr, width=46, max_lines=6)
+    key_lines = wrap(key_idea, width=46, max_lines=5)
+
+    # Dynamic layout: boxes grow to fit content, capped at SVG height.
+    tldr_h = max(40 + len(tldr_lines) * 20 + 10, 70)
+    mech_y = 80 + tldr_h + 10
+    mech_h = max(40 + len(key_lines) * 20 + 10, 60)
+    bottom_y = min(mech_y + mech_h + 10, 437)
+    left_h = bottom_y - 80
 
     content = f"""
   <!-- Generic diagram for {name} -->
-  <!-- Fact panel -->
-  <rect x="30" y="80" width="355" height="290" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <!-- Fact panel (left) -->
+  <rect x="30" y="80" width="355" height="{left_h}" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
-  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    {precision}</text>
-  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  {granularity[:40]}</text>
-  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  {calibration[:40]}</text>
-  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     {hardware[:40]}</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    {safe(trunc(precision))}</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  {safe(trunc(granularity))}</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  {safe(trunc(calibration))}</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     {safe(trunc(hardware))}</text>
   <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     {"yes" if m.get("requires_training") else "no"}</text>
-  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     {category}</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     {safe(category)}</text>
 """
 
-    # TL;DR box
+    # TL;DR box (right, top)
     content += f"""
   <!-- TL;DR -->
-  <rect x="415" y="80" width="355" height="150" rx="6" fill="{color}" opacity="0.08" stroke="{color}" stroke-width="1.5"/>
+  <rect x="415" y="80" width="355" height="{tldr_h}" rx="6" fill="{color}" opacity="0.08" stroke="{color}" stroke-width="1.5"/>
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
 """
     for i, line in enumerate(tldr_lines):
-        y = 127 + i * 20
-        content += f'  <text x="435" y="{y}" font-family="monospace" font-size="11" fill="#555">{line}</text>\n'
+        y = 125 + i * 20
+        content += f'  <text x="435" y="{y}" font-family="monospace" font-size="11" fill="#555">{safe(line)}</text>\n'
 
-    # Key idea box
+    # Mechanism box (right, below TL;DR)
     content += f"""
   <!-- Key idea -->
-  <rect x="415" y="250" width="355" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="435" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <rect x="415" y="{mech_y}" width="355" height="{mech_h}" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="{mech_y + 25}" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
 """
     for i, line in enumerate(key_lines):
-        y = 297 + i * 20
-        content += f'  <text x="435" y="{y}" font-family="monospace" font-size="11" fill="#555">{line}</text>\n'
+        y = mech_y + 45 + i * 20
+        content += f'  <text x="435" y="{y}" font-family="monospace" font-size="11" fill="#555">{safe(line)}</text>\n'
 
     # Bottom bar
     paper_url = m.get("paper_url") or ""
+    authors_str = trunc(", ".join((m.get("authors") or [])[:3]), 60)
     content += f"""
   <!-- Bottom -->
-  <rect x="30" y="390" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="50" y="415" font-family="monospace" font-size="11" fill="{color}">{str(paper_url)[:90]}</text>
-  <text x="50" y="435" font-family="monospace" font-size="11" fill="#555">Year: {m.get("year", "?")}  |  Authors: {", ".join((m.get("authors") or [])[:3])}</text>
+  <rect x="30" y="{bottom_y}" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="{bottom_y + 22}" font-family="monospace" font-size="11" fill="{color}">{safe(trunc(str(paper_url), 75))}</text>
+  <text x="50" y="{bottom_y + 42}" font-family="monospace" font-size="11" fill="#555">Year: {m.get("year", "?")}  |  Authors: {safe(authors_str)}</text>
 """
     return content
 
@@ -918,6 +937,8 @@ def generate_svg(m, force=False):
     color = CATEGORY_COLORS.get(m.get("category", ""), "#607D8B")
     name = m.get("name", mid)
     precision = m.get("precision", "")
+    # Truncate title-bar precision so it doesn't overlap the method name
+    precision_title = precision if len(precision) <= 45 else precision[:44] + "\u2026"
 
     # Get content from specific or generic
     if mid in DIAGRAMS:
@@ -928,7 +949,7 @@ def generate_svg(m, force=False):
     svg = SVG_TEMPLATE.format(
         color=color,
         name=name,
-        precision=precision,
+        precision=precision_title,
         content=content,
     )
 

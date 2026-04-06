@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 weights\n+ calibration data] --> B[SignSGD optimizer\nfor scale and zero-point]
+    B --> C[Fake quant in\nforward pass]
+    C --> D[Gradient via\nSTE backprop]
+    D --> E{Converged?}
+    E -->|no| B
+    E -->|yes| F[INT4 weights\nAutoGPTQ-compatible format]

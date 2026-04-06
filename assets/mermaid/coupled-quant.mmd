@@ -1,0 +1,6 @@
+flowchart LR
+    A[Key K and Value V\nfrom same token] --> B[Analyze correlation\nbetween K and V]
+    B --> C[Joint codebook\nshared K-V pairs]
+    C --> D[Quantize K and V\ncoupled, not independent]
+    D --> E[Inter-vector correlation\nreduces joint error]
+    E --> F[KV2 near-lossless\ncoupled representation]

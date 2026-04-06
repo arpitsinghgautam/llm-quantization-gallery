@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 Activations] --> B[Stage 1: Rotation\nHadamard spreading]
+    B --> C[Reduced outliers\nbut residuals remain]
+    C --> D[Stage 2: Permutation\nreorder channels by range]
+    D --> E[Residual outliers\ngrouped and compressed]
+    E --> F[W4A4 state-of-art\ndual transformation]

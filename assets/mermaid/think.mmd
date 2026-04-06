@@ -1,0 +1,6 @@
+flowchart LR
+    A[Query Q and Key K\nfor head h] --> B[Q-K channel correlation:\nI_j = norm Q_j hadamard K_j]
+    B --> C[Rank dimensions\nby importance I_j]
+    C --> D[Prune low-importance\nK cache dimensions]
+    D --> E[20-40% key cache\nreduction]
+    E --> F[Orthogonal to\nquantization methods]

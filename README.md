@@ -8,15 +8,16 @@ Before reading the cards, see **[docs/notation.md](docs/notation.md)** for the `
 
 ## Table of Contents
 
-- [Post-Training Quantization — Weight-Only](#post-training-quantization--weight-only) — 21 methods
-- [Post-Training Quantization — Weights + Activations](#post-training-quantization--weights-+-activations) — 17 methods
+- [Post-Training Quantization — Weight-Only](#post-training-quantization--weight-only) — 26 methods
+- [Post-Training Quantization — Weights + Activations](#post-training-quantization--weights-+-activations) — 19 methods
 - [Quantization-Aware Training & Quantized Fine-Tuning](#quantization-aware-training--quantized-fine-tuning) — 10 methods
-- [Extreme Low-Bit & Binary/Ternary Quantization](#extreme-low-bit--binaryternary-quantization) — 8 methods
-- [KV-Cache Quantization](#kv-cache-quantization) — 11 methods
+- [Extreme Low-Bit & Binary/Ternary Quantization](#extreme-low-bit--binaryternary-quantization) — 9 methods
+- [KV-Cache Quantization](#kv-cache-quantization) — 15 methods
 - [Low-Precision Training & Numerical Formats](#low-precision-training--numerical-formats) — 4 methods
 - [MoE-Specific Quantization](#moe-specific-quantization) — 2 methods
 - [Systems, Kernels & Runtimes](#systems-kernels--runtimes) — 8 methods
-- [Full Method Matrix](#full-method-matrix) — 81 total
+- [Full Method Matrix](#full-method-matrix) — 93 total
+- [Chronological Overview](#chronological-overview)
 - [Lineage Graph](#lineage-graph)
 
 ## Full Method Matrix
@@ -47,6 +48,7 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [exl2](#exl2) | PTQ W-only | 2023 | 2–W8 | 16 | — | yes | no | — |
 | [exllamav2](#exllamav2) | Systems | 2023 | 2–W8 | 16 | — | yes | no | — |
 | [flatquant](#flatquant) | PTQ W+A | 2024 | 4 | 4 | — | yes | no | [paper](https://arxiv.org/abs/2410.09426) |
+| [flute](#flute) | PTQ W-only | 2024 | 3/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2407.10960) |
 | [fp6-llm](#fp6-llm) | PTQ W-only | 2024 | 6 | 16 | — | no | no | [paper](https://arxiv.org/abs/2401.14112) |
 | [fp8-training](#fp8-training) | LP Training | 2022 | ARD | — | — | no | yes | [paper](https://arxiv.org/abs/2209.05433) |
 | [gear](#gear) | KV Quant | 2024 | 16 | 16 | 4 | no | no | [paper](https://arxiv.org/abs/2403.05527) |
@@ -57,6 +59,7 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [ir-qlora](#ir-qlora) | QAT / QFT | 2024 | 4 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2402.05445) |
 | [kivi](#kivi) | KV Quant | 2024 | 16 | 16 | 2 | no | no | [paper](https://arxiv.org/abs/2402.02750) |
 | [kvquant](#kvquant) | KV Quant | 2024 | 16 | 16 | 4 | yes | no | [paper](https://arxiv.org/abs/2401.18079) |
+| [littlebit](#littlebit) | PTQ W-only | 2025 | EIGHT) | — | — | yes | no | [paper](https://neurips.cc/virtual/2025/poster/115061) |
 | [llama-cpp](#llama-cpp) | Systems | 2023 | 2/W3/W4/W5/W6/W8 | 16 | — | no | no | — |
 | [llm-int8](#llm-int8) | PTQ W+A | 2022 | 8 | 8 | — | no | no | [paper](https://arxiv.org/abs/2208.07339) |
 | [llm-qat](#llm-qat) | QAT / QFT | 2023 | 4 | 8 | 4 | no | yes | [paper](https://arxiv.org/abs/2305.17888) |
@@ -76,8 +79,10 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [outlier-suppression-plus](#outlier-suppression-plus) | PTQ W+A | 2023 | 8 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2304.09145) |
 | [owq](#owq) | PTQ W-only | 2023 | 3/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2306.02272) |
 | [palu](#palu) | KV Quant | 2024 | 16 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2407.21118) |
+| [paroquant](#paroquant) | PTQ W+A | 2025 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2511.10645) |
 | [pb-llm](#pb-llm) | Sub-2-bit | 2023 | ~1–2 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2309.06085) |
 | [peqa](#peqa) | QAT / QFT | 2023 | 4 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2304.02384) |
+| [pmkvq](#pmkvq) | KV Quant | 2025 | — | — | 2 | yes | no | [paper](https://arxiv.org/abs/2505.18610) |
 | [pqcache](#pqcache) | KV Quant | 2024 | 16 | 16 | 2 | yes | no | [paper](https://arxiv.org/abs/2407.12820) |
 | [pv-tuning](#pv-tuning) | QAT / QFT | 2024 | 2 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2405.14852) |
 | [qa-lora](#qa-lora) | QAT / QFT | 2023 | 4 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2309.14717) |
@@ -85,20 +90,28 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [qllm](#qllm) | PTQ W+A | 2023 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2310.08041) |
 | [qlora](#qlora) | QAT / QFT | 2023 | 4 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2305.14314) |
 | [qserve](#qserve) | PTQ W+A | 2024 | 4 | 8 | 4 | yes | no | [paper](https://arxiv.org/abs/2405.04532) |
+| [qtip](#qtip) | PTQ W-only | 2024 | 2 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2406.11811) |
 | [quant-llm](#quant-llm) | PTQ W-only | 2024 | 4/W6 | 16 | — | no | no | [paper](https://arxiv.org/abs/2405.08925) |
 | [quarot](#quarot) | PTQ W+A | 2024 | 4 | 4 | 4 | no | no | [paper](https://arxiv.org/abs/2404.00456) |
 | [quip](#quip) | PTQ W-only | 2023 | 2/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2307.13304) |
 | [quip-sharp](#quip-sharp) | PTQ W-only | 2024 | 2/W3/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2402.04396) |
+| [ramp](#ramp) | PTQ W-only | 2026 | 2-W8 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2603.17891) |
+| [resq](#resq) | PTQ W+A | 2025 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2407.08563) |
+| [rotatekv](#rotatekv) | KV Quant | 2025 | — | — | 2 | no | no | [paper](https://www.ijcai.org/proceedings/2025/0690.pdf) |
 | [rptq](#rptq) | PTQ W+A | 2023 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2304.01089) |
 | [rtn](#rtn) | PTQ W-only | unknown | 4 | 16 | — | no | no | — |
+| [sageattention](#sageattention) | KV Quant | 2024 | — | — | — | no | no | [paper](https://arxiv.org/abs/2410.02367) |
 | [sglang-quant](#sglang-quant) | Systems | 2024 | 4 | 16 | — | no | no | [paper](https://arxiv.org/abs/2312.07104) |
 | [skvq](#skvq) | KV Quant | 2024 | 16 | 16 | 2 | no | no | [paper](https://arxiv.org/abs/2405.06484) |
 | [smoothquant](#smoothquant) | PTQ W+A | 2022 | 8 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2211.10438) |
+| [snapkv](#snapkv) | KV Quant | 2024 | — | — | — | no | no | [paper](https://arxiv.org/abs/2404.14469) |
 | [spectra](#spectra) | Sub-2-bit | 2024 | 1.58 | 8 | — | no | yes | [paper](https://arxiv.org/abs/2407.12327) |
 | [spinquant](#spinquant) | PTQ W+A | 2024 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2405.16406) |
 | [spqr](#spqr) | PTQ W-only | 2023 | 3/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2306.03078) |
 | [squeezellm](#squeezellm) | PTQ W-only | 2023 | 4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2306.07629) |
+| [tequila](#tequila) | Sub-2-bit | 2025 | 1.58 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2509.23809) |
 | [think](#think) | KV Quant | 2024 | 16 | 16 | 4 | no | no | [paper](https://arxiv.org/abs/2407.21018) |
+| [turboqu](#turboqu) | PTQ W-only | 2025 | 2/W3 | 16 | — | no | no | [paper](https://arxiv.org/abs/2504.19874) |
 | [vllm-quant](#vllm-quant) | Systems | 2023 | 4 | 16 | — | no | no | [paper](https://arxiv.org/abs/2309.06180) |
 | [wkvquant](#wkvquant) | KV Quant | 2024 | 4 | 16 | 4 | yes | no | [paper](https://arxiv.org/abs/2402.12065) |
 | [zeroquant](#zeroquant) | PTQ W+A | 2022 | 8 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2206.01861) |
@@ -113,10 +126,130 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 
 These methods quantize only the weight tensors; activations remain in FP16/BF16. This avoids the challenge of activation outliers and is sufficient for memory-bound inference (most single-GPU LLM serving). The dominant category for open-weight model releases.
 
+### RAMP · W2-W8 A16 mixed (per-layer) · PTQ W-only · 2026-03 {#ramp}
+
+<img src="assets/diagrams/ramp.svg" width="640" alt="RAMP diagram">
+<p><em>RAMP: retrieval from a sensitivity database assigns per-layer bit-widths without re-optimization.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nyes]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto W2-W8 A16 mixed (per-layer)]
+    D --> E[Outlier handling:\nsensitive layers assigned high]
+    E --> F[Quantized model\nW2-W8 A16 mixed (per-layer)]
+```
+
+> RAMP (Retrieval-Augmented Mixed-Precision) uses a retrieval-based approach to assign bit-widths to individual layers of an LLM. Rather than solving a sensitivity optimization from scratch for each new model, RAMP retrieves bit-width assignments from a database of previously quantized models with known per-layer sensitivity profiles. Layers similar to highly-sensitive layers in the database receive higher bit-widths; robust layers receive lower bit-widths. This amortizes the cost of mixed-precision search across models and enables high-quality quantization without expensive per-model optimization.
+
+| Field | Value |
+|-------|-------|
+| Paper | [2603.17891](https://arxiv.org/abs/2603.17891) · arXiv 2026 |
+| Precision | W2-W8 A16 mixed (per-layer) |
+| Granularity | per-layer mixed precision, retrieval-guided |
+| Calibration | calibration set for sensitivity measurement |
+| Symmetric? | symmetric |
+| Outlier handling | sensitive layers assigned higher bit-width via retrieval |
+| Hardware target | GPU |
+| Training needed? | no |
+| Calibration data? | yes |
+| Typical degradation | near-lossless at 4-bit average via intelligent bit allocation |
+| Builds on | [gptq](#gptq) · [awq](#awq) |
+| Related | [gptq](#gptq) · [awq](#awq) · [spqr](#spqr) · [omniquant](#omniquant) |
+
+**How it works:**
+
+RAMP maintains a database of (layer feature, optimal bit-width) pairs from previously quantized models. For a new model, each layer is embedded into a feature space capturing its weight statistics and activation properties. The nearest neighbors in the database determine the bit-width assignment for that layer. This retrieval step replaces expensive evolutionary search or gradient-based mixed-precision optimization. The database grows over time as more models are quantized, improving future bit-width recommendations.
+
+---
+
+### LittleBit · sub-1-bit (effective ~0.1 bits per weight) · PTQ W-only · 2025-09 {#littlebit}
+
+<img src="assets/diagrams/littlebit.svg" width="640" alt="LittleBit diagram">
+<p><em>LittleBit: weight matrix factorized into FP16 codebook C + ultra-low-bit latent codes Z.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nyes]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto sub-1-bit (effective ~0.1 bits per weight)]
+    D --> E[Outlier handling:\nlatent factorization absorbs d]
+    E --> F[Quantized model\nsub-1-bit (effective ~0.1 bits per weight)]
+```
+
+> LittleBit pushes quantization to the extreme: it achieves effective bit-widths of ~0.1 bits per weight through latent factorization. Rather than quantizing individual weights, LittleBit factorizes the weight matrix into a shared latent codebook and per-weight latent codes. The latent codes are quantized to extremely few bits (or even single bits), while the shared codebook captures the bulk of the information. This is related to tensor factorization and vector quantization but targets extreme sub-1-bit regimes that are beyond previous methods.
+
+| Field | Value |
+|-------|-------|
+| Paper | [115061](https://neurips.cc/virtual/2025/poster/115061) · NeurIPS 2025 |
+| Precision | sub-1-bit (effective ~0.1 bits per weight) |
+| Granularity | global latent space factorization |
+| Calibration | calibration set for latent factor optimization |
+| Symmetric? | symmetric |
+| Outlier handling | latent factorization absorbs distribution into low-dimensional space |
+| Hardware target | GPU |
+| Training needed? | no |
+| Calibration data? | yes |
+| Typical degradation | significant at sub-1-bit; best known result at this compression ratio |
+| Builds on | [aqlm](#aqlm) · [quip-sharp](#quip-sharp) · [qtip](#qtip) |
+| Related | [aqlm](#aqlm) · [qtip](#qtip) · [quip-sharp](#quip-sharp) · [bitnet](#bitnet) |
+
+**How it works:**
+
+LittleBit decomposes each weight layer W into W = C * Z, where C is a learned latent codebook (shared across the layer) and Z is a matrix of binary or ternary latent codes. The codes Z are quantized to very low bit-width (1-2 bits), while C is kept in higher precision (FP16) but is small enough that the total storage is sub-1-bit average. The decomposition is optimized via alternating minimization on calibration data. The extreme compression sacrifices some accuracy but enables deployment scenarios where memory is the absolute bottleneck.
+
+---
+
+### TurboQuant · W2/W3 A16 (vector quantization) · PTQ W-only · 2025-04 {#turboqu}
+
+<img src="assets/diagrams/turboqu.svg" width="640" alt="TurboQuant diagram">
+<p><em>TurboQuant: online codebook update with near-optimal rate-distortion guarantee.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nno]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto W2/W3 A16 (vector quantization)]
+    D --> E[Outlier handling:\nnear-optimal rate-distortion c]
+    E --> F[Quantized model\nW2/W3 A16 (vector quantization)]
+```
+
+> TurboQuant introduces an online vector quantization algorithm that provably achieves near-optimal distortion rate — meaning the quantization error is within a small constant factor of the information-theoretic minimum at a given bit-rate. Unlike offline VQ methods (AQLM, QuIP#) that require an expensive codebook construction pass over the full weight tensor, TurboQuant updates its codebook online as it processes weight vectors sequentially. This enables single-pass quantization with near-optimal quality and significantly lower memory overhead.
+
+| Field | Value |
+|-------|-------|
+| Paper | [2504.19874](https://arxiv.org/abs/2504.19874) · arXiv 2025 |
+| Precision | W2/W3 A16 (vector quantization) |
+| Granularity | per-group, online codebook update |
+| Calibration | online — updates codebook as weights stream in |
+| Symmetric? | symmetric |
+| Outlier handling | near-optimal rate-distortion coding absorbs outliers |
+| Hardware target | GPU |
+| Training needed? | no |
+| Calibration data? | no |
+| Typical degradation | near-optimal distortion bound at given bit-rate |
+| Builds on | [aqlm](#aqlm) · [quip-sharp](#quip-sharp) |
+| Related | [aqlm](#aqlm) · [quip-sharp](#quip-sharp) · [qtip](#qtip) · [hqq](#hqq) |
+
+**How it works:**
+
+TurboQuant frames weight quantization as an online learning problem: given a stream of weight vectors, it maintains and updates a codebook to minimize cumulative distortion. The algorithm draws from competitive online learning theory to provide regret bounds guaranteeing near-optimal distortion relative to the best fixed codebook in hindsight. This is in contrast to offline methods that need multiple passes or solving expensive optimization problems. TurboQuant achieves strong empirical performance on LLaMA-family models at 2-3 bit-widths.
+
+---
+
 ### Marlin · W4A16 (INT4), W4A8 (INT4 weight, FP8 activation) · PTQ W-only · 2024-08 {#marlin}
 
 <img src="assets/diagrams/marlin.svg" width="640" alt="Marlin diagram">
 <p><em>Marlin warp layout: prefetch → dequantize → tensor-core accumulate, all pipelined.</em></p>
+
+```mermaid
+flowchart LR
+    A[INT4 weights\nGPTQ format] --> B[Permute for\nmemory coalescing]
+    B --> C[Marlin kernel:\nfuse dequant + GEMM]
+    C --> D[128-thread warps\npipeline async loads]
+    D --> E[FP16 GEMM throughput\nnear theoretical peak]
+    E --> F[2.4x faster than\ntorch W4A16 baseline]
+```
 
 > Marlin is a high-performance CUDA kernel library for W4A16 and W4A8 grouped-quantized matrix multiplication on NVIDIA GPUs. For a transformer layer serving a single token (decode phase), the bottleneck is memory bandwidth: loading the 4-bit weight matrix. Marlin achieves close to the theoretical memory bandwidth limit of A100/H100 by carefully designing warp layouts, prefetching patterns, and the FP16 dequantization pipeline to overlap computation with memory loads. It is integrated into vLLM, TRT-LLM, and SGLang.
 
@@ -142,10 +275,99 @@ Marlin's kernel decomposes the matmul into tiles processed by persistent warps. 
 
 ---
 
+### FLUTE · W3/W4 A16 · PTQ W-only · 2024-07 {#flute}
+
+<img src="assets/diagrams/flute.svg" width="640" alt="FLUTE diagram">
+<p><em>FLUTE: learned per-group codebook with fused lookup-table decode inside the GEMM kernel.</em></p>
+
+```mermaid
+flowchart LR
+    A[Weight group\ng elements] --> B[k-means cluster\ninto 2^b centroids]
+    B --> C[Store b-bit indices\nper element]
+    C --> D[FLUTE CUDA kernel:\nlookup indices → FP16]
+    D --> E[Fuse decode +\nGEMM accumulation]
+    E --> F[Single kernel\nno separate dequant]
+    F --> G[W3/W4 throughput\nnear FP16 GEMM]
+```
+
+> FLUTE represents quantized weights as small learned lookup tables (codebooks) per group, rather than uniform scalar quantization. A custom CUDA kernel fuses the lookup-table decode step with the GEMM operation, eliminating explicit dequantization overhead. Supports 2-to-4-bit weight-only quantization, achieves accuracy competitive with GPTQ, and delivers faster inference through the fused kernel design.
+
+| Field | Value |
+|-------|-------|
+| Paper | [2407.10960](https://arxiv.org/abs/2407.10960) · NeurIPS 2024 |
+| Code | [HanGuo97/flute](https://github.com/HanGuo97/flute) |
+| Precision | W3/W4 A16 |
+| Granularity | per-group, learned codebook |
+| Calibration | calibration set for codebook learning |
+| Symmetric? | asymmetric |
+| Outlier handling | non-uniform codebook levels fit to weight distribution |
+| Hardware target | GPU; custom CUDA LUT kernel fused with GEMM |
+| Training needed? | no |
+| Calibration data? | yes |
+| Typical degradation | comparable to GPTQ; faster inference due to fused kernel |
+| Builds on | [gptq](#gptq) · [gguf-kquants](#gguf-kquants) |
+| Related | [gptq](#gptq) · [awq](#awq) · [marlin](#marlin) · [exl2](#exl2) |
+
+**How it works:**
+
+For each weight group, FLUTE learns a small codebook (e.g. 16 entries for 4-bit) that minimizes reconstruction error. At inference, the FLUTE CUDA kernel reads 4-bit indices, performs table lookups to recover FP16 values, and immediately feeds them into GEMM accumulation in a single fused kernel. This eliminates the separate dequant pass. Non-uniform codebook levels (like k-means or NF4 bins) are naturally supported without extra cost, giving better accuracy than uniform quantization at the same bit-width.
+
+---
+
+### QTIP · W2 A16 · PTQ W-only · 2024-06 {#qtip}
+
+<img src="assets/diagrams/qtip.svg" width="640" alt="QTIP diagram">
+<p><em>QTIP: Hadamard rotation + trellis-coded joint quantization over weight sequences.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 Weight W] --> B[Hadamard rotation\nincoherence preprocessing]
+    B --> C[Near-Gaussian\nweight distribution]
+    C --> D[Trellis-coded quant:\ndynamic programming\nover weight sequence]
+    D --> E[Viterbi-style joint\nerror minimization]
+    E --> F[Store trellis\nstate indices]
+    F --> G[Fast CUDA\ndecode kernel]
+    G --> H[W2A16 state-of-art\n< 0.3 ppl vs FP16]
+```
+
+> QTIP pushes 2-bit weight quantization to near-lossless quality by combining incoherence processing (random Hadamard rotation) with trellis-coded quantization — a sequence-modeling approach that codes runs of weights jointly rather than independently. The trellis codebook captures inter-weight correlations within a group, yielding significantly better rate-distortion than per-weight scalar codebooks. QTIP achieves state-of-the-art 2-bit results on LLaMA-2 70B with perplexity within 0.3 of FP16.
+
+| Field | Value |
+|-------|-------|
+| Paper | [2406.11811](https://arxiv.org/abs/2406.11811) · NeurIPS 2024 |
+| Code | [Cornell-RelaxML/qtip](https://github.com/Cornell-RelaxML/qtip) |
+| Precision | W2 A16 |
+| Granularity | per-group with trellis codebook |
+| Calibration | small calibration set for Hessian |
+| Symmetric? | symmetric |
+| Outlier handling | incoherence processing (Hadamard rotation) before trellis coding |
+| Hardware target | GPU; custom CUDA trellis decode kernel |
+| Training needed? | no |
+| Calibration data? | yes |
+| Typical degradation | < 0.3 ppl vs FP16 at W2 on LLaMA-2-70B |
+| Builds on | [quip-sharp](#quip-sharp) · [quip](#quip) · [gptq](#gptq) |
+| Related | [quip-sharp](#quip-sharp) · [aqlm](#aqlm) · [hqq](#hqq) |
+
+**How it works:**
+
+After rotating weights with a random Hadamard matrix, QTIP applies trellis-coded quantization: dynamic programming treats the weight sequence as a Markov chain and finds the joint quantization minimizing total squared error across the group. This is analogous to Viterbi decoding on a trellis. Results are stored as trellis-state indices decoded at inference via a fast CUDA kernel. Builds on QuIP# incoherence preprocessing and adds sequence-level coding on top.
+
+---
+
 ### QuaRot / Quant-LLM (FP6) · W4/W6 A16 · PTQ W-only · 2024-05 {#quant-llm}
 
 <img src="assets/diagrams/quant-llm.svg" width="640" alt="QuaRot / Quant-LLM (FP6) diagram">
 <p><em>Mixed FP6/INT4 per-layer assignment with speculative decoding compensation.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 weight W] --> B[Random Hadamard\nrotation R]
+    B --> C[Incoherent W_tilde]
+    C --> D[FP6 quantize\nTC-FPx kernel]
+    D --> E[W6A16 Quant-LLM]
+    C --> F[FP4 quantize\nexperimental]
+    F --> G[W4A16 FP4 variant]
+```
 
 > Quant-LLM explores mixed-precision serving that pairs FP6 weight quantization with token-level speculative decoding. Latency-sensitive layers get W6A16 (FP6 weights) for high quality, while less sensitive layers get W4A16. Speculative decoding with a small draft model compensates for the quality gap of the lower-precision layers. This co-design approach targets serving throughput rather than the quantization algorithm itself.
 
@@ -174,6 +396,16 @@ Quant-LLM assigns FP6 quantization to the first and last layers of the transform
 
 <img src="assets/diagrams/quip-sharp.svg" width="640" alt="QuIP# diagram">
 <p><em>Hadamard incoherence + E8 lattice vector quantization for 2-bit PTQ.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 Weight W] --> B[Random Hadamard\nrotation H]
+    B --> C[Incoherent W_tilde = HWH^T]
+    C --> D[E8 lattice\ncodebook quantize]
+    D --> E[Store codebook\nindices only]
+    E --> F[Lookup-table\ndecode at inference]
+    F --> G[W2A16\nnear-lossless]
+```
 
 > QuIP# extends QuIP with two key improvements: replacing random orthogonal rotations with Hadamard matrices (which are fast to compute and hardware-friendly), and replacing scalar uniform quantization with vector quantization using the E8 lattice codebook. The E8 lattice is the densest known 8-dimensional integer lattice; using it as a codebook allows more efficient representation of 8 values simultaneously than 8 independent scalar quantizations. Together, these make QuIP# the best-known 2-bit PTQ method as of 2024, achieving near-FP16 perplexity at 2 bits on LLaMA-2 scale.
 
@@ -204,6 +436,15 @@ Two innovations over QuIP: (1) Hadamard incoherence — using a randomized Hadam
 <img src="assets/diagrams/fp6-llm.svg" width="640" alt="FP6-LLM diagram">
 <p><em>TC-FPx kernel: bitpacked FP6 weights unpacked to FP16 inside Tensor Core matmul.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP32/FP16 weight] --> B[Convert to FP6:\nE3M2 or E2M3 format]
+    B --> C[Pack two FP6 values\ninto 12-bit pair]
+    C --> D[TC-FPx CUDA kernel:\nbitwise unpack + GEMM]
+    D --> E[Tensor-core compatible\nhardware efficient]
+    E --> F[W6A16: better than\nW4 accuracy near W8]
+```
+
 > FP6-LLM makes 6-bit floating-point weight quantization practical on NVIDIA GPUs that have no native FP6 hardware support. The method packs FP6 weights (1 sign, 2 exponent, 3 mantissa bits) into standard GPU memory layouts and implements a GPU kernel (TC-FPx) that unpacks and converts FP6 to FP16 during the matrix multiplication, achieving near-FP16 throughput. The floating-point format's larger dynamic range compared to INT6 means FP6 requires less clipping, which is important for LLM weights with outlier channels.
 
 | Field | Value |
@@ -232,6 +473,16 @@ The core contribution is a CUDA kernel strategy called TC-FPx that enables arbit
 
 <img src="assets/diagrams/aqlm.svg" width="640" alt="AQLM diagram">
 <p><em>Additive multi-codebook quantization: 8 weights = 2 index lookups.</em></p>
+
+```mermaid
+flowchart LR
+    A[Weight col w in R^d] --> B[Split into\nm sub-vectors]
+    B --> C[M learned\ncodebooks C_1 to C_m]
+    C --> D[Find nearest\ncentroid per sub-vec]
+    D --> E[Store M indices\nper group]
+    E --> F[Decode w_hat = sum C_i idx_i]
+    F --> G[2-3 bit\neffective storage]
+```
 
 > AQLM applies additive quantization (from the image/audio compression literature) to LLM weights. Each group of 8 weights is represented as a sum of M codebook entries (M=1 or 2 in practice), where each codebook has 2^b entries. With M=2 codebooks of 256 entries each, 8 weights are stored as 2 bytes of indices plus the shared codebooks, achieving approximately 2 bits per weight. Learned via a beam-search optimization that jointly minimizes layer-wise reconstruction error, AQLM achieves state-of-the-art 2-bit quality among PTQ methods and outperforms QuIP# on several model families.
 
@@ -262,6 +513,15 @@ Each weight block w ∈ ℝ⁸ is approximated as ŵ = Σ_{m=1}^{M} C_m[i_m], wh
 <img src="assets/diagrams/gguf-iquants.svg" width="640" alt="GGUF I-quants diagram">
 <p><em>Importance-weighted lattice quantization: imatrix guides bit allocation per row.</em></p>
 
+```mermaid
+flowchart LR
+    A[Weight block] --> B[Hadamard preprocess:\nincoherence rotation]
+    B --> C[Near-Gaussian\nweight distribution]
+    C --> D[E8-like lattice\ncodebook quantize]
+    D --> E[Store codebook indices\nIQ2_XXS to IQ4_XS]
+    E --> F[Best quality per bit\nin GGUF format]
+```
+
 > I-quants are the "importance-aware" quantization formats in llama.cpp, superseding K-quants for quality at the same or lower bit-width. They require an "importance matrix" (imatrix) computed by running the model on a representative sample and recording the squared mean activation for each weight row. Weights in rows with high importance scores are quantized more carefully (or get more effective bits). The quantization grid itself uses lattice codebooks derived from the paper "Improved Lattice Quantization via Dual Quantization" rather than uniform linear scales, allowing non-uniform grids that fit the weight distributions better.
 
 | Field | Value |
@@ -290,6 +550,16 @@ The imatrix records ‖x_j‖² per row j (the squared norm of input activations
 
 <img src="assets/diagrams/hqq.svg" width="640" alt="HQQ diagram">
 <p><em>Robust half-quadratic loss minimization for scale/zero-point — no calibration data needed.</em></p>
+
+```mermaid
+flowchart LR
+    A[Weight W] --> B[Minimize L1\nnorm W - Q W_s_z]
+    B --> C[Proximal\niterative solve]
+    C --> D{Converged?}
+    D -->|no| B
+    D -->|yes| E[Optimal scale s\nzero-point z]
+    E --> F[No calibration data\nW4/W2 in under 1 min]
+```
 
 > HQQ finds optimal quantization parameters (scale and zero-point) by directly minimizing a robust loss between the original and quantized weights using half-quadratic optimization, without any calibration data. The half-quadratic penalty is a smoothed version of L1 that down-weights large residuals (outliers), making the scale/zp solution robust to weight outliers. Because it needs no activations, HQQ is significantly faster to run than GPTQ and can quantize a 70B model in under a minute on CPU. Quality is close to GPTQ at 4-bit and significantly better than RTN, especially at lower bits.
 
@@ -320,6 +590,15 @@ Standard RTN minimizes ‖W − Q(W)‖² w.r.t. the scale s and zero-point z, b
 <img src="assets/diagrams/exl2.svg" width="640" alt="EXL2 diagram">
 <p><em>EXL2: each weight matrix row assigned a different bit-width by Hessian importance.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nyes]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto W2–W8 A16 (mixed per-row, target average bit-width)]
+    D --> E[Outlier handling:\nper-row bit-width assignment: ]
+    E --> F[Quantized model\nW2–W8 A16 (mixed per-row, target average bit-width)]
+```
+
 > EXL2 is the quantization format native to the ExLlamaV2 inference engine. It extends GPTQ's approach with per-row bit-width assignment: different rows (output channels) of each weight matrix are quantized to different bit-widths (2–8), with the assignment determined by row-level Hessian importance. A target average bits-per-weight is specified, and the quantizer greedily assigns more bits to rows that suffer more from quantization. This makes EXL2 a "smooth" format — any target bpw from 2.0 to 8.0 in 0.05 steps is achievable, rather than the discrete jumps of W3/W4/W5.
 
 | Field | Value |
@@ -348,6 +627,16 @@ EXL2 quantization proceeds in two passes: (1) compute per-row Hessian importance
 
 <img src="assets/diagrams/autoround.svg" width="640" alt="AutoRound diagram">
 <p><em>Sign gradient descent optimizes rounding direction per weight jointly within each block.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 weights\n+ calibration data] --> B[SignSGD optimizer\nfor scale and zero-point]
+    B --> C[Fake quant in\nforward pass]
+    C --> D[Gradient via\nSTE backprop]
+    D --> E{Converged?}
+    E -->|no| B
+    E -->|yes| F[INT4 weights\nAutoGPTQ-compatible format]
+```
 
 > AutoRound improves on GPTQ's rounding decisions by framing quantization as a block-wise sign-gradient descent problem rather than an analytic second-order update. Each weight's rounding direction (floor vs. ceil) is treated as a binary decision variable, and these decisions are optimized jointly within each block by computing sign gradients of the block reconstruction loss. This allows AutoRound to find better rounding patterns than the greedy column-by-column approach of GPTQ, without requiring more memory than a calibration forward pass.
 
@@ -378,6 +667,17 @@ AutoRound uses Signed Gradient Descent (SignSGD) to optimize rounding decisions.
 <img src="assets/diagrams/omniquant.svg" width="640" alt="OmniQuant diagram">
 <p><em>Learnable clipping range and equivalent transformation, optimized by backprop through frozen weights.</em></p>
 
+```mermaid
+flowchart LR
+    A[Calibration data] --> B[Learnable Weight\nClipping LWC]
+    A --> C[Learnable Equiv\nTransform LET]
+    B --> D[Optimize clip\nthresholds end-to-end]
+    C --> E[Learn channel\nscale and shift]
+    D --> F[Block-wise KD\nfrom FP16 teacher]
+    E --> F
+    F --> G[W4A16, W4A4\nor W6A6 model]
+```
+
 > OmniQuant optimizes quantization parameters (clipping range, scale, zero-point) directly through gradient descent on a block-wise reconstruction loss, rather than computing them analytically from statistics. The learnable clipping approach (LWC) allows the clipping range to adapt to the actual distribution, trading off more clips against smaller scale. A learnable equivalent transformation (LET) handles the activation quantization case by absorbing a channel-wise scale into the preceding layer (analogous to SmoothQuant but with learned parameters). Both weight-only and weight+activation modes are supported.
 
 | Field | Value |
@@ -406,6 +706,15 @@ OmniQuant frames quantization as an optimization problem: given a block of trans
 
 <img src="assets/diagrams/gguf-kquants.svg" width="640" alt="GGUF K-quants diagram">
 <p><em>Hierarchical two-level K-quant: inner-block scales quantized relative to a FP16 super-block scale.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 weight block\n256 elements] --> B[Compute importance\nvia activation norms]
+    B --> C[Scale important\ngroups more finely]
+    C --> D[Super-block scale\n+ sub-block scales]
+    D --> E[Pack to target bit\nQ2_K to Q8_K]
+    E --> F[Better accuracy than\nuniform at same bits]
+```
 
 > The K-quant formats in llama.cpp use a two-level hierarchical quantization scheme. A super-block of 256 weights contains several inner blocks of 16–32 weights each. Each inner block has its own low-precision scale (quantized), while the super-block stores the dequantization scale for those inner-block scales in a higher precision. Different K-quant variants (Q2_K, Q3_K, Q4_K_S, Q4_K_M, Q5_K, Q6_K) differ in the number of bits for both the weights and the block scales, and optionally assign higher precision to specific layers (e.g. attention layers in _M variants).
 
@@ -437,6 +746,16 @@ The hierarchy is: weights at b bits → inner-block scale at b' bits → super-b
 <img src="assets/diagrams/quip.svg" width="640" alt="QuIP diagram">
 <p><em>Random orthogonal rotation makes weights incoherent; uniform quantization then works at 2-bit.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 Weight W] --> B[Random orthogonal\nrotation R]
+    B --> C[Incoherent W_tilde = R W R^T]
+    C --> D[Near-Gaussian\ndistribution]
+    D --> E[Uniform scalar\nquantize W_tilde]
+    E --> F[At inference:\ndecode via R^T * Q * R]
+    F --> G[Incoherence enables\nlow-bit near-lossless]
+```
+
 > QuIP is the first method to achieve practical 2-bit LLM quantization with theoretical guarantees. The key insight is "incoherence processing": by multiplying weights and calibration inputs by a random orthogonal matrix before quantization (and the inverse after), the weight distribution becomes nearly Gaussian with no outliers, allowing simple uniform quantization to work well even at 2 bits. The quality improvement is dramatic — 2-bit QuIP outperforms all prior 2-bit methods by a large margin.
 
 | Field | Value |
@@ -467,6 +786,15 @@ The weight matrix W is transformed as W̃ = U W Vᵀ where U and V are random or
 <img src="assets/diagrams/squeezellm.svg" width="640" alt="SqueezeLLM diagram">
 <p><em>k-means non-uniform quantization + sensitivity-based sparse FP16 overlay.</em></p>
 
+```mermaid
+flowchart LR
+    A[Weight W] --> B[Fisher info\nsensitivity map]
+    B --> C[Top-k sensitive\nweights → sparse FP16]
+    C --> D[Rest → k-means\nclustered INT4]
+    D --> E[Dense INT4\n+ sparse FP16 residual]
+    E --> F[Non-uniform quant\nbetter than uniform at same bits]
+```
+
 > SqueezeLLM uses the same dense-and-sparse decomposition strategy as SpQR but combines it with non-uniform (k-means) quantization for the dense part rather than uniform grid quantization. The most sensitive weights (by Fisher information / gradient covariance) are stored in a sparse FP16 matrix; the remaining weights are clustered using k-means, with each weight pointing to one of 2^b centroids stored in a look-up table. The non-uniform grid better captures the actual weight distribution, reducing error vs. uniform quantization at the same bit-width.
 
 | Field | Value |
@@ -495,6 +823,17 @@ Two components work together: (1) Sensitivity-guided sparse extraction — Fishe
 
 <img src="assets/diagrams/spqr.svg" width="640" alt="SpQR diagram">
 <p><em>Sensitive weights kept as FP16 sparse; rest quantized to INT3/INT4.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 Weight W] --> B[Sensitivity via\nHessian H]
+    B --> C{Outlier weight?}
+    C -->|yes ~1%| D[Store in\nFP16 sparse]
+    C -->|no ~99%| E[Quantize to\n3-4 bit group]
+    D --> F[Sparse FP16\n+ dense INT3/4]
+    E --> F
+    F --> G[~3.9 bit avg\nnear-lossless]
+```
 
 > SpQR combines dense grouped quantization with a sparse FP16 overlay for the most sensitive weights. For each weight group, the Hessian-based sensitivity is computed, and the top ~1% of weights with the highest sensitivity score are extracted and stored in a sparse FP16 format alongside the quantized dense block. This lets SpQR achieve near-lossless 3-bit compression: the bulk of weights go to 3 bits, while a tiny fraction stay in FP16. The dense part is compatible with standard GPTQ-style quantization.
 
@@ -525,6 +864,15 @@ SpQR extends GPTQ with a hybrid representation: each weight w_ij is scored by it
 <img src="assets/diagrams/owq.svg" width="640" alt="OWQ diagram">
 <p><em>Hessian-ranked column selection: top columns stay FP16, rest go INT3/4.</em></p>
 
+```mermaid
+flowchart LR
+    A[Weight W\n+ activation stats] --> B[Identify outlier-\ninfluenced columns]
+    B --> C[Outlier cols:\nhigher bit width or FP16]
+    C --> D[Remaining cols:\nlow-bit GPTQ quantize]
+    D --> E[Mixed-precision\nper column]
+    E --> F[Better accuracy\nthan uniform GPTQ]
+```
+
 > OWQ identifies the weight columns whose quantization errors propagate most destructively to the output — those corresponding to large-magnitude activation channels — and keeps them in FP16, quantizing everything else to low bits. This is complementary to SpQR: OWQ works at the column level (keeping entire columns at FP16) rather than individual weight sensitivity. The column selection criterion is the Hessian diagonal [H]_jj (the squared input activation norm for column j), which captures how much quantizing column j would affect the output.
 
 | Field | Value |
@@ -553,6 +901,15 @@ For each linear layer, compute the Hessian diagonal [H]_jj = E[x_j²] (mean squa
 
 <img src="assets/diagrams/awq.svg" width="640" alt="AWQ diagram">
 <p><em>Activation-magnitude-guided channel scaling before standard quantization.</em></p>
+
+```mermaid
+flowchart LR
+    A[Calibration\nActivations X] --> B[Per-channel\nmagnitude norm_x_j]
+    B --> C[Scale s_j = norm_x_j ^ alpha]
+    C --> D[W_hat = Q of W times diag_s]
+    D --> E[Absorb s^-1 into\nprevious layer]
+    E --> F[W4A16\ndeployment]
+```
 
 > AWQ observes that not all weight channels are equally important — channels corresponding to high-magnitude activation dimensions cause disproportionately large quantization error. The solution is to scale those channels up by their activation magnitude (making them harder to quantize individually but reducing their contribution to output error), then divide the corresponding activation by the same scale to preserve mathematical equivalence. The scale can be found analytically or by a fast grid search. AWQ requires no Hessian computation and no per-weight optimization: it is one forward calibration pass plus a scale computation, making it much faster than GPTQ.
 
@@ -583,6 +940,15 @@ For each linear layer, AWQ observes per-channel activation magnitudes s̃j = mea
 <img src="assets/diagrams/bitsandbytes-nf4.svg" width="640" alt="NF4 / QLoRA diagram">
 <p><em>NF4 quantile grid: 16 levels at Gaussian quantiles; double-quantized per-group scale.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 weight values\nof one 64-element block] --> B[Normalize to -1 to 1\nabs max scaling]
+    B --> C[Find nearest NF4 level\nfrom 16 non-uniform bins]
+    C --> D[Store 4-bit NF4 index\nper weight]
+    D --> E[At compute time:\ndequant to BF16]
+    E --> F[Optimal for normal\ndistribution weights]
+```
+
 > The QLoRA paper introduced the NF4 (Normal Float 4-bit) data type: a 4-bit format whose quantization levels are spaced at the quantiles of the standard normal distribution, rather than linearly. Because pre-trained LLM weights are approximately normally distributed, NF4 achieves lower expected quantization error than uniform INT4 at the same bit-width. QLoRA also introduces "double quantization" (quantizing the per-group scales themselves to 8 bits) and paged optimizers to fit fine-tuning of 65B+ models into a single GPU. NF4 is implemented in bitsandbytes and is now the dominant format for memory-efficient inference of base models.
 
 | Field | Value |
@@ -612,6 +978,17 @@ NF4 construction: given a standard normal distribution, compute the 16 quantiles
 <img src="assets/diagrams/gptq.svg" width="640" alt="GPTQ diagram">
 <p><em>Column-wise error compensation via inverse Hessian redistribution.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 Weight W] --> B[Compute Hessian\nH = 2XX^T]
+    B --> C[Cholesky\ndecompose H^-1]
+    C --> D{For each\ncolumn q}
+    D --> E[Quantize col\nto INT4]
+    E --> F[Redistribute error\nto cols q+1 onward]
+    F --> D
+    D --> G[INT4 W\n+ group scales]
+```
+
 > GPTQ processes each transformer layer independently, using an approximate inverse Hessian of the layer's input to compensate for quantization error column-by-column. Quantizing one column introduces a residual error, which is immediately redistributed to the remaining unquantized columns via an OBS-style update. A careful column-ordering and a precomputed Cholesky factorization of the Hessian make the whole thing tractable in minutes per layer. GPTQ produced the kernel ecosystem (Marlin, ExLlamaV2) that most 4-bit open-weight LLM inference runs on today, and was the first method to make sub-4-bit quality practical at LLaMA scale.
 
 | Field | Value |
@@ -640,6 +1017,17 @@ For each linear layer, GPTQ estimates H = 2 X Xᵀ (the expected squared input) 
 
 <img src="assets/diagrams/obq.svg" width="640" alt="OBQ diagram">
 <p><em>Optimal Brain Surgeon applied per-weight with exact error propagation.</em></p>
+
+```mermaid
+flowchart LR
+    A[Weight matrix W\n+ Hessian H] --> B[Compute per-weight\nsaliency score]
+    B --> C[Select least-salient\nweight]
+    C --> D[Quantize it to\nlow-bit value]
+    D --> E[Redistribute error:\nW remaining -= delta * H^-1 row]
+    E --> F{All weights\nquantized?}
+    F -->|no| B
+    F -->|yes| G[Low-bit W\nwith OBS error comp]
+```
 
 > OBQ applies the Optimal Brain Surgeon (OBS) second-order framework to weight quantization: for each weight quantized, the residual quantization error is exactly absorbed by updating all remaining unquantized weights. This gives the theoretically best PTQ solution within a layer given an inverse Hessian, but is O(d³) per layer — impractical at LLM scale. GPTQ is a fast approximation of OBQ that sacrifices exact per-weight optimality for column-parallel processing, reducing complexity to O(d² × columns).
 
@@ -671,6 +1059,16 @@ For each weight wq selected for quantization, the OBS update is: δ W = −(wq �
 <img src="assets/diagrams/obs.svg" width="640" alt="OBS diagram">
 <p><em>OBS: second-order weight change formulation and exact Hessian-based compensation.</em></p>
 
+```mermaid
+flowchart LR
+    A[Layer output error\nE = trace of H * delta_W^2] --> B[Choose weight\nwith min saliency]
+    B --> C[Set weight to zero\n/ quantize it]
+    C --> D[Update remaining\nweights via H^-1]
+    D --> E{More weights?}
+    E -->|yes| B
+    E -->|no| F[Compressed layer\n+ error compensation]
+```
+
 > Optimal Brain Surgeon (OBS) is the classical second-order framework for weight pruning (and later, quantization). It computes, for each weight w_q, the increase in training loss from removing or changing that weight, using the full Hessian of the loss. After removing/changing weight q, OBS updates all remaining weights to minimize the resulting error: Δw = −(w_q / [H⁻¹]_qq) × H⁻¹[q, :]. This exact second-order compensation is the theoretical foundation for GPTQ, OBQ, and all subsequent Hessian-based quantization methods.
 
 | Field | Value |
@@ -697,6 +1095,15 @@ For a network with loss L(w) ≈ L(w₀) + ½(w−w₀)^T H (w−w₀), removing
 
 <img src="assets/diagrams/rtn.svg" width="640" alt="RTN diagram">
 <p><em>Round-to-nearest: scale, round, clip — the universal baseline.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nno]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto W4A16]
+    D --> E[Outlier handling:\nnone — no compensation mechani]
+    E --> F[Quantized model\nW4A16]
+```
 
 > Round-to-nearest is the simplest possible quantization strategy: compute a linear scale from the weight range, divide each weight by that scale, round to the nearest integer, and clip to the representable range. It requires no data, no calibration, and no compute beyond a single pass over the weights. It is the universal baseline against which all other methods are measured. At 4-bit it typically degrades perplexity by 1–3 points on LLaMA-scale models, and at 3-bit or below it degrades rapidly. Every method in this gallery claims to beat RTN at the same bit-width.
 
@@ -726,10 +1133,97 @@ Given a weight tensor W, compute s = (max(W) − min(W)) / (2^b − 1) for asymm
 
 Quantizing both weights and activations enables integer matrix multiplication (W8A8 or W4A8), which is compute-bound-friendly and achieves higher throughput than W-only on GPU. The challenge is handling activation outliers without sacrificing accuracy.
 
+### ParoQuant · W4A8 (reasoning-model optimized) · PTQ W+A · 2025-11 {#paroquant}
+
+<img src="assets/diagrams/paroquant.svg" width="640" alt="ParoQuant diagram">
+<p><em>ParoQuant: pairwise Givens rotation targets outlier-channel pairs for efficient reasoning LLM quantization.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 Weights + Activations] --> B[Handle outliers:\npairwise rotation: pair outlie]
+    B --> C[Quantize weights\nto low-bit]
+    B --> D[Quantize activations\nto low-bit]
+    C --> E[INT GEMM\ntensor cores]
+    D --> E
+    E --> F[W4A8 (reasoning-model optimized)\nquantized inference]
+```
+
+> Reasoning LLMs (DeepSeek-R1, QwQ, o1-style models) exhibit different activation patterns than standard language models due to their extended chain-of-thought computation. ParoQuant introduces pairwise rotation quantization: instead of applying a global random rotation (like QuaRot), it identifies pairs of channels where one has large outliers and the other is near-zero, and applies a targeted 2x2 Givens rotation to redistribute the outlier energy between them. This is more efficient than full Hadamard rotation and better preserves reasoning-specific activation structures.
+
+| Field | Value |
+|-------|-------|
+| Paper | [2511.10645](https://arxiv.org/abs/2511.10645) · ICLR 2026 |
+| Precision | W4A8 (reasoning-model optimized) |
+| Granularity | pairwise channel rotation + per-group weight quant |
+| Calibration | reasoning traces as calibration data |
+| Symmetric? | symmetric |
+| Outlier handling | pairwise rotation: pair outlier channels with compensating channels |
+| Hardware target | GPU |
+| Training needed? | no |
+| Calibration data? | yes |
+| Typical degradation | < 1% degradation on math/reasoning benchmarks at W4A8 |
+| Builds on | [quarot](#quarot) · [spinquant](#spinquant) · [duquant](#duquant) |
+| Related | [quarot](#quarot) · [spinquant](#spinquant) · [duquant](#duquant) · [flatquant](#flatquant) |
+
+**How it works:**
+
+For each attention/FFN layer, ParoQuant identifies (outlier, small) channel pairs via calibration. A 2x2 Givens rotation matrix [cos θ, -sin θ; sin θ, cos θ] is applied to each pair with θ chosen to equalize the channel norms. This spreads the outlier energy into two manageable channels instead of one extreme channel. The rotations are folded into adjacent weight matrices offline (zero inference cost). Using reasoning traces (not just random text) as calibration ensures the outlier pairs reflect actual inference-time distributions for CoT workloads.
+
+---
+
+### ResQ · W4A8 with FP16 low-rank residual for outlier subspace · PTQ W+A · 2025-01 {#resq}
+
+<img src="assets/diagrams/resq.svg" width="640" alt="ResQ diagram">
+<p><em>ResQ: PCA decomposes activations into outlier subspace (FP16) and clean subspace (INT8).</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 Weights + Activations] --> B[Handle outliers:\nisolate outlier subspace via P]
+    B --> C[Quantize weights\nto low-bit]
+    B --> D[Quantize activations\nto low-bit]
+    C --> E[INT GEMM\ntensor cores]
+    D --> E
+    E --> F[W4A8 with FP16 low-rank residual for outlier subspace\nquantized inference]
+```
+
+> ResQ decomposes activation tensors into two parts: a low-rank subspace that captures the dominant outlier directions (kept in FP16), and the complementary subspace that is free of outliers (quantized to INT8). The subspace decomposition is computed via PCA on calibration activations. This is analogous to LLM.int8()'s decomposition but applied at a subspace level rather than individual channels, allowing much more of the computation to run in INT8 while still handling outliers accurately.
+
+| Field | Value |
+|-------|-------|
+| Paper | [2407.08563](https://arxiv.org/abs/2407.08563) · ICLR 2025 |
+| Precision | W4A8 with FP16 low-rank residual for outlier subspace |
+| Granularity | per-channel + low-rank subspace decomposition |
+| Calibration | calibration set for PCA of activations |
+| Symmetric? | asymmetric |
+| Outlier handling | isolate outlier subspace via PCA; quantize subspace-free activations to INT8 |
+| Hardware target | GPU |
+| Training needed? | no |
+| Calibration data? | yes |
+| Typical degradation | < 0.5 ppl on LLaMA-2-70B W4A8 |
+| Builds on | [llm-int8](#llm-int8) · [smoothquant](#smoothquant) |
+| Related | [llm-int8](#llm-int8) · [atom](#atom) · [quarot](#quarot) · [spinquant](#spinquant) |
+
+**How it works:**
+
+PCA is run on calibration activations to identify the top-k principal components that capture the outlier variance. The weight matrix is decomposed as W = W_sub * P + W_rest, where P is the outlier projection. At inference, X is split into X_sub (projected onto outlier subspace, computed in FP16) and X_rest (quantized to INT8 and computed with quantized weights). The final output combines both. Since only k << d dimensions use FP16, the overhead is small but the accuracy gain is large.
+
+---
+
 ### FlatQuant · W4A4 · PTQ W+A · 2024-10 {#flatquant}
 
 <img src="assets/diagrams/flatquant.svg" width="640" alt="FlatQuant diagram">
 <p><em>Per-layer learned affine transformations optimize weight/activation flatness for W4A4.</em></p>
+
+```mermaid
+flowchart LR
+    A[Layer activations] --> B[Learnable Kronecker\naffine transform A]
+    B --> C[Calibrate A per-layer\nto flatten distribution]
+    C --> D{Flat enough?}
+    D -->|no| C
+    D -->|yes| E[Apply A offline to W]
+    E --> F[Flat activation dist\nno rotation overhead]
+    F --> G[W4A4 low-error]
+```
 
 > FlatQuant argues that the key property needed for good quantization is "flatness" of the post-transformation weight/activation landscape, not just outlier suppression. It learns per-layer linear transformations (not necessarily restricted to orthogonal matrices) that minimize a measure of quantization-induced flatness loss. The transformations are more expressive than pure rotations and are jointly optimized across weights and activations using a calibration-based gradient method, achieving state-of-the-art W4A4 results on LLaMA-2/3 families.
 
@@ -759,6 +1253,15 @@ For each layer, FlatQuant learns a pair of transformations (T_W, T_X) that appro
 <img src="assets/diagrams/duquant.svg" width="640" alt="DuQuant diagram">
 <p><em>Dual rotation: channel Hadamard (spatial) + token-group rotation (temporal) for W4A4.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 Activations] --> B[Stage 1: Rotation\nHadamard spreading]
+    B --> C[Reduced outliers\nbut residuals remain]
+    C --> D[Stage 2: Permutation\nreorder channels by range]
+    D --> E[Residual outliers\ngrouped and compressed]
+    E --> F[W4A4 state-of-art\ndual transformation]
+```
+
 > DuQuant extends the rotation-based quantization paradigm by applying two transformations instead of one: a channel-wise Hadamard rotation (like QuaRot) to handle outliers that persist in specific channels, followed by a block-diagonal rotation across tokens within each group to further smooth the activation distribution across the sequence dimension. The dual rotation is more expressive than a single rotation and can eliminate outliers that persist after a single Hadamard pass.
 
 | Field | Value |
@@ -786,6 +1289,16 @@ Two rotation stages: (1) A randomized block-diagonal Hadamard rotation H_c appli
 
 <img src="assets/diagrams/spinquant.svg" width="640" alt="SpinQuant diagram">
 <p><em>Learned rotation on Stiefel manifold minimizes post-rotation quantization error.</em></p>
+
+```mermaid
+flowchart LR
+    A[Random rotation R_0] --> B[Optimize via\nCayley SGD]
+    B --> C{Stiefel manifold\nconstraint met?}
+    C -->|no| B
+    C -->|yes| D[Learned R*\northogonal matrix]
+    D --> E[Fold into W and X offline]
+    E --> F[W4A4 / W4A8\nlow-outlier inference]
+```
 
 > SpinQuant is the learned-rotation extension of QuaRot. Instead of using a fixed random Hadamard matrix, SpinQuant optimizes the rotation matrix R on the Stiefel manifold (the set of orthogonal matrices) to minimize the quantization error of the rotated activations. The optimization uses Cayley SGD — a manifold-aware gradient method for orthogonal matrices — and runs on a small calibration set. Because the rotation is learned to specifically minimize quantization error (rather than just spreading outliers randomly), SpinQuant consistently outperforms QuaRot at equal bit-widths.
 
@@ -816,6 +1329,15 @@ SpinQuant parameterizes the rotation as R ∈ O(d) (the orthogonal group) and mi
 <img src="assets/diagrams/qserve.svg" width="640" alt="QServe diagram">
 <p><em>W4A8KV4 system: progressive INT4→INT8 dequant inside kernel; QoQ custom Tensor Core matmul.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 model] --> B[GPTQ W4\nweight quant]
+    B --> C[SmoothAttention\nfor KV4]
+    C --> D[W4 to INT8\nfused dequant kernel]
+    D --> E[INT8 GEMM\ntensor cores]
+    E --> F[W4A8KV4\n2x vs W4A16]
+```
+
 > QServe is a system co-design paper targeting W4A8KV4 quantization for throughput-optimized LLM serving. Weights are stored at INT4 (per-group), activations at INT8 (per-token with SmoothQuant-style migration), and the KV cache at INT4 (per-head). The key algorithmic contribution is "progressive quantization": a W4→W8 dequantization path that avoids the poor W4A8 INT4-Tensor-Core quality problem by performing the dequant inside the kernel. The system contribution is QoQ (Quarot-on-Quantized), an INT4 matrix multiplication kernel that achieves 3.5× throughput over FP16 on A100.
 
 | Field | Value |
@@ -844,6 +1366,16 @@ QServe's "progressive quantization" solves the W4A8 quality problem: INT4 Tensor
 
 <img src="assets/diagrams/quarot.svg" width="640" alt="QuaRot diagram">
 <p><em>Hadamard rotation equalizes activation magnitudes, enabling W4A4 without outlier handling.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 LLM] --> B[Random Hadamard\nmatrix R]
+    B --> C[Rotate weights offline\nW_tilde = W times R^T]
+    B --> D[Rotate acts online\nX_tilde = X times R]
+    C --> E[Uniform dist\nno outliers]
+    D --> E
+    E --> F[W4A4\nquantization]
+```
 
 > QuaRot applies random Hadamard rotations to the weight and activation spaces of every linear layer in the transformer. A Hadamard rotation is orthogonal (preserves matrix products exactly) and has the effect of spreading activation outliers uniformly across all dimensions. After rotation, activations are nearly isotropic with no dominant outlier channels, making per-token INT4 quantization of activations feasible with minimal quality loss. Weights are correspondingly pre-rotated offline and then quantized. The result is practical W4A4 inference with quality close to W4A16 GPTQ.
 
@@ -874,6 +1406,17 @@ For each linear layer Y = XW, a random Hadamard matrix H is applied: Y = (XH)(H^
 <img src="assets/diagrams/affine-quant.svg" width="640" alt="AffineQuant diagram">
 <p><em>Per-channel shift + scale learned jointly; shift absorbed into bias, scale into weights.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 model] --> B[Optimize full affine\ntransform matrix T]
+    B --> C[W_equiv = T times W\nX_equiv = X times T^-1]
+    C --> D[Newton-step solver\nfor T efficiently]
+    D --> E{Converged?}
+    E -->|no| B
+    E -->|yes| F[Generalized SmoothQuant:\nfull linear vs diagonal]
+    F --> G[W4A4 / W4A8\nbetter than SmoothQuant]
+```
+
 > AffineQuant learns per-channel affine transformations (scale + shift, not just scale) for both weights and activations to minimize the combined quantization error. Unlike SmoothQuant (scale only) or rotation methods (orthogonal matrices), AffineQuant's per-channel shift is a genuine additional degree of freedom that can center asymmetric distributions. The transformations are equivalent (absorbed into surrounding layers), and the shift absorbed into bias vectors provides centering at no inference cost.
 
 | Field | Value |
@@ -901,6 +1444,18 @@ For a linear layer Y = XW + b, AffineQuant parameterizes a per-channel transform
 
 <img src="assets/diagrams/atom.svg" width="640" alt="Atom diagram">
 <p><em>W4A4 matmul for non-outlier channels; W8A8 for outlier channels; mixed output summed.</em></p>
+
+```mermaid
+flowchart LR
+    A[LLM layer] --> B{Channel type}
+    B -->|outlier ~1%| C[INT8 / FP16]
+    B -->|normal ~99%| D[INT4 group quant]
+    D --> E[Dynamic per-token\nact quantization]
+    C --> F[INT4 GEMM\nCUTLASS kernels]
+    E --> F
+    F --> G[KV INT4 cache]
+    G --> H[W4A4KV4 serving]
+```
 
 > Atom targets W4A4 quantization (both weights and activations at 4 bits), which enables using INT4 Tensor Cores for compute-bound speedup in addition to memory savings. The challenge is that activations are hard to quantize to 4 bits due to outliers. Atom's approach: detect the most quantization-sensitive weight/activation channels using a calibration pass, assign those channels to a higher precision (W8/A8), and quantize everything else to W4A4 with per-group weight and per-token activation scales. A custom CUDA kernel handles the mixed-precision channel assignment efficiently.
 
@@ -931,6 +1486,17 @@ Three components: (1) Outlier channel detection — identify top-k outlier activ
 <img src="assets/diagrams/zeroquant-4plus2.svg" width="640" alt="ZeroQuant(4+2) diagram">
 <p><em>ZeroQuant(4+2): sensitive layers at FP6, rest at W4A8; mixed-precision layer assignment.</em></p>
 
+```mermaid
+flowchart LR
+    A[All layers] --> B[Measure quantization\nsensitivity per block]
+    B --> C[Sort blocks\nby sensitivity score]
+    C --> D{Top-k%\nsensitive?}
+    D -->|yes| E[Assign FP6\nTC-FPx kernel]
+    D -->|no| F[Assign W4A8\nZeroQuant style]
+    E --> G[Mixed 4+2 model\n~4.X bit average]
+    F --> G
+```
+
 > ZeroQuant(4+2) extends the ZeroQuant series by proposing a mixed W4+W6 strategy: the majority of layers use W4A8 (INT4 weight, INT8 activation) for high compression, while the most sensitive layers (typically the first and last layers, plus selected attention layers) use FP6 weights for better precision. The sensitivity is measured by the ZeroQuant block-wise reconstruction loss. The paper also explores FP8 training as a natural extension of the ZeroQuant framework and provides a comprehensive study of mixed-precision strategies across model families.
 
 | Field | Value |
@@ -960,6 +1526,17 @@ Layer sensitivity scoring: run the ZeroQuant quantization on each block independ
 <img src="assets/diagrams/qllm.svg" width="640" alt="QLLM diagram">
 <p><em>Channel reassembly: outlier channel split into K sub-channels each within quantizable range.</em></p>
 
+```mermaid
+flowchart LR
+    A[Outlier activation\nchannel j] --> B{Action}
+    B -->|large outlier| C[Channel disassembly:\nsplit into k sub-channels]
+    B -->|near-zero| D[Channel assembly:\nmerge with neighbor]
+    C --> E[Equivalent transform\nno accuracy loss]
+    D --> E
+    E --> F[All channels in\nnormal quantizable range]
+    F --> G[W4A8 / W4A4]
+```
+
 > QLLM tackles activation outliers by "channel reassembly": splitting each outlier activation channel into multiple sub-channels whose individual amplitudes fall within the quantizable range. This is complementary to smoothing-based methods: instead of migrating outlier energy to weights (SmoothQuant), QLLM splits the outlier channel itself into two or more channels of smaller amplitude. The split is handled by adjusting the corresponding weight rows, maintaining mathematical equivalence. After reassembly, standard per-channel or per-token INT8 quantization works well on all channels.
 
 | Field | Value |
@@ -987,6 +1564,17 @@ For an outlier activation channel j with activation x_j that is consistently |x_
 
 <img src="assets/diagrams/zeroquant-fp.svg" width="640" alt="ZeroQuant-FP diagram">
 <p><em>FP4/FP8 formats: non-uniform grid covers activation dynamic range better than INT8.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 model] --> B{Choose format}
+    B -->|weights| C[FP4 vs INT4\ncomparison]
+    B -->|activations| D[FP8 vs INT8\ncomparison]
+    C --> E[FP4 wins on\noutlier robustness]
+    D --> F[FP8 E4M3 wins\nfor activations]
+    E --> G[W4A8 FP-based\nbetter than INT at same bits]
+    F --> G
+```
 
 > ZeroQuant-FP explores using floating-point formats (FP4 for weights, FP8 for activations) instead of integer formats in the ZeroQuant framework. The key finding is that for activations — which have approximately log-normal distributions with large dynamic range — FP8 (E4M3 or E5M2) significantly outperforms INT8 at the same bit-width because the non-uniform floating-point grid better covers the tails. For weights (approximately normally distributed), FP4 also outperforms INT4 due to the same effect. This paper motivated the adoption of FP8 in subsequent hardware (H100 Tensor Cores) and training frameworks.
 
@@ -1017,6 +1605,17 @@ For activations quantized per-token, FP8 E4M3 (4 exponent bits, 3 mantissa) cove
 <img src="assets/diagrams/outlier-suppression-plus.svg" width="640" alt="Outlier Suppression+ diagram">
 <p><em>Optimal per-channel shift and scale, solved analytically to minimize quantization error.</em></p>
 
+```mermaid
+flowchart LR
+    A[Activation channel X_j] --> B[Compute optimal\nshift t_j and scale s_j]
+    B --> C[Shifted X_j_shifted = X_j - t_j]
+    C --> D[Zero-centered\nsymmetric distribution]
+    D --> E[Scale X_j_shifted / s_j]
+    E --> F[INT8 quantize]
+    F --> G[Absorb t_j and s_j\ninto adjacent weights]
+    G --> H[W8A8 / W4A8\nanalytical optimal]
+```
+
 > Outlier Suppression+ extends the original Outlier Suppression by framing the shift and scale selection as an optimization problem rather than using heuristic rules. Given a linear layer, it finds the per-channel shift (s) and scale (α) that minimize the expected quantization error subject to the constraint that the transformation is equivalent (can be absorbed into surrounding layers without changing model output). The optimal parameters are found analytically using first- and second-order statistics from the calibration set. The result is consistently better than heuristic approaches.
 
 | Field | Value |
@@ -1045,6 +1644,15 @@ For a linear operation Y = XW + b, we seek channel-wise transformations X' = (X 
 <img src="assets/diagrams/rptq.svg" width="640" alt="RPTQ diagram">
 <p><em>Channel reordering: cluster similar-magnitude channels, apply per-cluster quantization scale.</em></p>
 
+```mermaid
+flowchart LR
+    A[Activation channels] --> B[Group channels by\nsimilar range]
+    B --> C[Channel reordering:\noutliers grouped together]
+    C --> D[Cluster-wise\nquantization per group]
+    D --> E[Outliers share\nscale within group]
+    E --> F[W4A8 / W4A4\nno decomposition overhead]
+```
+
 > RPTQ observes that activation outliers tend to appear in specific channels that are consistently high-magnitude, while other channels are low-magnitude. Instead of handling them separately (LLM.int8()) or scaling them away (SmoothQuant), RPTQ reorders activation channels into clusters of similar magnitude and then applies per-cluster quantization. By grouping high-magnitude channels together into their own cluster, the per-cluster dynamic range is reduced relative to per-tensor quantization, allowing lower-bit quantization with less error.
 
 | Field | Value |
@@ -1072,6 +1680,17 @@ Offline, use k-means clustering on activation channel magnitudes (from calibrati
 
 <img src="assets/diagrams/zeroquant-v2.svg" width="640" alt="ZeroQuant-V2 diagram">
 <p><em>Low-Rank Compensation: SVD of quantization error added back to quantized weights.</em></p>
+
+```mermaid
+flowchart LR
+    A[Quantized model] --> B[Measure per-block\nreconstruction error]
+    B --> C{Error too high?}
+    C -->|yes| D[Add low-rank\ncompensation matrix]
+    D --> E[W * A_r * B_r\nadded to quantized W]
+    C -->|no| F[Keep quantized block]
+    E --> G[W4A8 or W8A8\n+ LoRC correction]
+    F --> G
+```
 
 > ZeroQuant-V2 extends ZeroQuant with a comprehensive study of quantization granularity effects and a new technique called Low-Rank Compensation (LoRC). LoRC adds a low-rank matrix decomposition of the quantization error to the quantized weight matrix: given the error E = W − Q(W), compute a rank-r approximation Ê = UV^T via SVD, and store Ŵ + Ê instead of just Ŵ. This extra low-rank correction (with very small memory overhead) compensates for the most structured part of the quantization error, recovering significant accuracy at W4A8 precision.
 
@@ -1103,6 +1722,17 @@ Low-Rank Compensation: given quantization error E = W − Q(W), compute truncate
 <img src="assets/diagrams/smoothquant.svg" width="640" alt="SmoothQuant diagram">
 <p><em>Scale migration: diag(s) moves from activations to weights, equalizing quantization difficulty.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 Act X\noutlier channels] --> B[Compute smooth\nfactor s_j per channel]
+    B --> C[X_tilde = X div diag_s]
+    B --> D[W_tilde = diag_s times W]
+    C --> E[Quantize X_tilde\nto INT8]
+    D --> F[Quantize W_tilde\nto INT8]
+    E --> G[INT8 GEMM\ntensor cores]
+    F --> G
+```
+
 > SmoothQuant addresses the fundamental difficulty of activation quantization: the presence of large per-channel outliers that dominate the dynamic range. The insight is that outliers are systematic (always in the same channels across all tokens), so we can "smooth" them away by multiplying each activation channel by its inverse scale and multiplying the corresponding weight column by the same scale — an operation that is mathematically equivalent to the original matmul but redistributes the quantization difficulty from activations (which vary token-to-token) to weights (which are static). The per-channel weight scales are absorbed into the preceding LayerNorm, so they are free at inference time.
 
 | Field | Value |
@@ -1131,6 +1761,15 @@ For each linear layer, compute per-channel activation scales as s_j = max_t(|X_{
 
 <img src="assets/diagrams/outlier-suppression.svg" width="640" alt="Outlier Suppression diagram">
 <p><em>Channel shifting + token clamping center the activation distribution for INT8.</em></p>
+
+```mermaid
+flowchart LR
+    A[LayerNorm gamma\noutlier generator] --> B[Gamma Migration:\nabsorb scale into\nadjacent linear]
+    B --> C[Smoother activations]
+    C --> D[Token-wise clipping:\nper-token asymmetric quant]
+    D --> E[Optimal clip threshold\nper token]
+    E --> F[W8A8 / W6A6\nno decomposition needed]
+```
 
 > Outlier Suppression identifies that outlier activation channels cause disproportionate quantization error and proposes two techniques to mitigate them without changing the model architecture. Gamma correction shifts outlier channels by their maximum value to center them around zero. Token-level absolute-max clamping clips extreme outlier values per-token. Together, these preprocessing steps make the activation distribution more amenable to uniform INT8 quantization, achieving W8A8 quality close to FP16 without any equivalent transformation that modifies weights.
 
@@ -1161,6 +1800,17 @@ Two components: (1) Channel-wise shifting: for each activation channel j with ex
 <img src="assets/diagrams/llm-int8.svg" width="640" alt="LLM.int8() diagram">
 <p><em>Outlier decomposition: FP16 path for outlier columns, INT8 path for the rest.</em></p>
 
+```mermaid
+flowchart LR
+    A[Input X] --> B{Outlier\ndetector}
+    B -->|outlier dims ~0.1%| C[FP16 matmul]
+    B -->|normal dims ~99.9%| D[INT8 quantize]
+    D --> E[INT8 matmul]
+    C --> F[Dequant + combine]
+    E --> F
+    F --> G[FP16 output]
+```
+
 > LLM.int8() was the first practical INT8 inference method for LLMs that does not degrade perplexity. The key observation is that, in models with more than ~6.7B parameters, a small set of activation channels (about 0.1%) contain systematic outliers that are 10–100× larger than the rest. Quantizing these channels to INT8 causes catastrophic error. LLM.int8() avoids this by decomposing the matrix multiplication: outlier columns of the input are extracted and computed in FP16 while all other columns go through INT8 matmul. The two partial results are summed in FP16. This halves the memory usage of a 7B+ model while preserving quality.
 
 | Field | Value |
@@ -1190,6 +1840,18 @@ Given input X ∈ ℝ^{T×d} and weight W ∈ ℝ^{d×d'}, LLM.int8() identifies
 
 <img src="assets/diagrams/zeroquant.svg" width="640" alt="ZeroQuant diagram">
 <p><em>Per-token dynamic activation scales + per-group static weight scales for W8A8.</em></p>
+
+```mermaid
+flowchart LR
+    A[LLM layer] --> B[Token-wise\nact quant INT8]
+    A --> C[Group-wise\nweight quant INT8]
+    B --> D[INT8 GEMM\ncustom CUDA kernel]
+    C --> D
+    D --> E{High degradation?}
+    E -->|yes| F[Layer-wise KD\nfrom FP16 teacher]
+    F --> G[W8A8 model]
+    E -->|no| G
+```
 
 > ZeroQuant is Microsoft's W8A8 PTQ framework for large-scale transformer inference, integrated into DeepSpeed. It introduces per-token activation quantization (one scale per output token vector rather than one scale per entire activation tensor) and per-group weight quantization (small blocks of 64–128 consecutive weights share a scale). Together, these finer-grained quantization schemes significantly reduce quantization error vs. per-tensor approaches. ZeroQuant also provides a knowledge-distillation fine-tuning option (ZeroQuant-FT) to further recover quality after quantization.
 
@@ -1227,6 +1889,16 @@ Methods that involve gradient updates: either training from scratch with simulat
 <img src="assets/diagrams/efficientqat.svg" width="640" alt="EfficientQAT diagram">
 <p><em>Two-stage QAT: block-wise STE (parallelizable) then global fine-tuning pass.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 LLM] --> B[Phase 1: Block-AP\nblock-wise quant param train]
+    B --> C[Freeze surrounding blocks\ntrain scales and zeros]
+    C --> D[Phase 2: E2E-QP\nend-to-end quant param finetune]
+    D --> E{All blocks done?}
+    E -->|no| B
+    E -->|yes| F[W4A8 or W2A16\nhigh-quality QAT]
+```
+
 > EfficientQAT proposes a two-stage block-wise quantization-aware training pipeline that makes end-to-end QAT of 70B+ parameter models tractable. Stage 1: block-wise QAT — each transformer block is QAT-tuned independently (with the rest frozen) on a large text corpus, using the STE. Stage 2: end-to-end QAT — a lightweight global fine-tuning pass refines all blocks jointly. By decoupling the block-wise stage (which is easily parallelizable), EfficientQAT scales to large models without requiring full-model QAT from the start, and achieves state-of-the-art W2 quality among QAT methods.
 
 | Field | Value |
@@ -1254,6 +1926,17 @@ Stage 1 (block-wise QAT): for each block i, freeze all other blocks and optimize
 
 <img src="assets/diagrams/pv-tuning.svg" width="640" alt="PV-Tuning diagram">
 <p><em>Proximal gradient on discrete codebook assignments avoids STE; finds nearest valid code.</em></p>
+
+```mermaid
+flowchart LR
+    A[AQLM codebook\nquantized model] --> B[Directly optimize\ncodebook entries]
+    B --> C[Per-vector gradient\nvia straight-through]
+    C --> D[Update codebook\ncentroids end-to-end]
+    D --> E{Converged?}
+    E -->|no| B
+    E -->|yes| F[Better codebooks\nthan init-only AQLM]
+    F --> G[W2A16 state-of-art\nvector quant]
+```
 
 > PV-Tuning addresses the poor convergence of STE at extreme compression (2-bit vector quantization). The STE approximation (treating the quantization round as the identity during backpropagation) becomes severely wrong at 2-bit because the quantization distortion is large. PV-Tuning instead formulates the optimization as a proximal gradient descent over discrete codebook assignments: at each step, the gradient update suggests a direction; then a discrete projection finds the nearest valid quantized assignment. This avoids the STE altogether and works even with vector-quantized (AQLM-style) weights.
 
@@ -1283,6 +1966,17 @@ For a vector-quantized weight block w = C[i] (codebook entry), PV-Tuning updates
 <img src="assets/diagrams/bitdistiller.svg" width="640" alt="BitDistiller diagram">
 <p><em>GPTQ init + KL self-distillation from FP16 teacher recovers 2/3-bit model quality.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 teacher model] --> B[Soft targets\n+ intermediate features]
+    B --> C[Quantized student\nINT2 / INT3]
+    C --> D[Knowledge distillation\nloss KL + MSE]
+    D --> E[Student learns\nto mimic teacher]
+    E --> F{Training done?}
+    F -->|no| C
+    F -->|yes| G[High-quality\nextreme-bit model]
+```
+
 > BitDistiller makes sub-4-bit (2-bit and 3-bit) quantization practical by combining GPTQ initialization with self-distillation: the FP16 version of the same model serves as a teacher, and the quantized model is fine-tuned to match the teacher's output distributions (using KL divergence on logits). Because the teacher and student have the same architecture, this is "self-distillation." The distillation training signal is much richer than cross-entropy on labels, recovering quality that would otherwise be lost at extreme bit-widths.
 
 | Field | Value |
@@ -1310,6 +2004,17 @@ BitDistiller starts from a GPTQ-quantized model (good PTQ initialization) and fi
 
 <img src="assets/diagrams/ir-qlora.svg" width="640" alt="IR-QLoRA diagram">
 <p><em>Per-layer NF4 level adaptation (information calibration) + confidence-guided LoRA updates.</em></p>
+
+```mermaid
+flowchart LR
+    A[QLoRA model\nINT4 + LoRA] --> B[Measure inter-layer\nfeature correlation]
+    B --> C[Identify redundant\nLoRA rank dimensions]
+    C --> D[Prune redundant\nrank components]
+    D --> E[Reinitialize pruned\nrank with new directions]
+    E --> F{Iterations done?}
+    F -->|no| B
+    F -->|yes| G[Compact LoRA\nbetter QLoRA baseline]
+```
 
 > IR-QLoRA identifies that the NF4 quantization grid used in QLoRA is fixed (based on the standard normal distribution) and may not be optimal for every layer's actual weight distribution. IR-QLoRA adapts the NF4 quantization levels per layer by minimizing the information loss (measured by the KL divergence between the original and quantized weight distributions), and additionally uses a confidence-guided LoRA training approach where LoRA updates are weighted by the model's prediction confidence to avoid wasted gradient on easy examples.
 
@@ -1339,6 +2044,15 @@ Two components: (1) Information Calibration — the NF4 quantization levels for 
 <img src="assets/diagrams/apiq.svg" width="640" alt="ApiQ diagram">
 <p><em>Activation-aware LoRA initialization for 2-bit base — minimizes layer-wise output error.</em></p>
 
+```mermaid
+flowchart LR
+    A[Calibration activations] --> B[Compute activation\ncovariance stats]
+    B --> C[Design per-layer\nquantization grid]
+    C --> D[Grid aligned to\nactivation principal components]
+    D --> E[Quantize W on\naligned grid]
+    E --> F[Better W4A16\nactivation-aware grid]
+```
+
 > ApiQ extends the QLoRA/LoftQ approach to the extreme 2-bit regime. At 2 bits, the quantization error of the base model is so large that naive QLoRA (random LoRA init + 2-bit base) fails to converge to good quality. ApiQ addresses this by using an activation-aware initialization of the LoRA adapters that directly minimizes the output error of each layer before fine-tuning starts, analogous to LoftQ but tailored to the higher-error 2-bit case and using activations rather than pure weight error.
 
 | Field | Value |
@@ -1366,6 +2080,18 @@ ApiQ initializes LoRA adapters by minimizing the layer-wise output error: ‖ W_
 
 <img src="assets/diagrams/loftq.svg" width="640" alt="LoftQ diagram">
 <p><em>Alternating quantization of residual and SVD initialization of LoRA adapters.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 pretrained W] --> B[SVD: W approx A times B\nlow-rank init]
+    B --> C[Quantize W - A times B\nresidual to INT4]
+    C --> D[New residual\nR = W - Q_int4]
+    D --> E[SVD of R to update\nA and B]
+    E --> F{Iterations done?}
+    F -->|no| C
+    F -->|yes| G[Aligned INT4 base\n+ LoRA A, B init]
+    G --> H[Fine-tune A, B\nbetter start than random]
+```
 
 > LoftQ improves on QLoRA by better initializing the LoRA adapters. In QLoRA, LoRA adapters start from random initialization and must both learn the task and compensate for the quantization error in the base model. LoftQ alternately optimizes the quantization of the base model and the initialization of LoRA adapters so that (quantized base + LoRA adapters) closely approximates the original FP16 weights before fine-tuning begins. This warm-start initialization reduces the gap between the quantized-and-adapter model and FP16, giving better convergence and higher accuracy at the same number of fine-tuning steps.
 
@@ -1396,6 +2122,15 @@ LoftQ alternates between two steps: (1) Fix LoRA adapters (A, B) and quantize th
 <img src="assets/diagrams/qa-lora.svg" width="640" alt="QA-LoRA diagram">
 <p><em>Group-wise LoRA adapters that absorb cleanly into quantization parameters at merge.</em></p>
 
+```mermaid
+flowchart LR
+    A[INT4 quantized\nbase model] --> B[Group-wise LoRA:\nrank = group size]
+    B --> C[Adapter A, B have\nsame granularity as quant groups]
+    C --> D[Fine-tune adapters\nwith QA-aware gradients]
+    D --> E[Merge A, B into\nquantized weights]
+    E --> F[No extra inference\noverhead after merge]
+```
+
 > QA-LoRA identifies a problem with QLoRA: when the LoRA adapters are merged back into the base model after fine-tuning, the merged weights are no longer well-fit by the original quantization grid. QA-LoRA rethinks the adapter design so that the merged (adapter + quantized base) can be re-quantized cleanly: adapters are designed to be absorbed into the group-wise quantization parameters (scale + zero-point) rather than added as a separate floating-point correction. The result is a merged quantized model that is properly quantized after fine-tuning, enabling clean deployment without a separate re-quantization step.
 
 | Field | Value |
@@ -1424,6 +2159,17 @@ In QA-LoRA, LoRA adapters are applied per-group: each rank-r adapter acts on a g
 <img src="assets/diagrams/llm-qat.svg" width="640" alt="LLM-QAT diagram">
 <p><em>Data-free QAT: model generates its own training data, STE backprops through quantization.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 pretrained\nLLM] --> B[Insert fake quant\nnodes throughout]
+    B --> C[Forward: quantize\nweights + activations]
+    C --> D[Loss on labeled data\nor self-supervised]
+    D --> E[Backprop through\nSTE for quant nodes]
+    E --> F{Converged?}
+    F -->|no| C
+    F -->|yes| G[Quantized LLM\nbetter than PTQ at same bits]
+```
+
 > LLM-QAT performs quantization-aware training of LLMs without any task data by using the model's own generations as training examples — the model "teaches itself" to be robust to quantization noise. This data-free approach avoids privacy concerns and the cost of collecting task-specific data. During QAT, the straight-through estimator (STE) provides gradients through the quantization step, and the training objective is standard next-token prediction on the self-generated text. The method also quantizes the KV cache to 4 bits, which was novel at the time.
 
 | Field | Value |
@@ -1451,6 +2197,16 @@ Training data is generated by sampling from the (FP16) model itself using temper
 
 <img src="assets/diagrams/qlora.svg" width="640" alt="QLoRA diagram">
 <p><em>NF4 frozen base + BF16 LoRA adapters: fine-tune 65B on one 48GB GPU.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 base model] --> B[Quantize to NF4\n4-bit frozen]
+    B --> C[Frozen NF4\nbase weights]
+    C --> D[LoRA adapters\ndelta W = B times A in BF16]
+    D --> E[Forward: dequant NF4 to BF16 + delta W]
+    E --> F[Backprop only\nthrough adapters A, B]
+    F --> G[65B model\nfits on 48 GB GPU]
+```
 
 > QLoRA makes fine-tuning 65B+ parameter models possible on a single 48GB GPU by keeping the base model frozen in 4-bit NF4 quantization and training only lightweight LoRA adapters in BF16. The quantized base model provides a good initialization; the LoRA adapters learn the task-specific residual correction without having to update the quantized weights directly. QLoRA introduces NF4 (the quantile-spaced 4-bit normal float), double quantization (quantizing the quantization scales themselves), and paged optimizers to handle gradient checkpointing on consumer hardware.
 
@@ -1481,6 +2237,15 @@ QLoRA freezes the base model weights in NF4 quantization and adds rank-r LoRA ad
 <img src="assets/diagrams/peqa.svg" width="640" alt="PEQA diagram">
 <p><em>PEQA: fine-tune only per-column scale multipliers γ on frozen INT4 weights.</em></p>
 
+```mermaid
+flowchart LR
+    A[Quantized base model\nINT4 / INT8] --> B[Freeze quantized\nbase weights]
+    B --> C[Add task-specific\nFP16 bias vectors]
+    C --> D[Fine-tune only\nbias parameters]
+    D --> E[Tiny parameter count\n<< full fine-tune]
+    E --> F[Task-adapted\nquantized model]
+```
+
 > PEQA fine-tunes quantized LLMs by keeping the quantized integer weights frozen and only training per-column scale factors alongside the original dequantization scale. Rather than adding separate adapter matrices (like QLoRA), PEQA modifies the quantization scale itself — a minimal number of parameters that changes the effective floating-point value of the entire quantized column. This is computationally light and avoids the overhead of separate adapter matrices, while still giving the model freedom to shift its weight distribution during fine-tuning.
 
 | Field | Value |
@@ -1510,10 +2275,56 @@ For a quantized column w̃ = s · q_int (where s is the dequantization scale and
 
 Methods targeting 1–2 bits per weight, including binary {-1, +1}, ternary {-1, 0, +1}, and sub-2-bit codebook approaches. At these bit-widths quantization error is substantial and most methods require QAT or architectural changes. The frontier of model compression research.
 
+### Tequila · W1.58 A16 (ternary {-1, 0, +1} PTQ) · Sub-2-bit · 2025-09 {#tequila}
+
+<img src="assets/diagrams/tequila.svg" width="640" alt="Tequila diagram">
+<p><em>Tequila: deadzone-free threshold optimization for ternary {-1,0,+1} PTQ of pretrained LLMs.</em></p>
+
+```mermaid
+flowchart LR
+    A[Training from scratch\nor PTQ] --> B[W1.58 A16 (ternary {-1, 0, +1} PTQ)\ntarget format]
+    B --> C[Binary or ternary\nweight representation]
+    C --> D[Scale factors\nto compensate range]
+    D --> E[Matmuls become\nadditions or lookups]
+    E --> F[Extreme compression\nwith quality tradeoff]
+```
+
+> Ternary quantization (mapping weights to {-1, 0, +1}) suffers from a "deadzone" problem: near-zero weights are incorrectly mapped to 0, destroying information about small but non-negligible weights. Tequila introduces a deadzone-free ternary quantization scheme that carefully calibrates the thresholds for zero-assignment to minimize reconstruction error. Unlike BitNet b1.58 which requires training from scratch, Tequila is a post-training method that brings ternary quantization quality to pretrained FP16 models.
+
+| Field | Value |
+|-------|-------|
+| Paper | [2509.23809](https://arxiv.org/abs/2509.23809) · ICLR 2026 |
+| Precision | W1.58 A16 (ternary {-1, 0, +1} PTQ) |
+| Granularity | per-group with deadzone-free threshold |
+| Calibration | small calibration set for threshold optimization |
+| Symmetric? | symmetric |
+| Outlier handling | deadzone-free thresholding prevents over-assignment to zero |
+| Hardware target | GPU |
+| Training needed? | no |
+| Calibration data? | yes |
+| Typical degradation | state-of-art ternary PTQ; better than round-to-nearest ternary |
+| Builds on | [bitnet-b158](#bitnet-b158) · [hqq](#hqq) · [gptq](#gptq) |
+| Related | [bitnet-b158](#bitnet-b158) · [bitnet-2b4t](#bitnet-2b4t) · [pb-llm](#pb-llm) · [hqq](#hqq) |
+
+**How it works:**
+
+Standard ternary quantization assigns w to 0 if |w| < threshold, otherwise to +scale or -scale. This creates a deadzone of size 2*threshold around zero where weight information is permanently lost. Tequila optimizes the threshold per group to minimize the L2 reconstruction error subject to a target zero-fraction constraint. The deadzone-free formulation ensures small weights contribute to the scale estimation even when rounded to zero, improving the scale value and reducing reconstruction error compared to standard ternary PTQ.
+
+---
+
 ### BitNet b1.58 2B4T · W1.58A8 · Sub-2-bit · 2025-04 {#bitnet-2b4t}
 
 <img src="assets/diagrams/bitnet-2b4t.svg" width="640" alt="BitNet b1.58 2B4T diagram">
 <p><em>BitNet b1.58 2B4T: first open ternary LLM at 2B params; BitNet.cpp CPU inference runtime.</em></p>
+
+```mermaid
+flowchart LR
+    A[2B param architecture\nBitNet b1.58 design] --> B[Train on 4T tokens\nfrom scratch]
+    B --> C[Ternary weights -1/0/+1\nthroughout training]
+    C --> D[INT8 activations\nAbsMax quantization]
+    D --> E[First open-source\n1-bit 2B model]
+    E --> F[Competitive with\nFP16 Llama-3.2-1B/3B]
+```
 
 > BitNet b1.58 2B4T is the first openly-released full-scale ternary LLM at 2 billion parameters trained on 4 trillion tokens. Microsoft releases model weights, training code, and the BitNet.cpp inference library that achieves CPU-efficient inference without GPUs. The model demonstrates that ternary (W1.58) LLMs can be trained at full scale and achieve quality competitive with similarly-sized FP16 models, while consuming a fraction of the memory and enabling energy-efficient inference on commodity hardware.
 
@@ -1544,6 +2355,15 @@ Same architecture as BitNet b1.58 (absmean ternary quantizer, INT8 activations, 
 <img src="assets/diagrams/spectra.svg" width="640" alt="Spectra diagram">
 <p><em>Spectra: systematic study training ternary, quantized, and FP16 LLMs at matched scales.</em></p>
 
+```mermaid
+flowchart LR
+    A[Train LLM from scratch\non internet-scale data] --> B[INT4 / INT8 / FP16\nweight formats]
+    B --> C[No quantization error:\nweights never float]
+    C --> D[Release family:\nSpectra-99M to 3.9B]
+    D --> E[Benchmark across\nbit-widths and tasks]
+    E --> F[Integer-trained models\noutperform PTQ at same bits]
+```
+
 > Spectra is a comprehensive empirical study and model suite that trains LLMs from scratch across three precision regimes — ternary (BitNet b1.58 style), quantized (W4A16 GPTQ), and FP16 — at multiple model sizes (54M to 3.9B parameters) on 300B tokens. The goal is to rigorously compare the quality-vs-efficiency tradeoffs across precisions at scale, providing training recipes and released checkpoints for each configuration. The study confirms that ternary models can approach FP16 quality at 3B+ parameters given sufficient training.
 
 | Field | Value |
@@ -1571,6 +2391,16 @@ Spectra trains each model (54M, 134M, 400M, 830M, 3.9B) independently from scrat
 
 <img src="assets/diagrams/matmul-free.svg" width="640" alt="MatMul-free LM diagram">
 <p><em>Ternary linear layers + gated linear recurrence: no matrix multiplications in the entire model.</em></p>
+
+```mermaid
+flowchart LR
+    A[Transformer block] --> B[Replace all linear\nlayers]
+    B --> C[Ternary weights\n-1, 0, +1]
+    C --> D[Binary activations\nHardtanh clipped]
+    D --> E[Attention alternative:\nTokenMixer replaces\nQK^T matmul]
+    E --> F[Pure additions\nno multiplications]
+    F --> G[1-bit W, 1-bit A\ntrue integer inference]
+```
 
 > MatMul-free LM eliminates all matrix multiplications from the transformer by replacing linear layers with ternary-weight operations (implementable as add/subtract) and replacing the standard attention mechanism with a linear-time RNN-like token mixing (based on RWKV/GRU dynamics). The result is a language model where the dominant compute operation — matrix multiplication — is replaced by additions, enabling much lower power consumption on hardware that does not support efficient float matrix multiply.
 
@@ -1601,6 +2431,15 @@ Two innovations: (1) Linear layers use ternary weight matrices (BitNet b1.58 sty
 <img src="assets/diagrams/bitnet-b158.svg" width="640" alt="BitNet b1.58 diagram">
 <p><em>Ternary {-1,0,+1} weights via absmean quantizer; matmul becomes add-only (no multiplications).</em></p>
 
+```mermaid
+flowchart LR
+    A[Training from scratch] --> B[Ternary weights\n-1, 0, +1]
+    B --> C[Straight-through\nestimator STE]
+    C --> D[AbsMean\nact quantization INT8]
+    D --> E[MatMuls become\nadditions only]
+    E --> F[1.58-bit model\nmatches FP16 at 3B+]
+```
+
 > BitNet b1.58 (named after log₂(3) ≈ 1.58 bits) represents LLM weights as ternary values {-1, 0, +1}, one step above binary. The addition of zero is significant: it allows the model to implement magnitude selection (zeroing out some directions) which binary weights cannot do. Training uses a simple absmean quantizer (scale by mean absolute value, round to nearest of {-1, 0, +1}) with STE. The reported result is that BitNet b1.58 at 3.9B parameters matches full-precision LLaMA-3B on perplexity and most benchmarks, while using a fraction of the memory and enabling inference with add-only arithmetic (no multiplications).
 
 | Field | Value |
@@ -1630,6 +2469,16 @@ Each weight matrix W is quantized per-tensor as: γ = mean(|W|), W̃ = clip(roun
 <img src="assets/diagrams/onebit.svg" width="640" alt="OneBit diagram">
 <p><em>Sign-value decomposition: W = sign(W) × row_scale × col_scale; sign stored at 1-bit.</em></p>
 
+```mermaid
+flowchart LR
+    A[Weight W] --> B[Sign-value decomp:\nW = V times sign S]
+    B --> C[V: value vectors\nper output channel]
+    C --> D[S: binary sign\nmatrix INT1]
+    D --> E[Forward: W_hat = V times S]
+    E --> F[STE training\nfrom scratch or QAT]
+    F --> G[1-bit with value\nvectors = better than plain binary]
+```
+
 > OneBit decomposes each weight matrix W as W ≈ sign(W) · diag(v₁) · diag(v₂)^T where v₁ and v₂ are magnitude vectors (FP16). The sign matrix is stored at 1 bit; the two magnitude vectors are stored at full precision. This is a sign-value decomposition analogous to SVD-1 (rank-1 SVD) but in the sign domain. The magnitude vectors capture the scale information that binary weights cannot represent. Combined with knowledge distillation from the FP16 teacher, OneBit achieves quality close to W4 quantization at an effective bit-width of ~1.5 bits.
 
 | Field | Value |
@@ -1657,6 +2506,17 @@ Decompose W ∈ ℝ^{m×n} as W ≈ s₁ s₂ᵀ ⊙ B where B ∈ {-1,+1}^{m×n
 
 <img src="assets/diagrams/billm.svg" width="640" alt="BiLLM diagram">
 <p><em>Hessian-weighted greedy 1-bit binarization + sparse FP16 residual for highest-error weights.</em></p>
+
+```mermaid
+flowchart LR
+    A[LLM weights] --> B[Bell-shaped analysis:\nidentify salient values]
+    B --> C[Salient set:\nresidual approximation]
+    C --> D[Non-salient set:\nbinary +1/-1]
+    D --> E[Optimal rescaling\nfor binary group]
+    C --> F[Store residuals\nin sparse format]
+    D --> F
+    F --> G[Post-training\n1-bit with residuals]
+```
 
 > BiLLM achieves state-of-the-art 1-bit post-training quantization of LLMs using a Hessian-based binarization strategy. Unlike random or magnitude-based binarization, BiLLM selects the binary weight values (per column scale + sign) to minimize the Hessian-weighted reconstruction error, analogous to GPTQ but for binary. A residual mechanism stores the highest-error weights as sparse FP16 corrections. The combination makes the best-known 1-bit PTQ results without any training, demonstrating that binary LLMs are achievable purely from post-training optimization.
 
@@ -1687,6 +2547,16 @@ For each linear layer, BiLLM solves the binary quantization problem by selecting
 <img src="assets/diagrams/bitnet.svg" width="640" alt="BitNet diagram">
 <p><em>BitLinear: binary {-1,+1} weights + INT8 activations, trained from scratch with STE.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 training] --> B[Binary weights\n+1 or -1 via sign]
+    B --> C[Straight-through\nestimator STE]
+    C --> D[Scale factor\nalpha = mean of abs W]
+    D --> E[W_tilde = alpha times sign W]
+    E --> F[MatMuls replaced\nby additions + scaling]
+    F --> G[1-bit LLM\ntraining from scratch]
+```
+
 > BitNet proposes training LLMs with binary ({-1, +1}) weight matrices from scratch, with 8-bit activations. All weight matrices in the transformer (attention projections, FFN weights) are replaced with "BitLinear" layers that store weights as binary and apply a per-tensor scale at dequantization. Training uses the STE to propagate gradients through the binary step. BitNet is the first to show that billion-scale LLMs can be trained with 1-bit weights without catastrophic collapse — the key is training from scratch rather than post-hoc binarization.
 
 | Field | Value |
@@ -1715,6 +2585,17 @@ Each weight w in a BitLinear layer is binarized as: b = sign(w), and a per-tenso
 
 <img src="assets/diagrams/pb-llm.svg" width="640" alt="PB-LLM diagram">
 <p><em>Hessian-guided partial binarization: salient weights at FP16, rest binary.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 LLM weights] --> B[Compute per-weight\nHessian sensitivity]
+    B --> C{Salient weight?}
+    C -->|yes top-p%| D[Keep in FP16\nor INT8]
+    C -->|no| E[Binarize to +1/-1]
+    E --> F[Scale factor\nper group]
+    D --> G[Mixed: FP16 salient\n+ binary rest]
+    F --> G
+```
 
 > PB-LLM ("Partially Binarized") proposes a hybrid strategy where a fraction of weights are binarized ({-1, +1}) while the most salient weights (by Hessian-based importance) are retained at full precision (FP8 or FP16). This avoids the catastrophic perplexity collapse of full binarization while still achieving very low average bit-width. The saliency metric is the Hessian diagonal, and the method is applied post-training without QAT — making it a PTQ approach despite being in the extreme low-bit category.
 
@@ -1745,10 +2626,132 @@ For each linear layer, compute saliency s_ij = [H]_ii · w_ij² (Hessian diagona
 
 The attention KV cache grows linearly with context length and becomes the dominant memory consumer at long contexts. Quantizing K and V tensors to 4 or fewer bits reduces memory pressure, increases effective batch size, and enables longer contexts — at the cost of a small attention quality penalty.
 
+### PM-KVQ · KV2-KV8 mixed progressive · KV Quant · 2025-05 {#pmkvq}
+
+<img src="assets/diagrams/pmkvq.svg" width="640" alt="PM-KVQ diagram">
+<p><em>PM-KVQ: active CoT reasoning tokens at high precision; concluded chains compressed progressively.</em></p>
+
+```mermaid
+flowchart LR
+    A[K and V tensors\nfrom attention] --> B[Compression strategy:\nhigher precision for early rea]
+    B --> C[Quantize or prune\nKV to KV2-KV8 mixed progressive]
+    C --> D[Store compressed\nKV cache]
+    D --> E[Decompress during\nattention computation]
+    E --> F[Lower memory\nlonger context]
+```
+
+> Long chain-of-thought (CoT) reasoning models generate thousands of tokens before giving a final answer, causing the KV cache to grow to extreme sizes. PM-KVQ addresses this with a progressive mixed-precision strategy: tokens in active reasoning steps are kept at higher precision, while concluded reasoning chains (past tokens no longer being extended) are compressed aggressively. This temporal structure of CoT reasoning enables much higher compression than static KV quantization without sacrificing reasoning quality.
+
+| Field | Value |
+|-------|-------|
+| Paper | [2505.18610](https://arxiv.org/abs/2505.18610) · ICLR 2026 |
+| Precision | KV2-KV8 mixed progressive |
+| Granularity | per-layer, per-step progressive precision assignment |
+| Calibration | chain-of-thought reasoning traces as calibration |
+| Symmetric? | symmetric |
+| Outlier handling | higher precision for early reasoning tokens; compress concluded tokens |
+| Hardware target | GPU |
+| Training needed? | no |
+| Calibration data? | yes |
+| Typical degradation | < 1% on CoT reasoning tasks vs FP16 KV cache |
+| Builds on | [kivi](#kivi) · [kvquant](#kvquant) · [snapkv](#snapkv) |
+| Related | [kvquant](#kvquant) · [kivi](#kivi) · [qaq](#qaq) · [zipcache](#zipcache) |
+
+**How it works:**
+
+PM-KVQ tracks the "reasoning state" of the KV cache: tokens belonging to the current active reasoning step receive high-precision quantization (KV8 or FP16), while tokens from completed reasoning branches are progressively compressed to KV2-KV4. The precision assignment is updated as generation proceeds. For very long CoT traces (thousands of tokens), the majority of the cache eventually gets compressed, achieving overall 2-3 bit average with near-lossless reasoning quality.
+
+---
+
+### RotateKV · KV2 (2-bit keys and values) · KV Quant · 2025-02 {#rotatekv}
+
+<img src="assets/diagrams/rotatekv.svg" width="640" alt="RotateKV diagram">
+<p><em>RotateKV: Hadamard rotation of K and V before 2-bit quantization eliminates outliers.</em></p>
+
+```mermaid
+flowchart LR
+    A[K and V tensors\nfrom attention] --> B[Compression strategy:\nrandom Hadamard rotation remov]
+    B --> C[Quantize or prune\nKV to KV2 (2-bit keys and values)]
+    C --> D[Store compressed\nKV cache]
+    D --> E[Decompress during\nattention computation]
+    E --> F[Lower memory\nlonger context]
+```
+
+> RotateKV applies the same Hadamard rotation technique used in QuaRot and SpinQuant for weight/activation quantization to the KV cache problem. By rotating key and value tensors before quantization, RotateKV eliminates the outlier problem that makes 2-bit KV quantization challenging. The rotation is applied online (cheaply) before caching, and inverse-rotated during attention computation, enabling clean 2-bit KV storage with near-lossless attention quality.
+
+| Field | Value |
+|-------|-------|
+| Paper | [0690.pdf](https://www.ijcai.org/proceedings/2025/0690.pdf) · IJCAI 2025 |
+| Precision | KV2 (2-bit keys and values) |
+| Granularity | per-head rotation then per-token quantization |
+| Calibration | none |
+| Symmetric? | symmetric |
+| Outlier handling | random Hadamard rotation removes outliers from K and V tensors |
+| Hardware target | GPU |
+| Training needed? | no |
+| Calibration data? | no |
+| Typical degradation | near-lossless at KV2; significantly better than unrotated 2-bit KV |
+| Builds on | [quarot](#quarot) · [kivi](#kivi) · [kvquant](#kvquant) |
+| Related | [kivi](#kivi) · [kvquant](#kvquant) · [wkvquant](#wkvquant) · [skvq](#skvq) |
+
+**How it works:**
+
+Standard KV tensors have heavy-tailed distributions with outlier channels that degrade 2-bit quantization. RotateKV applies a random Hadamard matrix R to K and V before storing them: K_rot = K * R^T, V_rot = V * R^T. The rotation spreads outliers incoherently across all dimensions, enabling uniform 2-bit quantization of K_rot and V_rot. During attention, the stored rotated KV are dequantized and inverse-rotated. The Hadamard transform is O(d log d) and fast enough for online use.
+
+---
+
+### SageAttention · Q8K8V16 (INT8 Q and K for QK^T, FP16 V) · KV Quant · 2024-10 {#sageattention}
+
+<img src="assets/diagrams/sageattention.svg" width="640" alt="SageAttention diagram">
+<p><em>SageAttention: INT8 Q and K for QK^T matmul, FP16 V for the AV weighted sum.</em></p>
+
+```mermaid
+flowchart LR
+    A[Query Q and Key K\nFP16] --> B[Per-token smooth\nquantization to INT8]
+    B --> C[INT8 GEMM:\nQK^T on tensor cores]
+    C --> D[Dequantize result\nbefore softmax]
+    D --> E[Softmax in FP32]
+    E --> F[FP16 Value V\nweighted sum AV]
+    F --> G[2x attention speedup\nnear-zero quality loss]
+```
+
+> SageAttention quantizes Q and K to INT8 to compute the attention score matrix (QK^T) using integer tensor cores, while keeping V in FP16. A plug-and-play drop-in for standard attention requiring no fine-tuning or calibration. Per-token smooth quantization handles outliers. Achieves ~2x speedup on the attention operation with near-zero quality loss across language, vision, and video tasks.
+
+| Field | Value |
+|-------|-------|
+| Paper | [2410.02367](https://arxiv.org/abs/2410.02367) · ICLR 2025 |
+| Code | [thu-ml/SageAttention](https://github.com/thu-ml/SageAttention) |
+| Precision | Q8K8V16 (INT8 Q and K for QK^T, FP16 V) |
+| Granularity | per-token for Q and K quantization |
+| Calibration | none (dynamic at runtime) |
+| Symmetric? | symmetric |
+| Outlier handling | per-token smooth quantization of Q and K before INT8 cast |
+| Hardware target | GPU (CUDA); H100 / A100 optimized |
+| Training needed? | no |
+| Calibration data? | no |
+| Typical degradation | < 0.5% on most tasks; 2.1x attention speedup on A100 |
+| Builds on | [smoothquant](#smoothquant) |
+| Related | [kvquant](#kvquant) · [kivi](#kivi) · [atom](#atom) |
+
+**How it works:**
+
+The QK^T matmul dominates attention FLOPs at long context. SageAttention replaces it with INT8 GEMM: each Q and K token vector is scaled to INT8 range independently (per-token quantization), QK^T is computed in INT8 on tensor cores, then dequantized before softmax. The weighted sum AV uses FP16 V unchanged. SageAttention2 (Nov 2024) extends to mixed INT4/INT8 Q/K for further speedup.
+
+---
+
 ### ThinK · W16A16KV4 (with head-dimension pruning) · KV Quant · 2024-07 {#think}
 
 <img src="assets/diagrams/think.svg" width="640" alt="ThinK diagram">
 <p><em>Query-guided key-dimension pruning removes low-QK-correlation dimensions before quantization.</em></p>
+
+```mermaid
+flowchart LR
+    A[Query Q and Key K\nfor head h] --> B[Q-K channel correlation:\nI_j = norm Q_j hadamard K_j]
+    B --> C[Rank dimensions\nby importance I_j]
+    C --> D[Prune low-importance\nK cache dimensions]
+    D --> E[20-40% key cache\nreduction]
+    E --> F[Orthogonal to\nquantization methods]
+```
 
 > ThinK takes a different approach to KV cache compression: instead of quantizing all elements of the K cache, it prunes specific dimensions (channels) of the key vectors that contribute least to the query-key dot product. The importance of each key dimension is estimated from the query vectors — dimensions where Q·K correlates poorly across queries are pruned. This "thinner K" approach is combined with quantization of the retained dimensions, compressing the K cache in two orthogonal ways: fewer dimensions (pruning) and fewer bits per dimension (quantization).
 
@@ -1778,6 +2781,16 @@ For head h with queries Q ∈ ℝ^{T_q × d} and keys K ∈ ℝ^{T_k × d}, comp
 <img src="assets/diagrams/palu.svg" width="640" alt="Palu diagram">
 <p><em>Low-rank KV projection: cache r-dim k_low instead of d-dim k; reconstruct at attention.</em></p>
 
+```mermaid
+flowchart LR
+    A[K proj weight W_K\nd to d] --> B[SVD: W_K approx U_r Sigma V_r^T]
+    B --> C[W_K_low in R^d_times_r\nW_K_proj in R^r_times_d]
+    C --> D[k_low = x W_K_low\nstore in R^r]
+    D --> E[At attention:\ndecode k = k_low W_K_proj]
+    E --> F[r over d ratio\n= compression factor]
+    F --> G[Combinable with\nKV quantization]
+```
+
 > Palu compresses the KV cache not by quantizing its values but by projecting K and V into a low-rank subspace before caching, and projecting back at attention time. The low-rank projection is learned offline by truncated SVD of the K and V projection matrices (W_K and W_V). If W_K ≈ U Σ Vᵀ and we keep only the top-r singular values, keys can be stored as low-rank factors rather than full-rank vectors, reducing the cache size by factor d/r. This is a fundamentally different approach from bit-reduction quantization — it reduces the dimensionality of the cache rather than the precision.
 
 | Field | Value |
@@ -1805,6 +2818,16 @@ Original: k = x W_K (d→d projection). Palu: factorize W_K ≈ W_K^low W_K^proj
 
 <img src="assets/diagrams/pqcache.svg" width="640" alt="PQCache diagram">
 <p><em>PQCache: product quantization of KV vectors — each sub-vector maps to a codebook index.</em></p>
+
+```mermaid
+flowchart LR
+    A[Key or Value vector v] --> B[Split into m sub-vectors\nof dimension d/m each]
+    B --> C[Assign each sub-vec\nto nearest codebook centroid]
+    C --> D[Store m indices\ninstead of full vector]
+    D --> E[Asymmetric distance:\nscore without full decode]
+    E --> F[Product Quant KV\neffective 2-4 bits]
+    F --> G[Long-context inference\nlower memory footprint]
+```
 
 > PQCache applies Product Quantization (PQ) to the KV cache — a technique borrowed from approximate nearest-neighbor search (FAISS) that decomposes each high-dimensional KV vector into sub-vectors, each quantized independently with a small codebook. This allows very low effective bit-widths (sub-2-bit per dimension) while maintaining good approximation quality for the attention computation, as the approximate KV entries are sufficient for the attention softmax to produce accurate output probabilities.
 
@@ -1834,6 +2857,17 @@ Each KV vector of dimension d_head is divided into M sub-vectors of dimension d_
 <img src="assets/diagrams/zipcache.svg" width="640" alt="ZipCache diagram">
 <p><em>ZipCache: dynamic attention-score tracking assigns higher bits to salient tokens.</em></p>
 
+```mermaid
+flowchart LR
+    A[KV cache tokens] --> B[Accumulate attention\nscores online]
+    B --> C{Salient token?}
+    C -->|high attention| D[Keep in FP16 / INT8]
+    C -->|low attention| E[Quantize to INT4\nor INT2]
+    D --> F[Mixed-precision\nKV cache]
+    E --> F
+    F --> G[3x KV compression\nnear-lossless for salient]
+```
+
 > ZipCache quantizes the KV cache with mixed precision, assigning more bits to "salient" tokens — those with high cumulative attention scores that are frequently attended to. The attention score of each token is tracked dynamically during generation, and tokens whose cumulative attention score exceeds a threshold are assigned higher-precision quantization (or kept at FP16). The remaining low-attention tokens are compressed more aggressively. This adaptive allocation outperforms uniform KV quantization at the same average bit-width with no additional calibration.
 
 | Field | Value |
@@ -1862,6 +2896,16 @@ ZipCache maintains a running sum of attention scores for each KV position across
 <img src="assets/diagrams/skvq.svg" width="640" alt="SKVQ diagram">
 <p><em>Sliding window of recent KV tokens provides fresh scale statistics for online quantization.</em></p>
 
+```mermaid
+flowchart LR
+    A[KV cache stream] --> B[Sliding window:\nrecent tokens full precision]
+    B --> C[Older tokens:\nchannel reordering]
+    C --> D[Similar-range channels\ngrouped together]
+    D --> E[Group quantize\nKV2 to KV4]
+    E --> F[Clipping migration\nat window boundary]
+    F --> G[Efficient long-context\nwith sliding precision]
+```
+
 > SKVQ tackles the challenge that KV cache quantization must work online — quantization parameters cannot be computed from future tokens. Naive online quantization suffers from stale statistics: the quantization scale computed at token 1 may be wrong at token 1000 if the KV distribution drifts. SKVQ uses a sliding window of the most recent W tokens to maintain fresh, locally-relevant statistics for the quantization scale, balancing between always-fresh (expensive) and never-updated (stale) approaches.
 
 | Field | Value |
@@ -1885,10 +2929,60 @@ For each KV head, maintain a sliding window of the W most recent raw (FP16) KV v
 
 ---
 
+### SnapKV · KV selective eviction (variable effective bits) · KV Quant · 2024-04 {#snapkv}
+
+<img src="assets/diagrams/snapkv.svg" width="640" alt="SnapKV diagram">
+<p><em>SnapKV: observation-window attention selects which past KV entries to retain.</em></p>
+
+```mermaid
+flowchart LR
+    A[Input prompt tokens] --> B[Observation window:\nlast W tokens]
+    B --> C[Accumulate attention\nscores over window]
+    C --> D{High cumulative\nattention?}
+    D -->|yes| E[Retain KV pair\nin cache]
+    D -->|no| F[Evict KV pair]
+    E --> G[Compressed KV cache\n+ full window KV]
+    F --> G
+    G --> H[3.6x reduction\nat 16K context]
+```
+
+> SnapKV identifies which past KV entries each attention head actually uses by examining attention patterns over a short observation window of recent tokens. Only high-attention tokens are kept; the rest are evicted. This is a tuning-free, plug-and-play approach compatible with FlashAttention, achieving 3.6x KV cache reduction at 16K context with minimal accuracy loss and no model changes required.
+
+| Field | Value |
+|-------|-------|
+| Paper | [2404.14469](https://arxiv.org/abs/2404.14469) · NeurIPS 2024 |
+| Code | [FasterDecoding/SnapKV](https://github.com/FasterDecoding/SnapKV) |
+| Precision | KV selective eviction (variable effective bits) |
+| Granularity | per-head, observation-window based |
+| Calibration | none |
+| Symmetric? | symmetric |
+| Outlier handling | preserves high-attention tokens; evicts low-attention ones |
+| Hardware target | GPU; compatible with FlashAttention |
+| Training needed? | no |
+| Calibration data? | no |
+| Typical degradation | < 1% on long-context QA; 3.6x KV cache reduction at 16K context |
+| Related | [kvquant](#kvquant) · [kivi](#kivi) · [think](#think) · [gear](#gear) · [zipcache](#zipcache) |
+
+**How it works:**
+
+For each head, SnapKV accumulates attention scores over the last W tokens (the observation window, default 32-64 tokens). Past tokens receiving high cumulative attention score are retained; others are evicted. The surviving KV cache is concatenated with the full observation-window KV cache (always preserved), ensuring recent context is never dropped. Unlike quantization methods, SnapKV reduces the number of stored tokens rather than their bit-width.
+
+---
+
 ### GEAR · W16A16KV4 (with low-rank residual correction) · KV Quant · 2024-03 {#gear}
 
 <img src="assets/diagrams/gear.svg" width="640" alt="GEAR diagram">
 <p><em>GEAR = quantized KV + low-rank + sparse residual; error decomposition updated incrementally.</em></p>
+
+```mermaid
+flowchart LR
+    A[KV cache] --> B[Quantize to INT4]
+    B --> C[Quantization\nerror residual E]
+    C --> D[SVD low-rank\napprox of E]
+    D --> E[Store: INT4 KV\n+ low-rank E_hat]
+    E --> F[Dequant + low-rank\ncorrection at runtime]
+    F --> G[Near-lossless\nKV at 4-bit avg]
+```
 
 > GEAR combines KV-cache quantization with a learned low-rank residual correction to compensate for quantization error. The idea is to decompose the KV cache as: KV ≈ Q(KV) + low_rank_correction, where the low-rank correction captures the systematic (structured) part of the quantization error. The rank-r correction requires only 2 × r × d_head parameters per layer (instead of 2 × T × d_head for the full KV), providing significant compression with minimal accuracy loss.
 
@@ -1918,6 +3012,17 @@ GEAR's decomposition: KV = Q(KV) + L R^T + Sparse, where Q(KV) is the INT4 quant
 <img src="assets/diagrams/qaq.svg" width="640" alt="QAQ diagram">
 <p><em>Attention-score-based adaptive bit allocation: high-attention tokens get more KV bits.</em></p>
 
+```mermaid
+flowchart LR
+    A[KV cache entry] --> B[Compute importance:\naccumulated attn score]
+    B --> C{High attention?}
+    C -->|yes| D[Assign high bit-width\n8-bit or FP16]
+    C -->|no| E[Assign low bit-width\n2-4 bit]
+    D --> F[Quality-adaptive\nmixed KV cache]
+    E --> F
+    F --> G[Dynamic precision\nper generation step]
+```
+
 > QAQ adaptively allocates bit-widths across KV cache entries based on their predicted importance to the attention output. Tokens that receive high attention scores (the "attention sink" phenomenon — early tokens and recent tokens tend to receive disproportionate attention) are assigned higher-precision quantization, while tokens with low attention scores can be safely compressed to very low bits (even 1–2 bits). This adaptive allocation achieves better quality per average bit than uniform quantization across all tokens.
 
 | Field | Value |
@@ -1945,6 +3050,15 @@ QAQ uses a proxy for KV importance: the accumulated attention scores that a toke
 
 <img src="assets/diagrams/wkvquant.svg" width="640" alt="WKVQuant diagram">
 <p><em>Joint weight + KV quantization optimization minimizes compound error in the generation loop.</em></p>
+
+```mermaid
+flowchart LR
+    A[Weights W] --> B[W4 past-only quant:\nonly prev-gen KV quantized]
+    A2[KV Cache] --> C[Within-group clipping\nfor KV INT4]
+    B --> D[Joint W4KV4\ncombined objective]
+    C --> D
+    D --> E[Better throughput\nthan W4A16 alone]
+```
 
 > WKVQuant jointly optimizes weight and KV-cache quantization, observing that weight and KV quantization errors interact during generation: a quantized weight produces quantization-corrupted hidden states, which then get quantized again in the KV cache, compounding errors. WKVQuant uses a calibration-based approach that optimizes both the weight quantization parameters and the KV scale/zero-point together to minimize the compound error. The key insight is that weight quantization errors are not independent of KV errors and should be co-optimized.
 
@@ -1974,6 +3088,15 @@ WKVQuant frames the joint quantization problem as minimizing ‖ f(x; W, K, V) �
 <img src="assets/diagrams/coupled-quant.svg" width="640" alt="Coupled Quantization diagram">
 <p><em>Jointly optimize K and V quantization parameters to minimize attention output error via error cancellation.</em></p>
 
+```mermaid
+flowchart LR
+    A[Key K and Value V\nfrom same token] --> B[Analyze correlation\nbetween K and V]
+    B --> C[Joint codebook\nshared K-V pairs]
+    C --> D[Quantize K and V\ncoupled, not independent]
+    D --> E[Inter-vector correlation\nreduces joint error]
+    E --> F[KV2 near-lossless\ncoupled representation]
+```
+
 > Coupled Quantization observes that the errors in the quantized K and V caches are not independent in their effect on the attention output: the attention score (from Q×K) and the value aggregation (softmax×V) interact in a way that allows the error from K quantization to partially cancel the error from V quantization. By jointly designing the K and V quantization to exploit this cancellation (selecting quantization parameters that minimize the total attention output error rather than minimizing K error and V error separately), Coupled Quantization achieves much better quality at 1-bit KV than either independent 1-bit K or 1-bit V quantization.
 
 | Field | Value |
@@ -2001,6 +3124,16 @@ The attention output for position t is: o_t = Σ_s softmax(q_t k_s / √d) × v_
 
 <img src="assets/diagrams/kivi.svg" width="640" alt="KIVI diagram">
 <p><em>K per-group (g=16) asymmetric + V per-token asymmetric + FP16 residual for recent tokens.</em></p>
+
+```mermaid
+flowchart LR
+    A[Key cache K] --> B[Per-channel\nINT2 quantize]
+    A2[Value cache V] --> C[Per-token\nINT2 quantize]
+    B --> D[Sliding window:\nrecent tokens FP16]
+    C --> D
+    D --> E[2-bit KV cache\nno fine-tuning needed]
+    E --> F[2x longer context\nsame GPU memory]
+```
 
 > KIVI proposes a simple but effective asymmetric quantization strategy for KV cache: keys are quantized per-channel (using groups of 16 consecutive elements in the channel dimension), and values are quantized per-token. This asymmetric choice is motivated by empirical observation: K vectors have consistent per-channel magnitude patterns across all tokens (stable per-channel statistics), while V vectors have consistent per-token patterns. The most recent r=32 tokens are kept in FP16 as a "residual cache" to avoid quantizing newly computed KV entries before they stabilize. Implemented as a FlashAttention plugin with no tuning needed.
 
@@ -2030,6 +3163,17 @@ For the key cache K ∈ ℝ^{T × d_head}: divide d_head into groups of g=16. Pe
 
 <img src="assets/diagrams/kvquant.svg" width="640" alt="KVQuant diagram">
 <p><em>KVQuant: non-uniform quantile grid for K/V + per-channel K + sparse FP16 residual.</em></p>
+
+```mermaid
+flowchart LR
+    A[KV tensors] --> B{Token type}
+    B -->|sink + outlier tokens| C[FP16 sparse]
+    B -->|normal tokens ~95%| D[Per-channel\nnon-uniform quant]
+    D --> E[NF4-style bins\nKV2/KV3/KV4]
+    C --> F[Compressed KV cache]
+    E --> F
+    F --> G[10M-token context\non single GPU]
+```
 
 > KVQuant is a comprehensive KV-cache quantization framework that targets extreme context lengths (millions of tokens) where the KV cache is the dominant memory consumer. Three key innovations: non-uniform quantization (NUQ) fits the K/V value distributions (which are not Gaussian) with per-quantile codebooks; per-channel quantization for K and per-token for V to match their respective structure; and a sparse high-precision overlay for outlier KV entries. Together, KVQuant achieves 4-bit KV cache with < 0.1% perplexity increase and enables 10M+ context length inference.
 
@@ -2066,6 +3210,16 @@ Hardware-oriented floating-point formats and training recipes for using them. FP
 <img src="assets/diagrams/deepseek-fp8.svg" width="640" alt="DeepSeek FP8 Training diagram">
 <p><em>Fine-grained FP8: 1×128 weight tiles + 128×128 activation tiles + FP32 accumulation.</em></p>
 
+```mermaid
+flowchart LR
+    A[DeepSeek-V3 training\nBF16 baseline] --> B[Fine-grained FP8:\n1x128 weight tiles]
+    B --> C[128x128 activation\ntiles E4M3]
+    C --> D[E5M2 gradient tiles]
+    D --> E[FP32 accumulators\nprevents drift]
+    E --> F[FP8 GEMM on H800\ntensor cores]
+    F --> G[671B MoE trained\nfull FP8 pipeline]
+```
+
 > DeepSeek-V3 (671B MoE model) was trained with FP8 mixed-precision throughout, making it one of the largest models trained with FP8. The key engineering contribution is a fine-grained block scaling scheme where weight scales are per 1×128 tile and activation scales are per 128×128 tile, with higher-precision accumulation in FP32 and careful clipping to prevent overflow. The training recipe demonstrates that FP8 is stable for very large MoE models with proper scale management, and achieves comparable quality to BF16 training at lower cost.
 
 | Field | Value |
@@ -2094,6 +3248,15 @@ DeepSeek's FP8 recipe uses "fine-grained quantization" — smaller tiles than th
 
 <img src="assets/diagrams/nvfp4.svg" width="640" alt="NVFP4 diagram">
 <p><em>NVFP4: E2M1 per-element + FP8 per-16-block scale; native Blackwell W4A8 Tensor Core support.</em></p>
+
+```mermaid
+flowchart LR
+    A[FP16 weight tensor] --> B[Tile into 16-element\nblocks]
+    B --> C[Shared E8 scale\nper block]
+    C --> D[Each element:\nE2M1 FP4 value]
+    D --> E[NVFP4 tensor\nBlackwell GB200 native]
+    E --> F[~2x memory vs FP8\nhigher throughput density]
+```
 
 > NVFP4 is NVIDIA's 4-bit floating-point format introduced for Blackwell-architecture GPUs. It uses E2M1 encoding (2 exponent bits, 1 mantissa, 1 sign bit = 4 bits total) and pairs each block of 16 consecutive weights with an FP8 block scale. This differs from MXFP4 (blocks of 32, E8M0 scale) in having smaller blocks and a higher-precision (FP8) scale. NVFP4 with FP8 activation achieves very high throughput on Blackwell's native W4A8 Tensor Cores and is the primary quantization format for Blackwell inference.
 
@@ -2124,6 +3287,18 @@ NVFP4 stores weights in 4 bits (E2M1 format: values from ±{0.5, 1.0, 1.5, 2.0, 
 <img src="assets/diagrams/mx-formats.svg" width="640" alt="MX Formats (MXFP8/MXFP6/MXFP4) diagram">
 <p><em>MX block-float: 32 elements share one 8-bit exponent; elements store mantissa bits.</em></p>
 
+```mermaid
+flowchart LR
+    A[Tensor block\n32 elements] --> B[Shared scale\nexponent E8]
+    B --> C{MX format}
+    C -->|MXFP8| D[E4M3 or E5M2\nper element]
+    C -->|MXFP4| E[E2M1\nper element]
+    C -->|MXINT8| F[INT8\nper element]
+    D --> G[OCP standard\nBlackwell / MI300X]
+    E --> G
+    F --> G
+```
+
 > Microscaling (MX) is an industry standard for block floating-point formats, standardized by the Open Compute Project (OCP) with participation from AMD, ARM, Intel, Meta, Microsoft, NVIDIA, Qualcomm, and Samsung. Each MX format defines blocks of 32 elements that share a single 8-bit exponent scale (E8M0, i.e. just an 8-bit integer exponent with no mantissa). Within a block, each element has its own mantissa bits: MXFP8 (3 mantissa), MXFP6 (2), MXFP4 (0), MXINT8 (7-bit signed int). This block-scale approach provides more dynamic range than per-tensor quantization with lower overhead than per-element scales.
 
 | Field | Value |
@@ -2151,6 +3326,16 @@ An MX tensor is divided into contiguous blocks of 32 elements. For each block: (
 
 <img src="assets/diagrams/fp8-training.svg" width="640" alt="FP8 Training (Transformer Engine) diagram">
 <p><em>FP8 training: E4M3 for forward pass, E5M2 for gradients, with delayed per-tensor scaling.</em></p>
+
+```mermaid
+flowchart LR
+    A[BF16 training] --> B[Cast forward pass\nto E4M3 FP8]
+    B --> C[FP8 GEMM\nH100 tensor cores]
+    C --> D[Cast gradients\nto E5M2 FP8]
+    D --> E[FP32 master weights\n+ optimizer state]
+    E --> F[Loss scaling\nprevents underflow]
+    F --> G[~2x throughput\nvs BF16]
+```
 
 > FP8 is a family of 8-bit floating-point formats designed to accelerate deep learning on NVIDIA H100 and later GPUs. Two variants are used in training: E4M3 (4 exponent bits, 3 mantissa, range up to 448) for activations and weights in the forward pass, and E5M2 (5 exponent, 2 mantissa, range up to 57344) for gradients in the backward pass. The Transformer Engine library automates the casting and scale management, using "delayed scaling" (scale from previous step's tensor max) to avoid a synchronization barrier. FP8 training achieves ~2× throughput vs BF16 at equivalent quality on GPT-3-scale models.
 
@@ -2186,6 +3371,16 @@ Mixture-of-Experts models (Mixtral, DeepSeek-MoE, etc.) pose unique quantization
 <img src="assets/diagrams/mc-moe.svg" width="640" alt="MC-MoE diagram">
 <p><em>MC-MoE: prune low-importance experts first, then mixed-precision quantize remaining experts.</em></p>
 
+```mermaid
+flowchart LR
+    A[MoE experts] --> B[Compute per-expert\nquantization sensitivity]
+    B --> C[Rank experts\nby sensitivity score]
+    C --> D[High sensitivity:\nassign more bits]
+    D --> E[Low sensitivity:\nassign fewer bits]
+    E --> F[Mixed-precision\nbit allocation per expert]
+    F --> G[Better accuracy\nthan uniform MoE quant]
+```
+
 > MC-MoE (Mixture Compressor for MoE) combines expert pruning with quantization to achieve higher compression of MoE models than quantization alone. Experts are first analyzed for their contribution to model outputs (using activation frequency and Hessian-based sensitivity). Low-importance experts are fully pruned (removed). The remaining experts are quantized with bit-widths proportional to their importance. This co-design of pruning and quantization gives a better quality-vs-size tradeoff than either technique alone for MoE models.
 
 | Field | Value |
@@ -2213,6 +3408,17 @@ Two-stage compression: (1) Expert pruning — rank experts by score = activation
 
 <img src="assets/diagrams/moqe.svg" width="640" alt="MoQE diagram">
 <p><em>MoQE: frequency × sensitivity score assigns bit-widths per expert in MoE models.</em></p>
+
+```mermaid
+flowchart LR
+    A[MoE model] --> B[Profile expert\nactivation frequency]
+    B --> C{Expert usage\nfrequency}
+    C -->|high frequency| D[Keep in INT8\nor FP16]
+    C -->|low frequency| E[Quantize to INT4\nor INT2]
+    D --> F[Mixed-precision\nMoE inference]
+    E --> F
+    F --> G[Better than uniform\nquantization of all experts]
+```
 
 > MoQE (Mixture of Quantization Experts) addresses the unique quantization challenge of Mixture-of-Experts (MoE) models: the MoE architecture has many experts (sub-networks), but only a few activate per token. Calibration data therefore sees each expert only a small fraction of the time, making Hessian estimation unreliable. MoQE assigns different bit-widths to different experts based on their activation frequency and importance — frequently-activated experts get more bits, rarely-activated experts can tolerate lower precision. This expert-aware mixed-precision scheme beats uniform quantization of all experts at the same average bit-width.
 
@@ -2248,6 +3454,19 @@ Software that implements quantization methods in practice: inference engines, CU
 <img src="assets/diagrams/sglang-quant.svg" width="640" alt="SGLang (Quantization) diagram">
 <p><em>SGLang: RadixAttention prefix KV cache reuse + Marlin/FP8/AWQ quantization backends.</em></p>
 
+```mermaid
+flowchart LR
+    A[vLLM engine] --> B{Quant method}
+    B -->|awq| C[AutoAWQ W4A16]
+    B -->|gptq| D[ExLlamaV2 W4A16]
+    B -->|fp8| E[Native FP8\nH100 tensor core]
+    B -->|marlin| F[Marlin INT4\nhigh throughput]
+    C --> G[PagedAttention\ncontinuous batching]
+    D --> G
+    E --> G
+    F --> G
+```
+
 > SGLang is a high-performance LLM serving framework built around RadixAttention for efficient prefix caching and structured generation. Its quantization support mirrors vLLM: native GPTQ, AWQ, Marlin, FP8, and INT8 backends, selected automatically by model format. SGLang focuses on structured generation efficiency (JSON, regex, code) and achieves throughput competitive with or exceeding vLLM at comparable quantization quality. It integrates Marlin for W4A16 decoding and CUTLASS-based FP8 kernels for H100 prefill-dominated workloads.
 
 | Field | Value |
@@ -2277,6 +3496,15 @@ SGLang's quantization stack provides the same kernel backends as vLLM (Marlin, A
 <img src="assets/diagrams/exllamav2.svg" width="640" alt="ExLlamaV2 diagram">
 <p><em>ExLlamaV2: custom CUDA kernels for mixed-precision EXL2 format + paged KV + speculative decode.</em></p>
 
+```mermaid
+flowchart LR
+    A[EXL2 quantized\nmodel file] --> B[Mixed-precision\nper-layer bit assignment]
+    B --> C[ExLlamaV2 kernel:\nfused W4A16 decode]
+    C --> D[Paged attention\ncache management]
+    D --> E[Speculative decoding\noptional]
+    E --> F[Highest single-GPU\ngeneration throughput]
+```
+
 > ExLlamaV2 is the fastest open-source inference engine for GPTQ/EXL2 quantized models on NVIDIA GPUs. Its EXL2 format enables arbitrary target bit-widths (e.g. 3.0, 4.25, 5.1 bpw) by assigning different quantization precisions per row of each weight matrix based on Hessian importance. Custom CUDA kernels handle heterogeneous row precisions in a single kernel call. ExLlamaV2 also supports paged KV cache, speculative decoding, and continuous batching, making it competitive with production inference engines for single-user local deployment.
 
 | Field | Value |
@@ -2305,6 +3533,15 @@ ExLlamaV2's core innovation is the EXL2 quantization format (detailed in the EXL
 <img src="assets/diagrams/autoawq.svg" width="640" alt="AutoAWQ diagram">
 <p><em>AutoAWQ: calibrate → scale → quantize → save AWQ model; multi-backend inference.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 model] --> B[Collect activation\nmagnitude stats]
+    B --> C[AWQ: per-channel\nscale optimization]
+    C --> D[Apply scales, quantize\nweights to INT4]
+    D --> E[Save AWQ weights\n+ metadata]
+    E --> F[Fast inference:\ngemm_a16w4 or Marlin kernel]
+```
+
 > AutoAWQ is the standard Python package for applying AWQ quantization to Hugging Face models. Like AutoGPTQ for GPTQ, AutoAWQ provides a simple API for quantizing any supported LLM architecture to W4A16 AWQ format, which can then be uploaded to Hugging Face Hub or used directly for inference. AWQ-quantized models typically have slightly better quality than GPTQ at the same group size due to the activation-guided scaling. AutoAWQ is integrated with vLLM, TGI, and TRT-LLM for deployment.
 
 | Field | Value |
@@ -2332,6 +3569,19 @@ AutoAWQ wraps the AWQ quantization algorithm: (1) collect per-channel activation
 
 <img src="assets/diagrams/vllm-quant.svg" width="640" alt="vLLM (Quantization) diagram">
 <p><em>vLLM quantization stack: PagedAttention + pluggable W4/W8/FP8 kernels for production serving.</em></p>
+
+```mermaid
+flowchart LR
+    A[vLLM engine] --> B{Quant method}
+    B -->|awq| C[AutoAWQ W4A16]
+    B -->|gptq| D[ExLlamaV2 W4A16]
+    B -->|fp8| E[Native FP8\nH100 tensor core]
+    B -->|marlin| F[Marlin INT4\nhigh throughput]
+    C --> G[PagedAttention\ncontinuous batching]
+    D --> G
+    E --> G
+    F --> G
+```
 
 > vLLM is the dominant open-source LLM serving framework for production deployment, built around PagedAttention for efficient KV cache management. Its quantization support includes native GPTQ (Triton kernel), AWQ (custom CUDA), Marlin (high-throughput W4A16), FP8 (H100), GGUF (partial), and INT8. vLLM's quantization handling is transparent to the user — load a pre-quantized model and vLLM selects the appropriate kernel. The Marlin backend (IST-DASLab) gives near-theoretical memory bandwidth for W4A16 decoding at batch=1, while FP8 on H100 gives compute-bound throughput for large batches.
 
@@ -2362,6 +3612,20 @@ vLLM's quantization stack is a collection of backend kernels selected by model f
 <img src="assets/diagrams/mlc-llm.svg" width="640" alt="MLC-LLM diagram">
 <p><em>MLC-LLM: TVM compilation to CUDA/Metal/Vulkan/WebGPU with fused W4A16 dequantization kernels.</em></p>
 
+```mermaid
+flowchart LR
+    A[Model weights\nFP16 or quantized] --> B[TVM compilation\ntarget-specific tuning]
+    B --> C{Target platform}
+    C -->|CUDA| D[GPU GEMM kernel]
+    C -->|Metal| E[Apple GPU kernel]
+    C -->|WebGPU| F[Browser inference]
+    C -->|x86| G[CPU SIMD kernel]
+    D --> H[Universal LLM\nruntime MLC-LLM]
+    E --> H
+    F --> H
+    G --> H
+```
+
 > MLC-LLM is a machine learning compilation framework that enables LLM inference on any hardware with near-native performance, including Apple Silicon (Metal), NVIDIA GPUs (CUDA), AMD GPUs (Vulkan), WebGPU (browser), iOS, and Android. It uses the Apache TVM compiler to generate optimized kernels for each target from a unified model specification. MLC-LLM supports AWQ-style W4A16 quantization, INT8, and FP16, with automatic kernel generation for each backend. This makes it the primary runtime for cross-platform quantized LLM deployment including mobile and browser environments.
 
 | Field | Value |
@@ -2389,6 +3653,17 @@ MLC-LLM compiles each model to a target-specific shared library via TVM. The com
 
 <img src="assets/diagrams/llama-cpp.svg" width="640" alt="llama.cpp (GGUF) diagram">
 <p><em>llama.cpp: portable C++ runtime with GGUF quantization for CPU/GPU/any-hardware inference.</em></p>
+
+```mermaid
+flowchart LR
+    A[GGUF file] --> B[Load quantized\nweights + metadata]
+    B --> C{Quant type}
+    C -->|Q4_K_M| D[K-quant:\nImportance-weighted\ngroup quant]
+    C -->|IQ4_XS| E[I-quant:\nLattice codebook\nactivation-aware]
+    D --> F[CPU or GPU\nmetal / CUDA / Vulkan]
+    E --> F
+    F --> G[Cross-platform\nLLM inference]
+```
 
 > llama.cpp is the most widely used open-source LLM inference engine for consumer hardware. Written in C++, it supports CPU, GPU (CUDA/Metal/Vulkan), and heterogeneous inference. Its GGUF quantization format (K-quants: Q2_K through Q6_K; I-quants: IQ1_S through IQ4_NL) covers 2–8 bit precision with hierarchical or lattice-based quantization. GGUF models are the standard format for local LLM deployment: most model releases on Hugging Face include GGUF variants. The engine handles all major model architectures (LLaMA, Mistral, Phi, Gemma, Qwen, etc.) through a unified C/C++ implementation.
 
@@ -2418,6 +3693,18 @@ llama.cpp implements transformer inference from scratch in C++ with portable bac
 <img src="assets/diagrams/autogptq.svg" width="640" alt="AutoGPTQ diagram">
 <p><em>AutoGPTQ: one-API GPTQ quantization pipeline with multi-backend inference support.</em></p>
 
+```mermaid
+flowchart LR
+    A[FP16 model] --> B[Load calibration\ndataset]
+    B --> C[Run GPTQ per layer:\nHessian + error comp]
+    C --> D[Save GPTQ weights\n+ scales to disk]
+    D --> E[Load quantized model]
+    E --> F{Backend}
+    F -->|ExLlamaV2| G[W4A16 fast decode]
+    F -->|Marlin| H[W4A16 throughput]
+    F -->|CUDA| I[Standard W4A16]
+```
+
 > AutoGPTQ is the de-facto standard Python package for applying GPTQ quantization to any Hugging Face model and saving/loading the quantized result. It wraps the GPTQ algorithm in an easy-to-use API that handles model loading, layer-by-layer quantization, and saving in a standardized format compatible with Hugging Face Hub. AutoGPTQ supports multiple inference backends (Triton, CUDA, Exllama, Marlin) and handles the model architecture discovery automatically. The vast majority of GPTQ-quantized open models on Hugging Face Hub were created with AutoGPTQ.
 
 | Field | Value |
@@ -2446,6 +3733,17 @@ AutoGPTQ provides: (1) a `quantize()` API that iterates over transformer blocks,
 <img src="assets/diagrams/bitsandbytes.svg" width="640" alt="bitsandbytes diagram">
 <p><em>bitsandbytes: LLM.int8() and NF4 CUDA kernels for PyTorch quantized inference and fine-tuning.</em></p>
 
+```mermaid
+flowchart LR
+    A[Model load] --> B{dtype param}
+    B -->|load_in_8bit| C[LLM.int8\nmixed-precision]
+    B -->|load_in_4bit| D[NF4 or FP4\nquant_type]
+    D --> E[QLoRA-ready\ncompute_dtype BF16]
+    C --> F[8-bit optimizer states]
+    E --> G[paged_adamw_32bit]
+    F --> G
+```
+
 > bitsandbytes is the foundational Python library for efficient quantized inference and fine-tuning in PyTorch. It provides CUDA kernels for LLM.int8() (W8A8 with outlier decomposition), NF4/FP4 (W4A16, used in QLoRA), and supports both inference and quantization-aware fine-tuning. The library is installed by default with Hugging Face Transformers and enables loading any AutoModelForCausalLM in 4-bit or 8-bit with a single `load_in_4bit=True` flag. It is the most widely deployed quantization runtime in the open-source LLM ecosystem.
 
 | Field | Value |
@@ -2470,6 +3768,112 @@ bitsandbytes wraps standard PyTorch `nn.Linear` with custom CUDA kernels that ha
 
 ---
 
+## Chronological Overview
+
+> Methods grouped by publication year. See [docs/timeline.md](docs/timeline.md) for the full sortable table.
+
+```mermaid
+timeline
+    title LLM Quantization — Publication Timeline
+    section 1993
+        OBS
+    section 2022
+        GPTQ
+        OBQ
+        LLM.int8()
+        SmoothQuant
+        ZeroQuant
+        Outlier Suppression
+        FP8 Training (Transformer Engine)
+        bitsandbytes
+    section 2023
+        AWQ
+        SpQR
+        SqueezeLLM
+        OWQ
+        QuIP
+        HQQ
+        OmniQuant
+        NF4 / QLoRA
+        AutoRound
+        GGUF K-quants
+        EXL2
+        ZeroQuant-V2
+        ZeroQuant-FP
+        ZeroQuant(4+2)
+        Outlier Suppression+
+        RPTQ
+        Atom
+        QLLM
+        QLoRA
+        LLM-QAT
+        PEQA
+        LoftQ
+        QA-LoRA
+        BitNet
+        PB-LLM
+        MX Formats (MXFP8/MXFP6/MXFP4)
+        MoQE
+        AutoGPTQ
+        AutoAWQ
+        llama.cpp (GGUF)
+        ExLlamaV2
+        vLLM (Quantization)
+        MLC-LLM
+    section 2024
+        QuIP#
+        AQLM
+        FP6-LLM
+        Marlin
+        GGUF I-quants
+        QuaRot / Quant-LLM (FP6)
+        QuaRot
+        SpinQuant
+        DuQuant
+        FlatQuant
+        AffineQuant
+        QServe
+        IR-QLoRA
+        ApiQ
+        BitDistiller
+        EfficientQAT
+        PV-Tuning
+        BitNet b1.58
+        BiLLM
+        OneBit
+        MatMul-free LM
+        Spectra
+        KVQuant
+        KIVI
+        WKVQuant
+        GEAR
+        SKVQ
+        QAQ
+        ThinK
+        Palu
+        ZipCache
+        PQCache
+        Coupled Quantization
+        NVFP4
+        DeepSeek FP8 Training
+        MC-MoE
+        SGLang (Quantization)
+        QTIP
+        SnapKV
+        SageAttention
+        FLUTE
+    section 2025
+        BitNet b1.58 2B4T
+        TurboQuant
+        ResQ
+        RotateKV
+        LittleBit
+        Tequila
+        PM-KVQ
+        ParoQuant
+    section 2026
+        RAMP
+```
 ## Lineage Graph
 
 Arrows point from a method to the one(s) it builds on (i.e., A → B means A builds on B).
@@ -2609,8 +4013,35 @@ graph LR
     sglang-quant["SGLang (Quantization)"] --> marlin["Marlin"]
     sglang-quant["SGLang (Quantization)"] --> gptq["GPTQ"]
     sglang-quant["SGLang (Quantization)"] --> awq["AWQ"]
+    qtip["QTIP"] --> quip-sharp["QuIP#"]
+    qtip["QTIP"] --> quip["QuIP"]
+    qtip["QTIP"] --> gptq["GPTQ"]
+    sageattention["SageAttention"] --> smoothquant["SmoothQuant"]
+    flute["FLUTE"] --> gptq["GPTQ"]
+    flute["FLUTE"] --> gguf-kquants["GGUF K-quants"]
+    turboqu["TurboQuant"] --> aqlm["AQLM"]
+    turboqu["TurboQuant"] --> quip-sharp["QuIP#"]
+    ramp["RAMP"] --> gptq["GPTQ"]
+    ramp["RAMP"] --> awq["AWQ"]
+    resq["ResQ"] --> llm-int8["LLM.int8()"]
+    resq["ResQ"] --> smoothquant["SmoothQuant"]
+    rotatekv["RotateKV"] --> quarot["QuaRot"]
+    rotatekv["RotateKV"] --> kivi["KIVI"]
+    rotatekv["RotateKV"] --> kvquant["KVQuant"]
+    littlebit["LittleBit"] --> aqlm["AQLM"]
+    littlebit["LittleBit"] --> quip-sharp["QuIP#"]
+    littlebit["LittleBit"] --> qtip["QTIP"]
+    tequila["Tequila"] --> bitnet-b158["BitNet b1.58"]
+    tequila["Tequila"] --> hqq["HQQ"]
+    tequila["Tequila"] --> gptq["GPTQ"]
+    pmkvq["PM-KVQ"] --> kivi["KIVI"]
+    pmkvq["PM-KVQ"] --> kvquant["KVQuant"]
+    pmkvq["PM-KVQ"] --> snapkv["SnapKV"]
+    paroquant["ParoQuant"] --> quarot["QuaRot"]
+    paroquant["ParoQuant"] --> spinquant["SpinQuant"]
+    paroquant["ParoQuant"] --> duquant["DuQuant"]
 ```
 
 ---
 
-*Generated 2026-04-06 from 81 entries across 8 categories.*
+*Generated 2026-04-06 from 93 entries across 8 categories.*

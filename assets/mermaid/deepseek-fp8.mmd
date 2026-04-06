@@ -1,0 +1,7 @@
+flowchart LR
+    A[DeepSeek-V3 training\nBF16 baseline] --> B[Fine-grained FP8:\n1x128 weight tiles]
+    B --> C[128x128 activation\ntiles E4M3]
+    C --> D[E5M2 gradient tiles]
+    D --> E[FP32 accumulators\nprevents drift]
+    E --> F[FP8 GEMM on H800\ntensor cores]
+    F --> G[671B MoE trained\nfull FP8 pipeline]
