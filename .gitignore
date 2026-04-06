@@ -11,3 +11,11 @@ build/
 .DS_Store
 Thumbs.db
 .claude/
+
+# Site build artifacts
+site/node_modules/
+site/dist/
+site/public/assets/
+site/public/docs/
+site/src/data/methods.json
+site/src/data/meta.json
