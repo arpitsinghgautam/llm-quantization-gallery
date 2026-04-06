@@ -892,7 +892,13 @@ def generic_mermaid(m: dict) -> str:
     outlier = m.get("handles_outliers_via", "none")[:40]
 
     def esc(s):
-        return str(s).replace('"', "'").replace("\n", " ")
+        s = str(s).replace('"', "'").replace("\n", " ")
+        # Strip characters that break Mermaid node-label parsing inside []
+        s = s.replace("(", "").replace(")", "")
+        s = s.replace("{", "").replace("}", "")
+        s = s.replace("~", "approx ")
+        s = s.replace("\u2013", "-").replace("\u2014", "-")  # en/em-dash
+        return s
 
     if cat == "ptq_weight_only":
         return f"""\

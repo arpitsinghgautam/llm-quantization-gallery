@@ -135,9 +135,9 @@ These methods quantize only the weight tensors; activations remain in FP16/BF16.
 flowchart LR
     A[FP16 Weights] --> B[Calibration data:\nyes]
     B --> C[Compute scale\nand zero-point]
-    C --> D[Quantize weights\nto W2-W8 A16 mixed (per-layer)]
+    C --> D[Quantize weights\nto W2-W8 A16 mixed per-layer]
     D --> E[Outlier handling:\nsensitive layers assigned high]
-    E --> F[Quantized model\nW2-W8 A16 mixed (per-layer)]
+    E --> F[Quantized model\nW2-W8 A16 mixed per-layer]
 ```
 
 > RAMP (Retrieval-Augmented Mixed-Precision) uses a retrieval-based approach to assign bit-widths to individual layers of an LLM. Rather than solving a sensitivity optimization from scratch for each new model, RAMP retrieves bit-width assignments from a database of previously quantized models with known per-layer sensitivity profiles. Layers similar to highly-sensitive layers in the database receive higher bit-widths; robust layers receive lower bit-widths. This amortizes the cost of mixed-precision search across models and enables high-quality quantization without expensive per-model optimization.
@@ -172,9 +172,9 @@ RAMP maintains a database of (layer feature, optimal bit-width) pairs from previ
 flowchart LR
     A[FP16 Weights] --> B[Calibration data:\nyes]
     B --> C[Compute scale\nand zero-point]
-    C --> D[Quantize weights\nto sub-1-bit (effective ~0.1 bits per weight)]
+    C --> D[Quantize weights\nto sub-1-bit effective approx 0.1 bits per weight]
     D --> E[Outlier handling:\nlatent factorization absorbs d]
-    E --> F[Quantized model\nsub-1-bit (effective ~0.1 bits per weight)]
+    E --> F[Quantized model\nsub-1-bit effective approx 0.1 bits per weight]
 ```
 
 > LittleBit pushes quantization to the extreme: it achieves effective bit-widths of ~0.1 bits per weight through latent factorization. Rather than quantizing individual weights, LittleBit factorizes the weight matrix into a shared latent codebook and per-weight latent codes. The latent codes are quantized to extremely few bits (or even single bits), while the shared codebook captures the bulk of the information. This is related to tensor factorization and vector quantization but targets extreme sub-1-bit regimes that are beyond previous methods.
@@ -209,9 +209,9 @@ LittleBit decomposes each weight layer W into W = C * Z, where C is a learned la
 flowchart LR
     A[FP16 Weights] --> B[Calibration data:\nno]
     B --> C[Compute scale\nand zero-point]
-    C --> D[Quantize weights\nto W2/W3 A16 (vector quantization)]
+    C --> D[Quantize weights\nto W2/W3 A16 vector quantization]
     D --> E[Outlier handling:\nnear-optimal rate-distortion c]
-    E --> F[Quantized model\nW2/W3 A16 (vector quantization)]
+    E --> F[Quantized model\nW2/W3 A16 vector quantization]
 ```
 
 > TurboQuant introduces an online vector quantization algorithm that provably achieves near-optimal distortion rate — meaning the quantization error is within a small constant factor of the information-theoretic minimum at a given bit-rate. Unlike offline VQ methods (AQLM, QuIP#) that require an expensive codebook construction pass over the full weight tensor, TurboQuant updates its codebook online as it processes weight vectors sequentially. This enables single-pass quantization with near-optimal quality and significantly lower memory overhead.
@@ -594,9 +594,9 @@ Standard RTN minimizes ‖W − Q(W)‖² w.r.t. the scale s and zero-point z, b
 flowchart LR
     A[FP16 Weights] --> B[Calibration data:\nyes]
     B --> C[Compute scale\nand zero-point]
-    C --> D[Quantize weights\nto W2–W8 A16 (mixed per-row, target average bit-width)]
+    C --> D[Quantize weights\nto W2-W8 A16 mixed per-row, target average bit-width]
     D --> E[Outlier handling:\nper-row bit-width assignment: ]
-    E --> F[Quantized model\nW2–W8 A16 (mixed per-row, target average bit-width)]
+    E --> F[Quantized model\nW2-W8 A16 mixed per-row, target average bit-width]
 ```
 
 > EXL2 is the quantization format native to the ExLlamaV2 inference engine. It extends GPTQ's approach with per-row bit-width assignment: different rows (output channels) of each weight matrix are quantized to different bit-widths (2–8), with the assignment determined by row-level Hessian importance. A target average bits-per-weight is specified, and the quantizer greedily assigns more bits to rows that suffer more from quantization. This makes EXL2 a "smooth" format — any target bpw from 2.0 to 8.0 in 0.05 steps is achievable, rather than the discrete jumps of W3/W4/W5.
@@ -1101,7 +1101,7 @@ flowchart LR
     A[FP16 Weights] --> B[Calibration data:\nno]
     B --> C[Compute scale\nand zero-point]
     C --> D[Quantize weights\nto W4A16]
-    D --> E[Outlier handling:\nnone — no compensation mechani]
+    D --> E[Outlier handling:\nnone - no compensation mechani]
     E --> F[Quantized model\nW4A16]
 ```
 
@@ -1145,7 +1145,7 @@ flowchart LR
     B --> D[Quantize activations\nto low-bit]
     C --> E[INT GEMM\ntensor cores]
     D --> E
-    E --> F[W4A8 (reasoning-model optimized)\nquantized inference]
+    E --> F[W4A8 reasoning-model optimized\nquantized inference]
 ```
 
 > Reasoning LLMs (DeepSeek-R1, QwQ, o1-style models) exhibit different activation patterns than standard language models due to their extended chain-of-thought computation. ParoQuant introduces pairwise rotation quantization: instead of applying a global random rotation (like QuaRot), it identifies pairs of channels where one has large outliers and the other is near-zero, and applies a targeted 2x2 Givens rotation to redistribute the outlier energy between them. This is more efficient than full Hadamard rotation and better preserves reasoning-specific activation structures.
@@ -2282,7 +2282,7 @@ Methods targeting 1–2 bits per weight, including binary {-1, +1}, ternary {-1,
 
 ```mermaid
 flowchart LR
-    A[Training from scratch\nor PTQ] --> B[W1.58 A16 (ternary {-1, 0, +1} PTQ)\ntarget format]
+    A[Training from scratch\nor PTQ] --> B[W1.58 A16 ternary -1, 0, +1 PTQ\ntarget format]
     B --> C[Binary or ternary\nweight representation]
     C --> D[Scale factors\nto compensate range]
     D --> E[Matmuls become\nadditions or lookups]
@@ -2671,7 +2671,7 @@ PM-KVQ tracks the "reasoning state" of the KV cache: tokens belonging to the cur
 ```mermaid
 flowchart LR
     A[K and V tensors\nfrom attention] --> B[Compression strategy:\nrandom Hadamard rotation remov]
-    B --> C[Quantize or prune\nKV to KV2 (2-bit keys and values)]
+    B --> C[Quantize or prune\nKV to KV2 2-bit keys and values]
     C --> D[Store compressed\nKV cache]
     D --> E[Decompress during\nattention computation]
     E --> F[Lower memory\nlonger context]

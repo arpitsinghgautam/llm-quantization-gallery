@@ -1,6 +1,6 @@
 flowchart LR
     A[FP16 Weights] --> B[Calibration data:\nyes]
     B --> C[Compute scale\nand zero-point]
-    C --> D[Quantize weights\nto sub-1-bit (effective ~0.1 bits per weight)]
+    C --> D[Quantize weights\nto sub-1-bit effective approx 0.1 bits per weight]
     D --> E[Outlier handling:\nlatent factorization absorbs d]
-    E --> F[Quantized model\nsub-1-bit (effective ~0.1 bits per weight)]
+    E --> F[Quantized model\nsub-1-bit effective approx 0.1 bits per weight]
