@@ -38,7 +38,7 @@
 | 2023-08-21 | GGUF K-quants | PTQ W-only | W2/W3/W4/W5/W6 A16 | — |
 | 2023-08-25 | OmniQuant | PTQ W-only | W4A16 (weight-only mode); W4A8, W6A6 (W+A mode) | [paper](https://arxiv.org/abs/2308.13137) |
 | 2023-09-11 | AutoRound | PTQ W-only | W4A16 | [paper](https://arxiv.org/abs/2309.05516) |
-| 2023-09-12 | PB-LLM | Sub-2-bit | W~1–2 A16 (mixed: binary + high-precision for salient weights) | [paper](https://arxiv.org/abs/2309.06085) |
+| 2023-09-12 | PB-LLM | Sub-2-bit | W1/W16 A16 (binary weights + FP16 for salient subset) | [paper](https://arxiv.org/abs/2309.06085) |
 | 2023-09-25 | QA-LoRA | QAT / QFT | W4A16 (group-wise) | [paper](https://arxiv.org/abs/2309.14717) |
 | 2023-10-03 | MoQE | MoE Quant | W2/W4 A16 (expert-specific) | [paper](https://arxiv.org/abs/2310.02410) |
 | 2023-10-12 | LoftQ | QAT / QFT | W4A16 (quantized base) + BF16 LoRA | [paper](https://arxiv.org/abs/2310.08659) |
@@ -67,7 +67,7 @@
 | 2024-02-27 | BitNet b1.58 | Sub-2-bit | W1.58A8 | [paper](https://arxiv.org/abs/2402.17764) |
 | 2024-03-07 | QAQ | KV Quant | W16A16KV2–KV4 (mixed) | [paper](https://arxiv.org/abs/2403.04643) |
 | 2024-03-08 | GEAR | KV Quant | W16A16KV4 (with low-rank residual correction) | [paper](https://arxiv.org/abs/2403.05527) |
-| 2024-03-18 | NVFP4 | LP Training | NVFP4 weights + FP8/FP16 activations | — |
+| 2024-03-18 | NVFP4 | LP Training | W4 A8/A16 (NVFP4 weights + FP8/FP16 activations) | — |
 | 2024-03-25 | AffineQuant | PTQ W+A | W4A8 / W4A4 | [paper](https://arxiv.org/abs/2403.16379) |
 | 2024-04-01 | QuaRot | PTQ W+A | W4A4 (with optional KV4) | [paper](https://arxiv.org/abs/2404.00456) |
 | 2024-04-18 | SnapKV | KV Quant | KV selective eviction (variable effective bits) | [paper](https://arxiv.org/abs/2404.14469) |

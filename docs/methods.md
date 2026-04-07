@@ -28,59 +28,59 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [aqlm](#aqlm) | PTQ W-only | 2024 | 2 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2401.06118) |
 | [atom](#atom) | PTQ W+A | 2023 | 4 | 4 | — | yes | no | [paper](https://arxiv.org/abs/2310.19102) |
 | [autoawq](#autoawq) | Systems | 2023 | 4 | 16 | — | yes | no | — |
-| [autogptq](#autogptq) | Systems | 2023 | 4/W3/W2 | 16 | — | yes | no | — |
+| [autogptq](#autogptq) | Systems | 2023 | 4/3/2 | 16 | — | yes | no | — |
 | [autoround](#autoround) | PTQ W-only | 2023 | 4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2309.05516) |
 | [awq](#awq) | PTQ W-only | 2023 | 4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2306.00978) |
 | [billm](#billm) | Sub-2-bit | 2024 | 1 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2402.04291) |
-| [bitdistiller](#bitdistiller) | QAT / QFT | 2024 | 2/W3 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2402.10631) |
+| [bitdistiller](#bitdistiller) | QAT / QFT | 2024 | 2/3 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2402.10631) |
 | [bitnet](#bitnet) | Sub-2-bit | 2023 | 1 | 8 | — | no | yes | [paper](https://arxiv.org/abs/2310.11453) |
 | [bitnet-2b4t](#bitnet-2b4t) | Sub-2-bit | 2025 | 1.58 | 8 | — | no | yes | [paper](https://arxiv.org/abs/2504.01234) |
 | [bitnet-b158](#bitnet-b158) | Sub-2-bit | 2024 | 1.58 | 8 | — | no | yes | [paper](https://arxiv.org/abs/2402.17764) |
 | [bitsandbytes](#bitsandbytes) | Systems | 2022 | 8 | 8 | — | no | no | [paper](https://arxiv.org/abs/2208.07339) |
 | [bitsandbytes-nf4](#bitsandbytes-nf4) | PTQ W-only | 2023 | 4 | 16 | — | no | no | [paper](https://arxiv.org/abs/2305.14314) |
 | [coupled-quant](#coupled-quant) | KV Quant | 2024 | 16 | 16 | 1 | no | no | [paper](https://arxiv.org/abs/2402.11535) |
-| [deepseek-fp8](#deepseek-fp8) | LP Training | 2024 | ARD | — | — | no | yes | [paper](https://arxiv.org/abs/2412.19437) |
+| [deepseek-fp8](#deepseek-fp8) | LP Training | 2024 | 8 | 8 | — | no | yes | [paper](https://arxiv.org/abs/2412.19437) |
 | [duquant](#duquant) | PTQ W+A | 2024 | 4 | 4 | — | yes | no | [paper](https://arxiv.org/abs/2406.01721) |
-| [efficientqat](#efficientqat) | QAT / QFT | 2024 | 2/W4 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2407.11062) |
-| [exl2](#exl2) | PTQ W-only | 2023 | 2–W8 | 16 | — | yes | no | — |
-| [exllamav2](#exllamav2) | Systems | 2023 | 2–W8 | 16 | — | yes | no | — |
+| [efficientqat](#efficientqat) | QAT / QFT | 2024 | 2/4 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2407.11062) |
+| [exl2](#exl2) | PTQ W-only | 2023 | 2–8 | 16 | — | yes | no | — |
+| [exllamav2](#exllamav2) | Systems | 2023 | 2–8 | 16 | — | yes | no | — |
 | [flatquant](#flatquant) | PTQ W+A | 2024 | 4 | 4 | — | yes | no | [paper](https://arxiv.org/abs/2410.09426) |
-| [flute](#flute) | PTQ W-only | 2024 | 3/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2407.10960) |
+| [flute](#flute) | PTQ W-only | 2024 | 3/4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2407.10960) |
 | [fp6-llm](#fp6-llm) | PTQ W-only | 2024 | 6 | 16 | — | no | no | [paper](https://arxiv.org/abs/2401.14112) |
-| [fp8-training](#fp8-training) | LP Training | 2022 | ARD | — | — | no | yes | [paper](https://arxiv.org/abs/2209.05433) |
+| [fp8-training](#fp8-training) | LP Training | 2022 | 8 | 8 | — | no | yes | [paper](https://arxiv.org/abs/2209.05433) |
 | [gear](#gear) | KV Quant | 2024 | 16 | 16 | 4 | no | no | [paper](https://arxiv.org/abs/2403.05527) |
-| [gguf-iquants](#gguf-iquants) | PTQ W-only | 2024 | 1/W2/W3/W4 | 16 | — | yes | no | — |
-| [gguf-kquants](#gguf-kquants) | PTQ W-only | 2023 | 2/W3/W4/W5/W6 | 16 | — | no | no | — |
-| [gptq](#gptq) | PTQ W-only | 2022 | 3/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2210.17323) |
-| [hqq](#hqq) | PTQ W-only | 2023 | 2/W3/W4/W8 | 16 | — | no | no | — |
+| [gguf-iquants](#gguf-iquants) | PTQ W-only | 2024 | 1/2/3/4 | 16 | — | yes | no | — |
+| [gguf-kquants](#gguf-kquants) | PTQ W-only | 2023 | 2/3/4/5/6 | 16 | — | no | no | — |
+| [gptq](#gptq) | PTQ W-only | 2022 | 3/4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2210.17323) |
+| [hqq](#hqq) | PTQ W-only | 2023 | 2/3/4/8 | 16 | — | no | no | — |
 | [ir-qlora](#ir-qlora) | QAT / QFT | 2024 | 4 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2402.05445) |
 | [kivi](#kivi) | KV Quant | 2024 | 16 | 16 | 2 | no | no | [paper](https://arxiv.org/abs/2402.02750) |
 | [kvquant](#kvquant) | KV Quant | 2024 | 16 | 16 | 4 | yes | no | [paper](https://arxiv.org/abs/2401.18079) |
-| [littlebit](#littlebit) | PTQ W-only | 2025 | EIGHT) | — | — | yes | no | [paper](https://neurips.cc/virtual/2025/poster/115061) |
-| [llama-cpp](#llama-cpp) | Systems | 2023 | 2/W3/W4/W5/W6/W8 | 16 | — | no | no | — |
+| [littlebit](#littlebit) | PTQ W-only | 2025 | <1 | — | — | yes | no | [paper](https://neurips.cc/virtual/2025/poster/115061) |
+| [llama-cpp](#llama-cpp) | Systems | 2023 | 2/3/4/5/6/8 | 16 | — | no | no | — |
 | [llm-int8](#llm-int8) | PTQ W+A | 2022 | 8 | 8 | — | no | no | [paper](https://arxiv.org/abs/2208.07339) |
 | [llm-qat](#llm-qat) | QAT / QFT | 2023 | 4 | 8 | 4 | no | yes | [paper](https://arxiv.org/abs/2305.17888) |
 | [loftq](#loftq) | QAT / QFT | 2023 | 4 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2310.08659) |
 | [marlin](#marlin) | PTQ W-only | 2024 | 4 | 16 | — | no | no | [paper](https://arxiv.org/abs/2408.11743) |
 | [matmul-free](#matmul-free) | Sub-2-bit | 2024 | 1.58 | 8 | — | no | yes | [paper](https://arxiv.org/abs/2406.02528) |
-| [mc-moe](#mc-moe) | MoE Quant | 2024 | 2/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2408.11813) |
+| [mc-moe](#mc-moe) | MoE Quant | 2024 | 2/4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2408.11813) |
 | [mlc-llm](#mlc-llm) | Systems | 2023 | 4 | 16 | — | no | no | — |
-| [moqe](#moqe) | MoE Quant | 2023 | 2/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2310.02410) |
-| [mx-formats](#mx-formats) | LP Training | 2023 | — | — | — | no | yes | [paper](https://arxiv.org/abs/2310.10537) |
-| [nvfp4](#nvfp4) | LP Training | 2024 | EIGHTS | — | — | yes | no | — |
-| [obq](#obq) | PTQ W-only | 2022 | 3/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2208.11580) |
-| [obs](#obs) | PTQ W-only | 1993 | ORK; | — | — | yes | no | [paper](https://authors.library.caltech.edu/55952/1/Optimal%20Brain%20Surgeon.pdf) |
+| [moqe](#moqe) | MoE Quant | 2023 | 2/4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2310.02410) |
+| [mx-formats](#mx-formats) | LP Training | 2023 | 4/6/8 | 4/6/8 | — | no | yes | [paper](https://arxiv.org/abs/2310.10537) |
+| [nvfp4](#nvfp4) | LP Training | 2024 | 4 | 8 | — | yes | no | — |
+| [obq](#obq) | PTQ W-only | 2022 | 3/4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2208.11580) |
+| [obs](#obs) | PTQ W-only | 1993 | — | — | — | yes | no | [paper](https://authors.library.caltech.edu/55952/1/Optimal%20Brain%20Surgeon.pdf) |
 | [omniquant](#omniquant) | PTQ W-only | 2023 | 4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2308.13137) |
 | [onebit](#onebit) | Sub-2-bit | 2024 | 1 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2402.11295) |
 | [outlier-suppression](#outlier-suppression) | PTQ W+A | 2022 | 8 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2209.13325) |
 | [outlier-suppression-plus](#outlier-suppression-plus) | PTQ W+A | 2023 | 8 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2304.09145) |
-| [owq](#owq) | PTQ W-only | 2023 | 3/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2306.02272) |
+| [owq](#owq) | PTQ W-only | 2023 | 3/4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2306.02272) |
 | [palu](#palu) | KV Quant | 2024 | 16 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2407.21118) |
 | [paroquant](#paroquant) | PTQ W+A | 2025 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2511.10645) |
-| [pb-llm](#pb-llm) | Sub-2-bit | 2023 | ~1–2 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2309.06085) |
+| [pb-llm](#pb-llm) | Sub-2-bit | 2023 | 1/16 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2309.06085) |
 | [peqa](#peqa) | QAT / QFT | 2023 | 4 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2304.02384) |
 | [pmkvq](#pmkvq) | KV Quant | 2025 | — | — | 2 | yes | no | [paper](https://arxiv.org/abs/2505.18610) |
-| [pqcache](#pqcache) | KV Quant | 2024 | 16 | 16 | 2 | yes | no | [paper](https://arxiv.org/abs/2407.12820) |
+| [pqcache](#pqcache) | KV Quant | 2024 | 16 | 16 | 2-4 | yes | no | [paper](https://arxiv.org/abs/2407.12820) |
 | [pv-tuning](#pv-tuning) | QAT / QFT | 2024 | 2 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2405.14852) |
 | [qa-lora](#qa-lora) | QAT / QFT | 2023 | 4 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2309.14717) |
 | [qaq](#qaq) | KV Quant | 2024 | 16 | 16 | 2 | no | no | [paper](https://arxiv.org/abs/2403.04643) |
@@ -88,11 +88,11 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [qlora](#qlora) | QAT / QFT | 2023 | 4 | 16 | — | no | yes | [paper](https://arxiv.org/abs/2305.14314) |
 | [qserve](#qserve) | PTQ W+A | 2024 | 4 | 8 | 4 | yes | no | [paper](https://arxiv.org/abs/2405.04532) |
 | [qtip](#qtip) | PTQ W-only | 2024 | 2 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2406.11811) |
-| [quant-llm](#quant-llm) | PTQ W-only | 2024 | 4/W6 | 16 | — | no | no | [paper](https://arxiv.org/abs/2405.08925) |
+| [quant-llm](#quant-llm) | PTQ W-only | 2024 | 4/6 | 16 | — | no | no | [paper](https://arxiv.org/abs/2405.08925) |
 | [quarot](#quarot) | PTQ W+A | 2024 | 4 | 4 | 4 | no | no | [paper](https://arxiv.org/abs/2404.00456) |
-| [quip](#quip) | PTQ W-only | 2023 | 2/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2307.13304) |
-| [quip-sharp](#quip-sharp) | PTQ W-only | 2024 | 2/W3/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2402.04396) |
-| [ramp](#ramp) | PTQ W-only | 2026 | 2-W8 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2603.17891) |
+| [quip](#quip) | PTQ W-only | 2023 | 2/4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2307.13304) |
+| [quip-sharp](#quip-sharp) | PTQ W-only | 2024 | 2/3/4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2402.04396) |
+| [ramp](#ramp) | PTQ W-only | 2026 | 2-8 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2603.17891) |
 | [resq](#resq) | PTQ W+A | 2025 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2407.08563) |
 | [rotatekv](#rotatekv) | KV Quant | 2025 | — | — | 2 | no | no | [paper](https://www.ijcai.org/proceedings/2025/0690.pdf) |
 | [rptq](#rptq) | PTQ W+A | 2023 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2304.01089) |
@@ -104,17 +104,17 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [snapkv](#snapkv) | KV Quant | 2024 | — | — | — | no | no | [paper](https://arxiv.org/abs/2404.14469) |
 | [spectra](#spectra) | Sub-2-bit | 2024 | 1.58 | 8 | — | no | yes | [paper](https://arxiv.org/abs/2407.12327) |
 | [spinquant](#spinquant) | PTQ W+A | 2024 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2405.16406) |
-| [spqr](#spqr) | PTQ W-only | 2023 | 3/W4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2306.03078) |
+| [spqr](#spqr) | PTQ W-only | 2023 | 3/4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2306.03078) |
 | [squeezellm](#squeezellm) | PTQ W-only | 2023 | 4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2306.07629) |
 | [tequila](#tequila) | Sub-2-bit | 2025 | 1.58 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2509.23809) |
 | [think](#think) | KV Quant | 2024 | 16 | 16 | 4 | no | no | [paper](https://arxiv.org/abs/2407.21018) |
-| [turboqu](#turboqu) | KV Quant | 2025 | 16 | 16 | 2 | no | no | [paper](https://arxiv.org/abs/2504.19874) |
+| [turboqu](#turboqu) | KV Quant | 2025 | 16 | 16 | 2.5 | no | no | [paper](https://arxiv.org/abs/2504.19874) |
 | [vllm-quant](#vllm-quant) | Systems | 2023 | 4 | 16 | — | no | no | [paper](https://arxiv.org/abs/2309.06180) |
 | [wkvquant](#wkvquant) | KV Quant | 2024 | 4 | 16 | 4 | yes | no | [paper](https://arxiv.org/abs/2402.12065) |
 | [zeroquant](#zeroquant) | PTQ W+A | 2022 | 8 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2206.01861) |
-| [zeroquant-4plus2](#zeroquant-4plus2) | PTQ W+A | 2023 | 4+W6 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2312.08583) |
+| [zeroquant-4plus2](#zeroquant-4plus2) | PTQ W+A | 2023 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2312.08583) |
 | [zeroquant-fp](#zeroquant-fp) | PTQ W+A | 2023 | 4 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2307.09782) |
-| [zeroquant-v2](#zeroquant-v2) | PTQ W+A | 2023 | 4/W8 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2303.08302) |
+| [zeroquant-v2](#zeroquant-v2) | PTQ W+A | 2023 | 4/8 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2303.08302) |
 | [zipcache](#zipcache) | KV Quant | 2024 | 16 | 16 | 4 | no | no | [paper](https://arxiv.org/abs/2405.14256) |
 
 ---
@@ -127,7 +127,7 @@ These methods quantize only the weight tensors; activations remain in FP16/BF16.
 ### RAMP · W2-W8 A16 mixed (per-layer) · PTQ W-only · 2026-03
 
 <img src="../assets/diagrams/ramp.svg" width="640" alt="RAMP diagram">
-<p><em>RAMP: retrieval from a sensitivity database assigns per-layer bit-widths without re-optimization.</em></p>
+<p><em>RAMP: SAC reinforcement-learning policy assigns per-layer bit-widths under a global bit-budget.</em></p>
 
 ```mermaid
 flowchart LR
@@ -138,26 +138,26 @@ flowchart LR
     E --> F[Quantized model\nW2-W8 A16 mixed per-layer]
 ```
 
-> RAMP (Retrieval-Augmented Mixed-Precision) uses a retrieval-based approach to assign bit-widths to individual layers of an LLM. Rather than solving a sensitivity optimization from scratch for each new model, RAMP retrieves bit-width assignments from a database of previously quantized models with known per-layer sensitivity profiles. Layers similar to highly-sensitive layers in the database receive higher bit-widths; robust layers receive lower bit-widths. This amortizes the cost of mixed-precision search across models and enables high-quality quantization without expensive per-model optimization.
+> RAMP (Reinforcement Adaptive Mixed-Precision) uses a Soft Actor-Critic (SAC) reinforcement-learning policy to automatically assign per-layer bit-widths to an LLM under a global bit-budget constraint. The RL agent observes each layer's sensitivity statistics and outputs a bit-width decision; the reward is a combination of model quality (perplexity) and constraint satisfaction. This replaces expensive evolutionary or gradient-based mixed-precision search with a learned, adaptive policy that generalizes across architectures.
 
 | Field | Value |
 |-------|-------|
 | Paper | [2603.17891](https://arxiv.org/abs/2603.17891) · arXiv 2026 |
 | Precision | W2-W8 A16 mixed (per-layer) |
-| Granularity | per-layer mixed precision, retrieval-guided |
-| Calibration | calibration set for sensitivity measurement |
+| Granularity | per-layer mixed precision, RL-guided |
+| Calibration | small calibration set for sensitivity and reward estimation |
 | Symmetric? | symmetric |
-| Outlier handling | sensitive layers assigned higher bit-width via retrieval |
+| Outlier handling | RL policy assigns higher bit-width to sensitive layers |
 | Hardware target | GPU |
 | Training needed? | no |
 | Calibration data? | yes |
-| Typical degradation | near-lossless at 4-bit average via intelligent bit allocation |
+| Typical degradation | near-lossless at 4-bit average via intelligent per-layer bit allocation |
 | Builds on | [gptq](#gptq) · [awq](#awq) |
-| Related | [gptq](#gptq) · [awq](#awq) · [spqr](#spqr) · [omniquant](#omniquant) |
+| Related | [gptq](#gptq) · [awq](#awq) · [omniquant](#omniquant) · [spqr](#spqr) |
 
 **How it works:**
 
-RAMP maintains a database of (layer feature, optimal bit-width) pairs from previously quantized models. For a new model, each layer is embedded into a feature space capturing its weight statistics and activation properties. The nearest neighbors in the database determine the bit-width assignment for that layer. This retrieval step replaces expensive evolutionary search or gradient-based mixed-precision optimization. The database grows over time as more models are quantized, improving future bit-width recommendations.
+RAMP formulates per-layer bit-width selection as a sequential decision problem and trains a SAC agent to solve it. Each layer is described by a feature vector of weight and activation statistics; the agent outputs a bit-width from a discrete action space (e.g. 2, 3, 4, 8 bits). A global bit-budget constraint is enforced via a Lagrangian penalty in the reward. RAMP also introduces "Scale Folding," which folds per-channel quantization scales into adjacent BatchNorm or LayerNorm parameters to eliminate scale overhead at inference time. The trained policy can be applied to new models without re-running the RL search from scratch.
 
 ---
 
@@ -2604,7 +2604,7 @@ Each weight w in a BitLinear layer is binarized as: b = sign(w), and a per-tenso
 ---
 
 <a id="pb-llm"></a>
-### PB-LLM · W~1–2 A16 (mixed: binary + high-precision for salient weights) · Sub-2-bit · 2023-09
+### PB-LLM · W1/W16 A16 (binary weights + FP16 for salient subset) · Sub-2-bit · 2023-09
 
 <img src="../assets/diagrams/pb-llm.svg" width="640" alt="PB-LLM diagram">
 <p><em>Hessian-guided partial binarization: salient weights at FP16, rest binary.</em></p>
@@ -2625,7 +2625,7 @@ flowchart LR
 | Field | Value |
 |-------|-------|
 | Paper | [2309.06085](https://arxiv.org/abs/2309.06085) · ICLR 2024 |
-| Precision | W~1–2 A16 (mixed: binary + high-precision for salient weights) |
+| Precision | W1/W16 A16 (binary weights + FP16 for salient subset) |
 | Granularity | per-tensor (binary part); FP16 for salient |
 | Calibration | calibration set for saliency |
 | Symmetric? | symmetric |
@@ -3322,7 +3322,7 @@ DeepSeek's FP8 recipe uses "fine-grained quantization" — smaller tiles than th
 ---
 
 <a id="nvfp4"></a>
-### NVFP4 · NVFP4 weights + FP8/FP16 activations · LP Training · 2024-03
+### NVFP4 · W4 A8/A16 (NVFP4 weights + FP8/FP16 activations) · LP Training · 2024-03
 
 <img src="../assets/diagrams/nvfp4.svg" width="640" alt="NVFP4 diagram">
 <p><em>NVFP4: E2M1 per-element + FP8 per-16-block scale; native Blackwell W4A8 Tensor Core support.</em></p>
@@ -3342,7 +3342,7 @@ flowchart LR
 |-------|-------|
 | Code | [NVIDIA/TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) |
 | Blog / post | [link](https://developer.nvidia.com/blog/nvidia-blackwell-gpu-architecture/) |
-| Precision | NVFP4 weights + FP8/FP16 activations |
+| Precision | W4 A8/A16 (NVFP4 weights + FP8/FP16 activations) |
 | Granularity | block of 16 elements share one FP8 scale |
 | Calibration | calibration data for static scale computation |
 | Symmetric? | symmetric |
@@ -3892,7 +3892,7 @@ Methods published 2022–2025, ordered by date. See [docs/timeline.md](docs/time
 | 2023-08 | [GGUF K-quants](#gguf-kquants) | PTQ W-only | W2/W3/W4/W5/W6 A16 |
 | 2023-08 | [OmniQuant](#omniquant) | PTQ W-only | W4A16 (weight-only mode); W4A8, W6A6 (W+A mode) |
 | 2023-09 | [AutoRound](#autoround) | PTQ W-only | W4A16 |
-| 2023-09 | [PB-LLM](#pb-llm) | Sub-2-bit | W~1–2 A16 (mixed: binary + high-precision for salient weights) |
+| 2023-09 | [PB-LLM](#pb-llm) | Sub-2-bit | W1/W16 A16 (binary weights + FP16 for salient subset) |
 | 2023-09 | [QA-LoRA](#qa-lora) | QAT / QFT | W4A16 (group-wise) |
 | 2023-10 | [MoQE](#moqe) | MoE Quant | W2/W4 A16 (expert-specific) |
 | 2023-10 | [LoftQ](#loftq) | QAT / QFT | W4A16 (quantized base) + BF16 LoRA |
@@ -3921,7 +3921,7 @@ Methods published 2022–2025, ordered by date. See [docs/timeline.md](docs/time
 | 2024-02 | [BitNet b1.58](#bitnet-b158) | Sub-2-bit | W1.58A8 |
 | 2024-03 | [QAQ](#qaq) | KV Quant | W16A16KV2–KV4 (mixed) |
 | 2024-03 | [GEAR](#gear) | KV Quant | W16A16KV4 (with low-rank residual correction) |
-| 2024-03 | [NVFP4](#nvfp4) | LP Training | NVFP4 weights + FP8/FP16 activations |
+| 2024-03 | [NVFP4](#nvfp4) | LP Training | W4 A8/A16 (NVFP4 weights + FP8/FP16 activations) |
 | 2024-03 | [AffineQuant](#affine-quant) | PTQ W+A | W4A8 / W4A4 |
 | 2024-04 | [QuaRot](#quarot) | PTQ W+A | W4A4 (with optional KV4) |
 | 2024-04 | [SnapKV](#snapkv) | KV Quant | KV selective eviction (variable effective bits) |

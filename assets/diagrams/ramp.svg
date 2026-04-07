@@ -13,8 +13,8 @@
   <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
   <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W2-W8 A16 mixed (per-layer)</text>
-  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-layer mixed precision, retrie…</text>
-  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  calibration set for sensitivity m…</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-layer mixed precision, RL-gui…</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  small calibration set for sensiti…</text>
   <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     GPU</text>
   <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
   <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     ptq_weight_only</text>
@@ -22,21 +22,21 @@
   <!-- TL;DR -->
   <rect x="415" y="80" width="355" height="170" rx="6" fill="#4A90D9" opacity="0.08" stroke="#4A90D9" stroke-width="1.5"/>
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
-  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">RAMP (Retrieval-Augmented Mixed-Precision)</text>
-  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">uses a retrieval-based approach to assign</text>
-  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">bit-widths to individual layers of an LLM.</text>
-  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">Rather than solving a sensitivity optimization</text>
-  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">from scratch for each new model, RAMP</text>
-  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">retrieves bit-width assignments from a</text>
+  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">RAMP (Reinforcement Adaptive Mixed-Precision)</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">uses a Soft Actor-Critic (SAC)</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">reinforcement-learning policy to automatically</text>
+  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">assign per-layer bit-widths to an LLM under a</text>
+  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">global bit-budget constraint. The RL agent</text>
+  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">observes each layer's sensitivity statistics</text>
 
   <!-- Key idea -->
   <rect x="415" y="260" width="355" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="435" y="285" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
-  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">RAMP maintains a database of (layer feature,</text>
-  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">optimal bit-width) pairs from previously</text>
-  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">quantized models. For a new model, each layer</text>
-  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">is embedded into a feature space capturing its</text>
-  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">weight statistics and activation properties.</text>
+  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">RAMP formulates per-layer bit-width selection</text>
+  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">as a sequential decision problem and trains a</text>
+  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">SAC agent to solve it. Each layer is described</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">by a feature vector of weight and activation</text>
+  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">statistics; the agent outputs a bit-width from</text>
 
   <!-- Bottom -->
   <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>

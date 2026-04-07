@@ -2441,7 +2441,7 @@
   blog_url: null
   venue: "ICLR 2024"
 
-  precision: "W~1–2 A16 (mixed: binary + high-precision for salient weights)"
+  precision: "W1/W16 A16 (binary weights + FP16 for salient subset)"
   granularity: "per-tensor (binary part); FP16 for salient"
   calibration: "calibration set for saliency"
   symmetric: symmetric
@@ -3357,7 +3357,7 @@
   blog_url: https://developer.nvidia.com/blog/nvidia-blackwell-gpu-architecture/
   venue: null
 
-  precision: "NVFP4 weights + FP8/FP16 activations"
+  precision: "W4 A8/A16 (NVFP4 weights + FP8/FP16 activations)"
   granularity: "block of 16 elements share one FP8 scale"
   calibration: "calibration data for static scale computation"
   symmetric: symmetric
@@ -4150,7 +4150,7 @@
 
 - id: ramp
   name: RAMP
-  full_name: "RAMP: Retrieval-Augmented Mixed-Precision Quantization"
+  full_name: "RAMP: Reinforcement Adaptive Mixed-Precision Quantization for Large Language Models"
   category: ptq_weight_only
   subcategory: mixed-precision
   year: 2026
@@ -4164,36 +4164,36 @@
   blog_url: null
   venue: "arXiv 2026"
   precision: "W2-W8 A16 mixed (per-layer)"
-  granularity: "per-layer mixed precision, retrieval-guided"
-  calibration: "calibration set for sensitivity measurement"
+  granularity: "per-layer mixed precision, RL-guided"
+  calibration: "small calibration set for sensitivity and reward estimation"
   symmetric: symmetric
-  handles_outliers_via: "sensitive layers assigned higher bit-width via retrieval"
+  handles_outliers_via: "RL policy assigns higher bit-width to sensitive layers"
   hardware_target: "GPU"
   requires_training: false
   requires_calibration_data: true
-  typical_degradation: "near-lossless at 4-bit average via intelligent bit allocation"
+  typical_degradation: "near-lossless at 4-bit average via intelligent per-layer bit allocation"
   tldr: >
-    RAMP (Retrieval-Augmented Mixed-Precision) uses a retrieval-based approach to assign
-    bit-widths to individual layers of an LLM. Rather than solving a sensitivity
-    optimization from scratch for each new model, RAMP retrieves bit-width assignments
-    from a database of previously quantized models with known per-layer sensitivity
-    profiles. Layers similar to highly-sensitive layers in the database receive higher
-    bit-widths; robust layers receive lower bit-widths. This amortizes the cost of
-    mixed-precision search across models and enables high-quality quantization without
-    expensive per-model optimization.
+    RAMP (Reinforcement Adaptive Mixed-Precision) uses a Soft Actor-Critic (SAC)
+    reinforcement-learning policy to automatically assign per-layer bit-widths to an
+    LLM under a global bit-budget constraint. The RL agent observes each layer's
+    sensitivity statistics and outputs a bit-width decision; the reward is a combination
+    of model quality (perplexity) and constraint satisfaction. This replaces expensive
+    evolutionary or gradient-based mixed-precision search with a learned, adaptive policy
+    that generalizes across architectures.
   key_idea: >
-    RAMP maintains a database of (layer feature, optimal bit-width) pairs from previously
-    quantized models. For a new model, each layer is embedded into a feature space
-    capturing its weight statistics and activation properties. The nearest neighbors
-    in the database determine the bit-width assignment for that layer. This retrieval
-    step replaces expensive evolutionary search or gradient-based mixed-precision
-    optimization. The database grows over time as more models are quantized, improving
-    future bit-width recommendations.
+    RAMP formulates per-layer bit-width selection as a sequential decision problem and
+    trains a SAC agent to solve it. Each layer is described by a feature vector of weight
+    and activation statistics; the agent outputs a bit-width from a discrete action space
+    (e.g. 2, 3, 4, 8 bits). A global bit-budget constraint is enforced via a Lagrangian
+    penalty in the reward. RAMP also introduces "Scale Folding," which folds per-channel
+    quantization scales into adjacent BatchNorm or LayerNorm parameters to eliminate
+    scale overhead at inference time. The trained policy can be applied to new models
+    without re-running the RL search from scratch.
   builds_on: ["gptq", "awq"]
   superseded_by: []
-  related: ["gptq", "awq", "spqr", "omniquant"]
+  related: ["gptq", "awq", "omniquant", "spqr"]
   diagram: assets/diagrams/ramp.svg
-  diagram_caption: "RAMP: retrieval from a sensitivity database assigns per-layer bit-widths without re-optimization."
+  diagram_caption: "RAMP: SAC reinforcement-learning policy assigns per-layer bit-widths under a global bit-budget."
 
 - id: resq
   name: ResQ

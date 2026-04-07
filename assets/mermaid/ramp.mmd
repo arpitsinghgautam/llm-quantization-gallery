@@ -2,5 +2,5 @@ flowchart LR
     A[FP16 Weights] --> B[Calibration data:\nyes]
     B --> C[Compute scale\nand zero-point]
     C --> D[Quantize weights\nto W2-W8 A16 mixed per-layer]
-    D --> E[Outlier handling:\nsensitive layers assigned high]
+    D --> E[Outlier handling:\nRL policy assigns higher bit-w]
     E --> F[Quantized model\nW2-W8 A16 mixed per-layer]

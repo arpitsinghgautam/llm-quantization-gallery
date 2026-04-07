@@ -287,17 +287,38 @@ def render_matrix(methods):
         precision = m.get("precision", "?")
 
         # Parse precision string into W/A/KV columns
+        import re as _re
         w_bits = a_bits = kv_bits = "—"
-        if precision and precision != "unknown":
-            p = precision.upper()
-            import re
-            wm = re.search(r"W(\S+?)(?:\s|$|A|KV)", p)
-            am = re.search(r"A(\d+)", p)
-            kvm = re.search(r"KV(\d+)", p)
+        p = (precision or "").strip()
+        p_up = p.upper()
+
+        # n/a or pruning → leave all blank
+        if p_up.startswith("N/A"):
+            pass
+        # sub-1-bit special case
+        elif "SUB-1" in p_up or "~0.1" in p_up:
+            w_bits = "<1"
+        # KV-only formats (no W prefix)
+        elif p_up.startswith("KV") and "W" not in p_up:
+            kvm = _re.search(r"KV([\d.]+(?:-[\d.]+)?)", p_up)
+            if kvm: kv_bits = kvm.group(1)
+        # FP8 / MXFP / NVFP / low-precision training formats
+        elif _re.search(r"(?:FP8|MXFP|NVFP|FP4)", p_up) and not _re.search(r"^W\d", p_up):
+            nums = _re.findall(r"(?:MX|NV|E\d)?FP(\d+)", p_up)
+            w_bits = "/".join(sorted(set(nums))) if nums else "FP"
+            a_bits = w_bits
+        else:
+            # W bits: W followed by digits/decimals, ranges with / or –
+            wm = _re.search(r"W([\d.]+(?:[/–\-][\dW.]+)*)", p_up)
             if wm:
-                w_bits = wm.group(1)
-            if am:
+                raw = wm.group(1).replace("W", "")
+                w_bits = raw
+            # A bits: digit-preceded A + digits, up to 32
+            am = _re.search(r"(?<=[\d\s])A(\d+)", p_up)
+            if am and int(am.group(1)) <= 32:
                 a_bits = am.group(1)
+            # KV bits
+            kvm = _re.search(r"KV([\d.]+(?:-[\d.]+)?)", p_up)
             if kvm:
                 kv_bits = kvm.group(1)
 
