@@ -41,6 +41,6 @@
   <!-- Bottom -->
   <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="442" font-family="monospace" font-size="11" fill="#E87D3E">https://arxiv.org/abs/2511.10645</text>
-  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2025  |  Authors: unknown</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2025  |  Authors: Yesheng Liang, Haisheng Chen, Zihan Zhang</text>
 
 </svg>

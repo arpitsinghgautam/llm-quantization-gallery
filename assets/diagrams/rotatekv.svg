@@ -41,6 +41,6 @@
   <!-- Bottom -->
   <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="442" font-family="monospace" font-size="11" fill="#3DAD78">https://www.ijcai.org/proceedings/2025/0690.pdf</text>
-  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2025  |  Authors: unknown</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2025  |  Authors: Zunhai Su, Hanyu Wei, Zhe Chen</text>
 
 </svg>

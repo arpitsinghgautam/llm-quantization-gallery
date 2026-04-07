@@ -41,6 +41,6 @@
   <!-- Bottom -->
   <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="442" font-family="monospace" font-size="11" fill="#3DAD78">https://arxiv.org/abs/2505.18610</text>
-  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2025  |  Authors: unknown</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2025  |  Authors: Tengxuan Liu, Shiyao Li, Jiayi Yang</text>
 
 </svg>
