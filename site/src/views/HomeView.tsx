@@ -129,7 +129,7 @@ export function HomeView() {
         </p>
         <p>
           I built this while working on{' '}
-          <a href="https://arxiv.org/abs/2503.00595" target="_blank" rel="noopener noreferrer"
+          <a href="https://arxiv.org/abs/2603.17891" target="_blank" rel="noopener noreferrer"
             className="underline hover:text-blue-600 dark:hover:text-blue-400">
             RAMP
           </a>
