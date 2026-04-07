@@ -1,6 +1,6 @@
 flowchart LR
-    A[FP16 Weights] --> B[Calibration data:\nno]
-    B --> C[Compute scale\nand zero-point]
-    C --> D[Quantize weights\nto W2/W3 A16 vector quantization]
-    D --> E[Outlier handling:\nnear-optimal rate-distortion c]
-    E --> F[Quantized model\nW2/W3 A16 vector quantization]
+    A[K and V tensors\nfrom attention] --> B[Compression strategy:\nrandom rotation induces concen]
+    B --> C[Quantize or prune\nKV to W16A16KV2.5/KV3.5 vector quantization]
+    C --> D[Store compressed\nKV cache]
+    D --> E[Decompress during\nattention computation]
+    E --> F[Lower memory\nlonger context]

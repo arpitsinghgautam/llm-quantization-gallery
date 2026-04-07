@@ -6,11 +6,11 @@ See **[docs/notation.md](notation.md)** for the `W4A16`, `W8A8KV4`, group-size, 
 
 ## Table of Contents
 
-- [Post-Training Quantization — Weight-Only](#post-training-quantization--weight-only) — 26 methods
+- [Post-Training Quantization — Weight-Only](#post-training-quantization--weight-only) — 25 methods
 - [Post-Training Quantization — Weights + Activations](#post-training-quantization--weights-+-activations) — 19 methods
 - [Quantization-Aware Training & Quantized Fine-Tuning](#quantization-aware-training--quantized-fine-tuning) — 10 methods
 - [Extreme Low-Bit & Binary/Ternary Quantization](#extreme-low-bit--binaryternary-quantization) — 9 methods
-- [KV-Cache Quantization](#kv-cache-quantization) — 15 methods
+- [KV-Cache Quantization](#kv-cache-quantization) — 16 methods
 - [Low-Precision Training & Numerical Formats](#low-precision-training--numerical-formats) — 4 methods
 - [MoE-Specific Quantization](#moe-specific-quantization) — 2 methods
 - [Systems, Kernels & Runtimes](#systems-kernels--runtimes) — 8 methods
@@ -108,7 +108,7 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [squeezellm](#squeezellm) | PTQ W-only | 2023 | 4 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2306.07629) |
 | [tequila](#tequila) | Sub-2-bit | 2025 | 1.58 | 16 | — | yes | no | [paper](https://arxiv.org/abs/2509.23809) |
 | [think](#think) | KV Quant | 2024 | 16 | 16 | 4 | no | no | [paper](https://arxiv.org/abs/2407.21018) |
-| [turboqu](#turboqu) | PTQ W-only | 2025 | 2/W3 | 16 | — | no | no | [paper](https://arxiv.org/abs/2504.19874) |
+| [turboqu](#turboqu) | KV Quant | 2025 | 16 | 16 | 2 | no | no | [paper](https://arxiv.org/abs/2504.19874) |
 | [vllm-quant](#vllm-quant) | Systems | 2023 | 4 | 16 | — | no | no | [paper](https://arxiv.org/abs/2309.06180) |
 | [wkvquant](#wkvquant) | KV Quant | 2024 | 4 | 16 | 4 | yes | no | [paper](https://arxiv.org/abs/2402.12065) |
 | [zeroquant](#zeroquant) | PTQ W+A | 2022 | 8 | 8 | — | yes | no | [paper](https://arxiv.org/abs/2206.01861) |
@@ -196,44 +196,6 @@ flowchart LR
 **How it works:**
 
 LittleBit decomposes each weight layer W into W = C * Z, where C is a learned latent codebook (shared across the layer) and Z is a matrix of binary or ternary latent codes. The codes Z are quantized to very low bit-width (1-2 bits), while C is kept in higher precision (FP16) but is small enough that the total storage is sub-1-bit average. The decomposition is optimized via alternating minimization on calibration data. The extreme compression sacrifices some accuracy but enables deployment scenarios where memory is the absolute bottleneck.
-
----
-
-<a id="turboqu"></a>
-### TurboQuant · W2/W3 A16 (vector quantization) · PTQ W-only · 2025-04
-
-<img src="../assets/diagrams/turboqu.svg" width="640" alt="TurboQuant diagram">
-<p><em>TurboQuant: online codebook update with near-optimal rate-distortion guarantee.</em></p>
-
-```mermaid
-flowchart LR
-    A[FP16 Weights] --> B[Calibration data:\nno]
-    B --> C[Compute scale\nand zero-point]
-    C --> D[Quantize weights\nto W2/W3 A16 vector quantization]
-    D --> E[Outlier handling:\nnear-optimal rate-distortion c]
-    E --> F[Quantized model\nW2/W3 A16 vector quantization]
-```
-
-> TurboQuant introduces an online vector quantization algorithm that provably achieves near-optimal distortion rate — meaning the quantization error is within a small constant factor of the information-theoretic minimum at a given bit-rate. Unlike offline VQ methods (AQLM, QuIP#) that require an expensive codebook construction pass over the full weight tensor, TurboQuant updates its codebook online as it processes weight vectors sequentially. This enables single-pass quantization with near-optimal quality and significantly lower memory overhead.
-
-| Field | Value |
-|-------|-------|
-| Paper | [2504.19874](https://arxiv.org/abs/2504.19874) · arXiv 2025 |
-| Precision | W2/W3 A16 (vector quantization) |
-| Granularity | per-group, online codebook update |
-| Calibration | online — updates codebook as weights stream in |
-| Symmetric? | symmetric |
-| Outlier handling | near-optimal rate-distortion coding absorbs outliers |
-| Hardware target | GPU |
-| Training needed? | no |
-| Calibration data? | no |
-| Typical degradation | near-optimal distortion bound at given bit-rate |
-| Builds on | [aqlm](#aqlm) · [quip-sharp](#quip-sharp) |
-| Related | [aqlm](#aqlm) · [quip-sharp](#quip-sharp) · [qtip](#qtip) · [hqq](#hqq) |
-
-**How it works:**
-
-TurboQuant frames weight quantization as an online learning problem: given a stream of weight vectors, it maintains and updates a codebook to minimize cumulative distortion. The algorithm draws from competitive online learning theory to provide regret bounds guaranteeing near-optimal distortion relative to the best fixed codebook in hindsight. This is in contrast to offline methods that need multiple passes or solving expensive optimization problems. TurboQuant achieves strong empirical performance on LLaMA-family models at 2-3 bit-widths.
 
 ---
 
@@ -2725,6 +2687,44 @@ PM-KVQ tracks the "reasoning state" of the KV cache: tokens belonging to the cur
 
 ---
 
+<a id="turboqu"></a>
+### TurboQuant · W16A16KV2.5/KV3.5 (vector quantization) · KV Quant · 2025-04
+
+<img src="../assets/diagrams/turboqu.svg" width="640" alt="TurboQuant diagram">
+<p><em>TurboQuant: random rotation + per-coordinate scalar quantization for near-optimal KV cache compression.</em></p>
+
+```mermaid
+flowchart LR
+    A[K and V tensors\nfrom attention] --> B[Compression strategy:\nrandom rotation induces concen]
+    B --> C[Quantize or prune\nKV to W16A16KV2.5/KV3.5 vector quantization]
+    C --> D[Store compressed\nKV cache]
+    D --> E[Decompress during\nattention computation]
+    E --> F[Lower memory\nlonger context]
+```
+
+> TurboQuant is a KV-cache quantization method that compresses keys and values during inference using an online vector quantization algorithm provably near-optimal in distortion rate. By randomly rotating input vectors and applying per-coordinate scalar quantizers, it achieves near-lossless KV compression at 3.5 bits/channel with no calibration data and virtually zero indexing overhead.
+
+| Field | Value |
+|-------|-------|
+| Paper | [2504.19874](https://arxiv.org/abs/2504.19874) · ICLR 2026 |
+| Precision | W16A16KV2.5/KV3.5 (vector quantization) |
+| Granularity | per-channel, online |
+| Calibration | none — data-oblivious, applied at runtime |
+| Symmetric? | symmetric |
+| Outlier handling | random rotation induces concentrated distribution; near-optimal rate-distortion coding |
+| Hardware target | GPU (vLLM integration) |
+| Training needed? | no |
+| Calibration data? | no |
+| Typical degradation | quality-neutral at 3.5 bits/channel; marginal degradation at 2.5 bits/channel |
+| Builds on | [kivi](#kivi) · [kvquant](#kvquant) |
+| Related | [kivi](#kivi) · [kvquant](#kvquant) · [gear](#gear) · [rotatekv](#rotatekv) |
+
+**How it works:**
+
+TurboQuant addresses both MSE and inner-product distortion for KV vectors. It randomly rotates input vectors — inducing a concentrated Beta distribution on coordinates — then applies optimal scalar quantizers per coordinate, exploiting near-independence of dimensions in high-dimensional space. For unbiased inner-product estimation, a two-stage approach is used: an MSE quantizer followed by a 1-bit Quantized Johnson-Lindenstrauss transform on the residual. The method proves information-theoretic lower bounds and shows TurboQuant differs from optimal by only a small constant (~2.7x). Integrated with vLLM for production KV cache compression.
+
+---
+
 <a id="rotatekv"></a>
 ### RotateKV · KV2 (2-bit keys and values) · KV Quant · 2025-02
 
@@ -3949,7 +3949,7 @@ Methods published 2022–2025, ordered by date. See [docs/timeline.md](docs/time
 | 2025-01 | [ResQ](#resq) | PTQ W+A | W4A8 with FP16 low-rank residual for outlier subspace |
 | 2025-02 | [RotateKV](#rotatekv) | KV Quant | KV2 (2-bit keys and values) |
 | 2025-04 | [BitNet b1.58 2B4T](#bitnet-2b4t) | Sub-2-bit | W1.58A8 |
-| 2025-04 | [TurboQuant](#turboqu) | PTQ W-only | W2/W3 A16 (vector quantization) |
+| 2025-04 | [TurboQuant](#turboqu) | KV Quant | W16A16KV2.5/KV3.5 (vector quantization) |
 | 2025-05 | [PM-KVQ](#pmkvq) | KV Quant | KV2-KV8 mixed progressive |
 | 2025-09 | [LittleBit](#littlebit) | PTQ W-only | sub-1-bit (effective ~0.1 bits per weight) |
 | 2025-09 | [Tequila](#tequila) | Sub-2-bit | W1.58 A16 (ternary {-1, 0, +1} PTQ) |

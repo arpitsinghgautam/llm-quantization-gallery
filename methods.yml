@@ -4103,8 +4103,8 @@
 - id: turboqu
   name: TurboQuant
   full_name: "TurboQuant: Online Vector Quantization with Near-Optimal Distortion Rate"
-  category: ptq_weight_only
-  subcategory: online-vector-quantization
+  category: kv_cache
+  subcategory: vector-quantization
   year: 2025
   date: 2025-04-28
   authors:
@@ -4117,37 +4117,36 @@
   paper_url: https://arxiv.org/abs/2504.19874
   code_url: null
   blog_url: null
-  venue: "arXiv 2025"
-  precision: "W2/W3 A16 (vector quantization)"
-  granularity: "per-group, online codebook update"
-  calibration: "online — updates codebook as weights stream in"
+  venue: "ICLR 2026"
+  precision: "W16A16KV2.5/KV3.5 (vector quantization)"
+  granularity: "per-channel, online"
+  calibration: "none — data-oblivious, applied at runtime"
   symmetric: symmetric
-  handles_outliers_via: "near-optimal rate-distortion coding absorbs outliers"
-  hardware_target: "GPU"
+  handles_outliers_via: "random rotation induces concentrated distribution; near-optimal rate-distortion coding"
+  hardware_target: "GPU (vLLM integration)"
   requires_training: false
   requires_calibration_data: false
-  typical_degradation: "near-optimal distortion bound at given bit-rate"
+  typical_degradation: "quality-neutral at 3.5 bits/channel; marginal degradation at 2.5 bits/channel"
   tldr: >
-    TurboQuant introduces an online vector quantization algorithm that provably
-    achieves near-optimal distortion rate — meaning the quantization error is within
-    a small constant factor of the information-theoretic minimum at a given bit-rate.
-    Unlike offline VQ methods (AQLM, QuIP#) that require an expensive codebook
-    construction pass over the full weight tensor, TurboQuant updates its codebook
-    online as it processes weight vectors sequentially. This enables single-pass
-    quantization with near-optimal quality and significantly lower memory overhead.
+    TurboQuant is a KV-cache quantization method that compresses keys and values during
+    inference using an online vector quantization algorithm provably near-optimal in
+    distortion rate. By randomly rotating input vectors and applying per-coordinate
+    scalar quantizers, it achieves near-lossless KV compression at 3.5 bits/channel
+    with no calibration data and virtually zero indexing overhead.
   key_idea: >
-    TurboQuant frames weight quantization as an online learning problem: given a stream
-    of weight vectors, it maintains and updates a codebook to minimize cumulative
-    distortion. The algorithm draws from competitive online learning theory to provide
-    regret bounds guaranteeing near-optimal distortion relative to the best fixed
-    codebook in hindsight. This is in contrast to offline methods that need multiple
-    passes or solving expensive optimization problems. TurboQuant achieves strong
-    empirical performance on LLaMA-family models at 2-3 bit-widths.
-  builds_on: ["aqlm", "quip-sharp"]
+    TurboQuant addresses both MSE and inner-product distortion for KV vectors. It randomly
+    rotates input vectors — inducing a concentrated Beta distribution on coordinates — then
+    applies optimal scalar quantizers per coordinate, exploiting near-independence of
+    dimensions in high-dimensional space. For unbiased inner-product estimation, a two-stage
+    approach is used: an MSE quantizer followed by a 1-bit Quantized Johnson-Lindenstrauss
+    transform on the residual. The method proves information-theoretic lower bounds and shows
+    TurboQuant differs from optimal by only a small constant (~2.7x). Integrated with vLLM
+    for production KV cache compression.
+  builds_on: ["kivi", "kvquant"]
   superseded_by: []
-  related: ["aqlm", "quip-sharp", "qtip", "hqq"]
+  related: ["kivi", "kvquant", "gear", "rotatekv"]
   diagram: assets/diagrams/turboqu.svg
-  diagram_caption: "TurboQuant: online codebook update with near-optimal rate-distortion guarantee."
+  diagram_caption: "TurboQuant: random rotation + per-coordinate scalar quantization for near-optimal KV cache compression."
 
 - id: ramp
   name: RAMP

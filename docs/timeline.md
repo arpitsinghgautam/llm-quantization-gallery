@@ -95,7 +95,7 @@
 | 2025-01-20 | ResQ | PTQ W+A | W4A8 with FP16 low-rank residual for outlier subspace | [paper](https://arxiv.org/abs/2407.08563) |
 | 2025-02-10 | RotateKV | KV Quant | KV2 (2-bit keys and values) | [paper](https://www.ijcai.org/proceedings/2025/0690.pdf) |
 | 2025-04-01 | BitNet b1.58 2B4T | Sub-2-bit | W1.58A8 | [paper](https://arxiv.org/abs/2504.01234) |
-| 2025-04-28 | TurboQuant | PTQ W-only | W2/W3 A16 (vector quantization) | [paper](https://arxiv.org/abs/2504.19874) |
+| 2025-04-28 | TurboQuant | KV Quant | W16A16KV2.5/KV3.5 (vector quantization) | [paper](https://arxiv.org/abs/2504.19874) |
 | 2025-05-28 | PM-KVQ | KV Quant | KV2-KV8 mixed progressive | [paper](https://arxiv.org/abs/2505.18610) |
 | 2025-09-15 | LittleBit | PTQ W-only | sub-1-bit (effective ~0.1 bits per weight) | [paper](https://neurips.cc/virtual/2025/poster/115061) |
 | 2025-09-30 | Tequila | Sub-2-bit | W1.58 A16 (ternary {-1, 0, +1} PTQ) | [paper](https://arxiv.org/abs/2509.23809) |
