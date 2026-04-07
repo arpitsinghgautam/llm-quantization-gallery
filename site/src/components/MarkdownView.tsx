@@ -40,11 +40,20 @@ export function MarkdownView({ url, className }: MarkdownViewProps) {
     )
   }
 
+  const base = import.meta.env.BASE_URL
+
   return (
     <div className={`prose dark:prose-invert max-w-none ${className ?? ''}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
+          // Rewrite relative ../assets/ paths to BASE_URL
+          img({ src, alt }) {
+            const resolved = src?.startsWith('../assets/')
+              ? base + src.replace('../assets/', 'assets/')
+              : src
+            return <img src={resolved} alt={alt ?? ''} className="w-full h-auto" />
+          },
           // Render mermaid fenced code blocks with MermaidView
           code({ node, className: cls, children, ...props }) {
             const lang = /language-(\w+)/.exec(cls ?? '')?.[1]
