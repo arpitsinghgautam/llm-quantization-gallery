@@ -3,6 +3,7 @@ import { useMethods } from '../data/useMethods'
 import { categoryColor, CATEGORY_LABELS } from '../lib/categoryColors'
 import { navigateTo } from '../router'
 import type { Method } from '../data/schema'
+import { isAcceptedVenue, publicationLabel } from '../lib/venue'
 
 const MermaidView = lazy(() =>
   import('../components/MermaidView').then(m => ({ default: m.MermaidView })),
@@ -12,7 +13,7 @@ const MermaidView = lazy(() =>
 const COMPARE_FIELDS: Array<{ key: keyof Method; label: string }> = [
   { key: 'category',               label: 'Category' },
   { key: 'year',                   label: 'Year' },
-  { key: 'venue',                  label: 'Venue' },
+  { key: 'venue',                  label: 'Published at' },
   { key: 'precision',              label: 'Precision' },
   { key: 'granularity',            label: 'Granularity' },
   { key: 'calibration',            label: 'Calibration' },
@@ -83,6 +84,14 @@ function FieldCell({ method: m, field, isDiff, byId }: MethodColumnProps) {
     )
   } else if (field === 'precision') {
     display = <code className="text-[11px] font-mono">{valStr(value)}</code>
+  } else if (field === 'venue') {
+    display = isAcceptedVenue(value as string | null) ? (
+      <span className="badge bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400">
+        {String(value)}
+      </span>
+    ) : (
+      <span className="text-gray-500 dark:text-gray-400">{publicationLabel(m.venue, m.paper_url)}</span>
+    )
   }
 
   return (

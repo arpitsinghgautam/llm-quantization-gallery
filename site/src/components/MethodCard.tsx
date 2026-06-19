@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react'
 import type { Method } from '../data/schema'
 import { categoryColor, CATEGORY_LABELS } from '../lib/categoryColors'
 import { navigateTo } from '../router'
+import { isAcceptedVenue, venueShort } from '../lib/venue'
 
 interface MethodCardProps {
   method: Method
@@ -99,15 +100,25 @@ export function MethodCard({ method: m, inCompare, onCompareToggle, compareDisab
           </div>
         </div>
 
-        {/* Precision badge */}
-        {m.precision && m.precision !== 'n/a' && (
+        {/* Precision + venue badges */}
+        <div className="flex flex-wrap items-center gap-1.5">
+          {m.precision && m.precision !== 'n/a' && (
+            <span
+              className="badge text-[10px] font-mono"
+              style={{ backgroundColor: color + '20', color }}
+            >
+              {m.precision.split('(')[0].trim().slice(0, 28)}
+            </span>
+          )}
           <span
-            className="badge text-[10px] font-mono self-start"
-            style={{ backgroundColor: color + '20', color }}
+            className={`badge text-[10px] ${isAcceptedVenue(m.venue)
+              ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400'
+              : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'}`}
+            title={isAcceptedVenue(m.venue) ? `Published at ${m.venue}` : 'arXiv preprint (not yet at a peer-reviewed venue)'}
           >
-            {m.precision.split('(')[0].trim().slice(0, 28)}
+            {venueShort(m.venue, m.paper_url)}
           </span>
-        )}
+        </div>
 
         {/* TLDR */}
         <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-3">

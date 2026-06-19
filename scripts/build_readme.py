@@ -204,10 +204,16 @@ def render_card(m, path_prefix=""):
     paper_cell = ""
     if paper_url and paper_url not in ("null", None):
         paper_cell = f"[{paper_url.split('/')[-1]}]({paper_url})"
-        if venue:
-            paper_cell += f" · {venue}"
-    elif venue:
-        paper_cell = venue
+
+    # Publication / acceptance status
+    _v = (venue or "").strip()
+    _is_arxiv = bool(paper_url) and paper_url not in ("null", None) and "arxiv.org" in str(paper_url).lower()
+    if _v and _v.lower() != "null" and not _v.lower().startswith("arxiv"):
+        published_cell = f"**{_v}**"
+    elif _is_arxiv:
+        published_cell = "arXiv (preprint)"
+    else:
+        published_cell = "n/a (no paper)"
 
     code_cell = ""
     if code_url and code_url not in ("null", None):
@@ -227,6 +233,7 @@ def render_card(m, path_prefix=""):
         return " · ".join(f"[{r}](#{method_anchor(r)})" for r in ids)
 
     rows = [
+        ("Published at", published_cell),
         ("Paper", paper_cell or "-"),
         ("Code", code_cell or "-"),
         ("Blog / post", blog_cell or "-"),
@@ -273,10 +280,10 @@ def render_matrix(methods):
         "Linked IDs jump to the full card.\n"
     )
     lines.append(
-        "| ID | Category | Year | W-bits | A-bits | KV-bits | Calibration? | Training? | Paper |"
+        "| ID | Category | Year | Published at | W-bits | A-bits | KV-bits | Calibration? | Training? | Paper |"
     )
     lines.append(
-        "|----|----------|------|--------|--------|---------|-------------|-----------|-------|"
+        "|----|----------|------|--------------|--------|--------|---------|-------------|-----------|-------|"
     )
 
     for m in rows:
@@ -325,6 +332,15 @@ def render_matrix(methods):
         calib = "yes" if m.get("requires_calibration_data") else "no"
         train = "yes" if m.get("requires_training") else "no"
 
+        vraw = (m.get("venue") or "").strip()
+        _pu = m.get("paper_url")
+        if vraw and vraw.lower() != "null" and not vraw.lower().startswith("arxiv"):
+            ven = vraw.split("(")[0].strip()
+        elif _pu and _pu not in ("null", None) and "arxiv.org" in str(_pu).lower():
+            ven = "arXiv"
+        else:
+            ven = "n/a"
+
         paper_url = m.get("paper_url")
         if paper_url and paper_url not in ("null", None):
             paper_cell = f"[paper]({paper_url})"
@@ -332,7 +348,7 @@ def render_matrix(methods):
             paper_cell = "-"
 
         lines.append(
-            f"| [{mid}](#{anchor}) | {cat} | {year} | {w_bits} | {a_bits} | {kv_bits} "
+            f"| [{mid}](#{anchor}) | {cat} | {year} | {ven} | {w_bits} | {a_bits} | {kv_bits} "
             f"| {calib} | {train} | {paper_cell} |"
         )
 

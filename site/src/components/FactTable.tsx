@@ -1,6 +1,7 @@
 import type { Method } from '../data/schema'
 import { navigateTo } from '../router'
 import { categoryColor, CATEGORY_LABELS } from '../lib/categoryColors'
+import { isAcceptedVenue, publicationLabel } from '../lib/venue'
 
 interface FactTableProps {
   method: Method
@@ -70,7 +71,13 @@ export function FactTable({ method: m, byId }: FactTableProps) {
             </Row>
           )}
           <Row label="Year">{m.year}</Row>
-          {m.venue && <Row label="Venue">{m.venue}</Row>}
+          <Row label="Published at">
+            <span className={`badge ${isAcceptedVenue(m.venue)
+              ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400'
+              : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'}`}>
+              {publicationLabel(m.venue, m.paper_url)}
+            </span>
+          </Row>
           {m.authors.length > 0 && (
             <Row label="Authors">{m.authors.join(', ')}</Row>
           )}
