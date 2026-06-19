@@ -3,7 +3,7 @@
 Interactive visual gallery for [LLM Quantization Gallery](../README.md).
 Built with Vite + React + TypeScript + Tailwind CSS. Deployed to GitHub Pages.
 
-Live site: **https://arpitsinghgautam.github.io/quantization_gallery/**
+Live site: **https://arpitsinghgautam.github.io/llm-quantization-gallery/**
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ npm install
 npm run dev
 ```
 
-The dev server runs at `http://localhost:5173/quantization_gallery/`.
+The dev server runs at `http://localhost:5173/llm-quantization-gallery/`.
 
 Whenever you edit `methods.yml` at the repo root, restart the dev server - the
 `predev` script re-runs `scripts/yaml-to-json.mjs` automatically.
