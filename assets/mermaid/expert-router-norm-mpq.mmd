@@ -1,0 +1,6 @@
+flowchart LR
+    A[MoE model\nmany experts] --> B[Analyze per-expert\nactivation frequency]
+    B --> C[Assign bit-width\nby importance]
+    C --> D[High-freq experts:\nhigher precision]
+    D --> E[Low-freq experts:\nlower precision]
+    E --> F[Mixed-precision\nMoE inference]

@@ -1,0 +1,6 @@
+flowchart LR
+    A[Quantized model\nweights on disk] --> B[Load and parse\nquant metadata]
+    B --> C[Select kernel\nfor target hardware]
+    C --> D[Fused dequant +\nGEMM kernel]
+    D --> E[Paged or continuous\nbatching]
+    E --> F[Efficient serving\nW4A16, W8A16]

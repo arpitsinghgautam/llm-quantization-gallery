@@ -1,0 +1,8 @@
+flowchart LR
+    A[FP16 pretrained\nor random init] --> B[Insert fake-quant\nnodes]
+    B --> C[Forward pass with\nsimulated quantization]
+    C --> D[Compute loss]
+    D --> E[Backprop via\nSTE for quant nodes]
+    E --> F{Converged?}
+    F -->|no| C
+    F -->|yes| G[W4A4\nquantized model]

@@ -1,0 +1,6 @@
+flowchart LR
+    A[K and V tensors\nfrom attention] --> B[Compression strategy:\nMed3x per-batch median-multipl]
+    B --> C[Quantize or prune\nKV to W16A16KV4 approx 3.79-5 effective bits per KV element]
+    C --> D[Store compressed\nKV cache]
+    D --> E[Decompress during\nattention computation]
+    E --> F[Lower memory\nlonger context]

@@ -24,7 +24,7 @@
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
   <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">ZipCache quantizes the KV cache with mixed</text>
   <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">precision, assigning more bits to &quot;salient&quot;</text>
-  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">tokens — those with high cumulative attention</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">tokens - those with high cumulative attention</text>
   <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">scores that are frequently attended to. The</text>
   <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">attention score of each token is tracked</text>
   <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">dynamically during generation, and tokens</text>

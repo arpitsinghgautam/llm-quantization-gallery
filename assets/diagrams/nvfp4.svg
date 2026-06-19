@@ -2,7 +2,7 @@
   <!-- Title bar -->
   <rect x="0" y="0" width="800" height="60" fill="#D4A027" rx="4"/>
   <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">NVFP4</text>
-  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">NVFP4 weights + FP8/FP16 activations</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W4 A8/A16 (NVFP4 weights + FP8/FP16 activati…</text>
 
   <!-- Content area -->
   <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
@@ -12,7 +12,7 @@
   <!-- Fact panel (left) -->
   <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
-  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    NVFP4 weights + FP8/FP16 activati…</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W4 A8/A16 (NVFP4 weights + FP8/FP…</text>
   <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  block of 16 elements share one FP…</text>
   <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  calibration data for static scale…</text>
   <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     NVIDIA Blackwell (B100/B200/GB200…</text>

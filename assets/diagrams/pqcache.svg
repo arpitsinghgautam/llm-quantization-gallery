@@ -23,7 +23,7 @@
   <rect x="415" y="80" width="355" height="170" rx="6" fill="#3DAD78" opacity="0.08" stroke="#3DAD78" stroke-width="1.5"/>
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
   <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">PQCache applies Product Quantization (PQ) to</text>
-  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">the KV cache — a technique borrowed from</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">the KV cache - a technique borrowed from</text>
   <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">approximate nearest-neighbor search (FAISS)</text>
   <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">that decomposes each high-dimensional KV</text>
   <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">vector into sub-vectors, each quantized</text>

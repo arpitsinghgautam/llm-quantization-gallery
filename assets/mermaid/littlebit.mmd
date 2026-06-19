@@ -1,6 +1,6 @@
 flowchart LR
-    A[FP16 Weights] --> B[Calibration data:\nyes]
-    B --> C[Compute scale\nand zero-point]
-    C --> D[Quantize weights\nto sub-1-bit effective approx 0.1 bits per weight]
-    D --> E[Outlier handling:\nlatent factorization absorbs d]
-    E --> F[Quantized model\nsub-1-bit effective approx 0.1 bits per weight]
+    A[Training from scratch\nor PTQ] --> B[sub-1-bit effective approx 0.1 bits per weight\ntarget format]
+    B --> C[Binary or ternary\nweight representation]
+    C --> D[Scale factors\nto compensate range]
+    D --> E[Matmuls become\nadditions or lookups]
+    E --> F[Extreme compression\nwith quality tradeoff]

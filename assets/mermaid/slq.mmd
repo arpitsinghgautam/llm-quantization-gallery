@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nyes]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto W3.3-W6.6 A16 per-layer mixed; approx 3.3-4.7 bits task-lossless, approx 5-6.6 bits distribution-lossless]
+    D --> E[Outlier handling:\nasymmetric zero-point quanti]
+    E --> F[Quantized model\nW3.3-W6.6 A16 per-layer mixed; approx 3.3-4.7 bits task-lossless, approx 5-6.6 bits distribution-lossless]

@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nyes]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto W3/W4/W5 A16 one checkpoint, bit-width selectable at inference]
+    D --> E[Outlier handling:\nadditive multi-codebook repres]
+    E --> F[Quantized model\nW3/W4/W5 A16 one checkpoint, bit-width selectable at inference]
