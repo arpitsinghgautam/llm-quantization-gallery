@@ -2,7 +2,7 @@
   <!-- Title bar -->
   <rect x="0" y="0" width="800" height="60" fill="#E84393" rx="4"/>
   <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">PB-LLM</text>
-  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W~1–2 A16 (mixed: binary + high-precision fo…</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W1/W16 A16 (binary weights + FP16 for salien…</text>
 
   <!-- Content area -->
   <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
@@ -12,7 +12,7 @@
   <!-- Fact panel (left) -->
   <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
   <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
-  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W~1–2 A16 (mixed: binary + high-p…</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W1/W16 A16 (binary weights + FP16…</text>
   <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-tensor (binary part); FP16 fo…</text>
   <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  calibration set for saliency</text>
   <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     GPU</text>

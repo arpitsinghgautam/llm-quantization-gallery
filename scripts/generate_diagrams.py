@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-generate_diagrams.py — Creates SVG diagrams for all methods in methods.yml.
+generate_diagrams.py - Creates SVG diagrams for all methods in methods.yml.
 
 Each diagram is 800×500, transparent background, category-accent color.
 Run this after adding new entries to methods.yml.
@@ -88,7 +88,7 @@ def rtn_diagram(color):
   <text x="80" y="288" font-family="monospace" font-size="12" fill="#555">• No calibration data needed</text>
   <text x="80" y="308" font-family="monospace" font-size="12" fill="#555">• Per-channel or per-group scale</text>
   <text x="400" y="288" font-family="monospace" font-size="12" fill="#555">• Symmetric or asymmetric</text>
-  <text x="400" y="308" font-family="monospace" font-size="12" fill="#555">• O(1) compute — instant baseline</text>
+  <text x="400" y="308" font-family="monospace" font-size="12" fill="#555">• O(1) compute - instant baseline</text>
 
   <!-- Limitation note -->
   <rect x="60" y="360" width="680" height="60" rx="6" fill="#FFF3CD" stroke="#FBBF24" stroke-width="1"/>
@@ -317,7 +317,7 @@ def kivi_diagram(color):
 
   <!-- K quantization box -->
   <rect x="30" y="155" width="340" height="155" rx="6" fill="{c}" opacity="0.09" stroke="{c}" stroke-width="1.5"/>
-  <text x="200" y="178" font-family="monospace" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Key (K) — per-channel quantization</text>
+  <text x="200" y="178" font-family="monospace" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Key (K) - per-channel quantization</text>
   <!-- K tensor grid -->
   <text x="55" y="200" font-family="monospace" font-size="10" fill="#555">channel →</text>
   <rect x="55" y="207" width="280" height="20" rx="2" fill="{c}" opacity="0.25"/>
@@ -331,8 +331,8 @@ def kivi_diagram(color):
 
   <!-- V quantization box -->
   <rect x="430" y="155" width="340" height="155" rx="6" fill="#3DAD78" opacity="0.09" stroke="#3DAD78" stroke-width="1.5"/>
-  <text x="600" y="178" font-family="monospace" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Value (V) — per-token quantization</text>
-  <!-- V tensor grid — tall columns per token -->
+  <text x="600" y="178" font-family="monospace" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Value (V) - per-token quantization</text>
+  <!-- V tensor grid - tall columns per token -->
   <rect x="450" y="207" width="30" height="80" rx="2" fill="#3DAD78" opacity="0.30"/>
   <rect x="490" y="207" width="30" height="80" rx="2" fill="#3DAD78" opacity="0.20"/>
   <rect x="530" y="207" width="30" height="80" rx="2" fill="#3DAD78" opacity="0.30"/>
@@ -356,7 +356,7 @@ def kivi_diagram(color):
 def bitnet_b158_diagram(color):
     return """\
   <!-- BitNet b1.58: ternary {-1, 0, +1} weights -->
-  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Every weight is ternary: {-1, 0, +1} — trained from scratch, not post-hoc</text>
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Every weight is ternary: {-1, 0, +1} - trained from scratch, not post-hoc</text>
 
   <!-- Weight distribution -->
   <rect x="30" y="120" width="220" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
@@ -576,7 +576,7 @@ def spqr_diagram(color):
 def hqq_diagram(color):
     return """\
   <!-- HQQ: half-quadratic quantization -->
-  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Find optimal scale s and zero-point z by minimizing a robust (Huber-like) loss — no data needed</text>
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Find optimal scale s and zero-point z by minimizing a robust (Huber-like) loss - no data needed</text>
 
   <!-- Loss comparison: MSE vs HQQ -->
   <rect x="30" y="120" width="350" height="260" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
@@ -717,7 +717,7 @@ def fp8_training_diagram(color):
   <rect x="25" y="295" width="750" height="100" rx="6" fill="{c}" opacity="0.07" stroke="{c}" stroke-width="1.5"/>
   <text x="45" y="318" font-family="monospace" font-size="11" font-weight="bold" fill="#333">FP8 training pipeline (forward):</text>
   <text x="45" y="338" font-family="monospace" font-size="11" fill="#555">  BF16 weight  →  [cast E4M3 + scale]  →  FP8 matmul  →  [accumulate FP32]  →  BF16 output</text>
-  <text x="45" y="358" font-family="monospace" font-size="11" fill="#555">  scale_t = max(|tensor_{t-1}|) / 448  (delayed scaling — reuse prev. step, avoid sync barrier)</text>
+  <text x="45" y="358" font-family="monospace" font-size="11" fill="#555">  scale_t = max(|tensor_{t-1}|) / 448  (delayed scaling - reuse prev. step, avoid sync barrier)</text>
   <text x="45" y="378" font-family="monospace" font-size="11" fill="{c}">H100 FP8 Tensor Core: 2x throughput vs BF16 at same accuracy on GPT-3 scale training.</text>
 
   <!-- Bottom: backward -->
@@ -794,7 +794,7 @@ def kivi_diagram_v2(color):
 
   <!-- K quantization box -->
   <rect x="30" y="155" width="340" height="155" rx="6" fill="{c}" opacity="0.09" stroke="{c}" stroke-width="1.5"/>
-  <text x="200" y="178" font-family="monospace" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Key (K) — per-group-channel quantization</text>
+  <text x="200" y="178" font-family="monospace" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Key (K) - per-group-channel quantization</text>
   <!-- K tensor grid -->
   <text x="55" y="200" font-family="monospace" font-size="10" fill="#555">channel →</text>
   <rect x="55" y="207" width="280" height="20" rx="2" fill="{c}" opacity="0.25"/>
@@ -808,8 +808,8 @@ def kivi_diagram_v2(color):
 
   <!-- V quantization box -->
   <rect x="430" y="155" width="340" height="155" rx="6" fill="#3DAD78" opacity="0.09" stroke="#3DAD78" stroke-width="1.5"/>
-  <text x="600" y="178" font-family="monospace" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Value (V) — per-token quantization</text>
-  <!-- V tensor grid — tall columns per token -->
+  <text x="600" y="178" font-family="monospace" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Value (V) - per-token quantization</text>
+  <!-- V tensor grid - tall columns per token -->
   <rect x="450" y="207" width="30" height="80" rx="2" fill="#3DAD78" opacity="0.30"/>
   <rect x="490" y="207" width="30" height="80" rx="2" fill="#3DAD78" opacity="0.20"/>
   <rect x="530" y="207" width="30" height="80" rx="2" fill="#3DAD78" opacity="0.30"/>
@@ -829,7 +829,7 @@ def kivi_diagram_v2(color):
 
   <!-- Implementation note -->
   <rect x="30" y="415" width="740" height="55" rx="6" fill="{c}" opacity="0.07" stroke="{c}" stroke-width="0.8"/>
-  <text x="50" y="437" font-family="monospace" font-size="11" fill="#555">Implemented as a FlashAttention-2 plugin. Dequantization fused into attention kernel — &lt;5% compute overhead.</text>
+  <text x="50" y="437" font-family="monospace" font-size="11" fill="#555">Implemented as a FlashAttention-2 plugin. Dequantization fused into attention kernel - &lt;5% compute overhead.</text>
   <text x="50" y="455" font-family="monospace" font-size="11" fill="{c}">No calibration needed. Works with any model out-of-the-box. INT2 and INT4 both supported.</text>
 """.replace("{c}", color)
 

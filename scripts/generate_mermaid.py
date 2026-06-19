@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-generate_mermaid.py — Writes one .mmd Mermaid flowchart per method in assets/mermaid/.
+generate_mermaid.py - Writes one .mmd Mermaid flowchart per method in assets/mermaid/.
 
 Each .mmd file can be rendered in VS Code (Mermaid extension), GitHub, or embedded
 in the README as a ```mermaid code block.

@@ -22,7 +22,7 @@ entries = r"""
   venue: "arXiv 2025"
   precision: "W2/W3 A16 (vector quantization)"
   granularity: "per-group, online codebook update"
-  calibration: "online — updates codebook as weights stream in"
+  calibration: "online - updates codebook as weights stream in"
   symmetric: symmetric
   handles_outliers_via: "near-optimal rate-distortion coding absorbs outliers"
   hardware_target: "GPU"
@@ -31,7 +31,7 @@ entries = r"""
   typical_degradation: "near-optimal distortion bound at given bit-rate"
   tldr: >
     TurboQuant introduces an online vector quantization algorithm that provably
-    achieves near-optimal distortion rate — meaning the quantization error is within
+    achieves near-optimal distortion rate - meaning the quantization error is within
     a small constant factor of the information-theoretic minimum at a given bit-rate.
     Unlike offline VQ methods (AQLM, QuIP#) that require an expensive codebook
     construction pass over the full weight tensor, TurboQuant updates its codebook

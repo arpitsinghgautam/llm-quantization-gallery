@@ -8,7 +8,7 @@
   <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
 
   <!-- BitNet b1.58: ternary {-1, 0, +1} weights -->
-  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Every weight is ternary: {-1, 0, +1} — trained from scratch, not post-hoc</text>
+  <text x="400" y="100" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">Every weight is ternary: {-1, 0, +1} - trained from scratch, not post-hoc</text>
 
   <!-- Weight distribution -->
   <rect x="30" y="120" width="220" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>

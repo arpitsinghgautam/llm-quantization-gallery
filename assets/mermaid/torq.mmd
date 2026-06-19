@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 Weights + Activations] --> B[Handle outliers:\ntwo-level orthogonal rotation:]
+    B --> C[Quantize weights\nto low-bit]
+    B --> D[Quantize activations\nto low-bit]
+    C --> E[INT GEMM\ntensor cores]
+    D --> E
+    E --> F[W4A4 both weights and activations in MXFP4 e2m1\nquantized inference]

@@ -1,0 +1,6 @@
+flowchart LR
+    A[K and V tensors\nfrom attention] --> B[Compression strategy:\nnormalization store norm plu]
+    B --> C[Quantize or prune\nKV to W16A16KV2 also fractional-bit and sub-1-bit operating points]
+    C --> D[Store compressed\nKV cache]
+    D --> E[Decompress during\nattention computation]
+    E --> F[Lower memory\nlonger context]

@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP32 / BF16 model] --> B[Cast to\nW4A4KV4 NVFP4 / FP4]
+    B --> C[Low-precision GEMM\non hardware tensor cores]
+    C --> D[Cast back for\naccumulation]
+    D --> E[FP32 master weights\noptimizer state]
+    E --> F[Higher training\nthroughput]

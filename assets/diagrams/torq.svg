@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#E87D3E" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">TORQ</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W4A4 (both weights and activations in MXFP4 …</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+
+  <!-- Generic diagram for TORQ -->
+  <!-- Fact panel (left) -->
+  <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W4A4 (both weights and activation…</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  MXFP4 blocks of 32 elements with …</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  128 text segments from WikiText2</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     MX-capable GPUs (NVIDIA Blackwell…</text>
+  <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     ptq_weight_activation</text>
+
+  <!-- TL;DR -->
+  <rect x="415" y="80" width="355" height="170" rx="6" fill="#E87D3E" opacity="0.08" stroke="#E87D3E" stroke-width="1.5"/>
+  <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
+  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">TORQ is a training-free post-training method</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">for quantizing both the weights and</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">activations of an LLM to the MXFP4</text>
+  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">microscaling block format (4-bit floating</text>
+  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">point, e2m1, with each block of 32 elements</text>
+  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">sharing one 8-bit exponent). The authors</text>
+
+  <!-- Key idea -->
+  <rect x="415" y="260" width="355" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="285" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">TORQ targets two structural imbalances in</text>
+  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">MXFP4 activation quantization: inter-block</text>
+  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">variance imbalance (high-variance blocks</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">dominate the shared-scale error) and</text>
+  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">intra-block codebook under-utilization. It</text>
+
+  <!-- Bottom -->
+  <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#E87D3E">https://arxiv.org/abs/2605.19561</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2026  |  Authors: Zukang Xu, Xing Hu, Dawei Yang</text>
+
+</svg>

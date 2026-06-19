@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 Weights + Activations] --> B[Handle outliers:\nduplicating value tokens with ]
+    B --> C[Quantize weights\nto low-bit]
+    B --> D[Quantize activations\nto low-bit]
+    C --> E[INT GEMM\ntensor cores]
+    D --> E
+    E --> F[W4A4 / W4A6 / W6A6\nquantized inference]

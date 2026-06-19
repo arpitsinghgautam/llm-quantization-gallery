@@ -33,7 +33,7 @@
   <text x="80" y="288" font-family="monospace" font-size="12" fill="#555">• No calibration data needed</text>
   <text x="80" y="308" font-family="monospace" font-size="12" fill="#555">• Per-channel or per-group scale</text>
   <text x="400" y="288" font-family="monospace" font-size="12" fill="#555">• Symmetric or asymmetric</text>
-  <text x="400" y="308" font-family="monospace" font-size="12" fill="#555">• O(1) compute — instant baseline</text>
+  <text x="400" y="308" font-family="monospace" font-size="12" fill="#555">• O(1) compute - instant baseline</text>
 
   <!-- Limitation note -->
   <rect x="60" y="360" width="680" height="60" rx="6" fill="#FFF3CD" stroke="#FBBF24" stroke-width="1"/>

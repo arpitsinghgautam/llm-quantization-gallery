@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#4A90D9" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">DASH-Q</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W2A16</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+
+  <!-- Generic diagram for DASH-Q -->
+  <!-- Fact panel (left) -->
+  <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W2A16</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  Per-group, group size 32 (2-bit),…</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  128 samples of sequence length 20…</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     GPU (general weight-only inferenc…</text>
+  <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     ptq_weight_only</text>
+
+  <!-- TL;DR -->
+  <rect x="415" y="80" width="355" height="170" rx="6" fill="#4A90D9" opacity="0.08" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
+  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">DASH-Q is a weight-only post-training</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">quantization method aimed at very low</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">bit-widths (2 to 4 bits) when only a small</text>
+  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">amount of calibration data is available. Other</text>
+  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">curvature-based methods estimate a full</text>
+  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">Hessian to compensate quantization error</text>
+
+  <!-- Key idea -->
+  <rect x="415" y="260" width="355" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="285" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">The method replaces the full Hessian H used in</text>
+  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">OBS/OBC-style error compensation with its</text>
+  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">diagonal D = diag(h11, h22, ...), which</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">decouples the coupled second-order</text>
+  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">optimization into independent per-column</text>
+
+  <!-- Bottom -->
+  <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#4A90D9">https://arxiv.org/abs/2604.13806</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2026  |  Authors: Jaemin Kim, Sungkyun Kim, Junyeol Lee</text>
+
+</svg>

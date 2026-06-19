@@ -32,7 +32,7 @@ that genuinely don't exist (blog post, code, etc.).
 Use the literal string `"unknown"` for required fields you cannot determine.
 
 ```yaml
-- id: your-method-id          # kebab-case, lowercase, stable — becomes the #anchor
+- id: your-method-id          # kebab-case, lowercase, stable - becomes the #anchor
   name: YourMethodName
   full_name: "Full Paper Title"
   category: ptq_weight_only   # see valid values below
@@ -58,7 +58,7 @@ Use the literal string `"unknown"` for required fields you cannot determine.
 
   tldr: >
     One paragraph in plain English. What it does, why it works, what it costs.
-    Write this in your own words — do not copy the abstract.
+    Write this in your own words - do not copy the abstract.
   key_idea: >
     2–4 sentences on the actual mechanism.
 

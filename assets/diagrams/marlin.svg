@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
   <!-- Title bar -->
-  <rect x="0" y="0" width="800" height="60" fill="#4A90D9" rx="4"/>
+  <rect x="0" y="0" width="800" height="60" fill="#607D8B" rx="4"/>
   <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">Marlin</text>
   <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W4A16 (INT4), W4A8 (INT4 weight, FP8 activat…</text>
 
@@ -17,10 +17,10 @@
   <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  n/a (inference kernel)</text>
   <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     NVIDIA A100/H100 (Ampere/Hopper);…</text>
   <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     no</text>
-  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     ptq_weight_only</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     systems</text>
 
   <!-- TL;DR -->
-  <rect x="415" y="80" width="355" height="170" rx="6" fill="#4A90D9" opacity="0.08" stroke="#4A90D9" stroke-width="1.5"/>
+  <rect x="415" y="80" width="355" height="170" rx="6" fill="#607D8B" opacity="0.08" stroke="#607D8B" stroke-width="1.5"/>
   <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
   <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">Marlin is a high-performance CUDA kernel</text>
   <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">library for W4A16 and W4A8 grouped-quantized</text>
@@ -40,7 +40,7 @@
 
   <!-- Bottom -->
   <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="50" y="442" font-family="monospace" font-size="11" fill="#4A90D9">https://arxiv.org/abs/2408.11743</text>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#607D8B">https://arxiv.org/abs/2408.11743</text>
   <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2024  |  Authors: Elias Frantar, Roberto L. Castro, Jiale Chen</text>
 
 </svg>

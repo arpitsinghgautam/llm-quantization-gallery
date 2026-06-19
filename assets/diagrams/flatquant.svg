@@ -35,7 +35,7 @@
   <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">For each layer, FlatQuant learns a pair of</text>
   <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">transformations (T_W, T_X) that approximately</text>
   <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">diagonalize the per-group weight and</text>
-  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">activation distributions — making the</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">activation distributions - making the</text>
   <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">quantization error approximately independent</text>
 
   <!-- Bottom -->

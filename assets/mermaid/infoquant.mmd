@@ -1,0 +1,7 @@
+flowchart LR
+    A[FP16 Weights + Activations] --> B[Handle outliers:\nPeak Suppression Orthogonal Tr]
+    B --> C[Quantize weights\nto low-bit]
+    B --> D[Quantize activations\nto low-bit]
+    C --> E[INT GEMM\ntensor cores]
+    D --> E
+    E --> F[W4A4KV4\nquantized inference]

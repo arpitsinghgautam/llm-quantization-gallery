@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nyes]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto Wapprox 2 mixed, effective 1.96-2.02 A16]
+    D --> E[Outlier handling:\nRL controller assigns higher b]
+    E --> F[Quantized model\nWapprox 2 mixed, effective 1.96-2.02 A16]

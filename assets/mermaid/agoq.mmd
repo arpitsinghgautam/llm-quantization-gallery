@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP32 / BF16 model] --> B[Cast to\nW16A4 gradients 8-bit; weights BF16, activations approx 4-bit, gradients INT8]
+    B --> C[Low-precision GEMM\non hardware tensor cores]
+    C --> D[Cast back for\naccumulation]
+    D --> E[FP32 master weights\noptimizer state]
+    E --> F[Higher training\nthroughput]

@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nyes]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto W5.5A16]
+    D --> E[Outlier handling:\nrow L2-normalization and block]
+    E --> F[Quantized model\nW5.5A16]

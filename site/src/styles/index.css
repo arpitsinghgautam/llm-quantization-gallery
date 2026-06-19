@@ -17,7 +17,7 @@
     font-feature-settings: "kern" 1, "liga" 1;
   }
 
-  /* Focus rings — always visible */
+  /* Focus rings - always visible */
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-blue-500;
   }

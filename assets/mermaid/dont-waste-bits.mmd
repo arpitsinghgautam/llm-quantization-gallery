@@ -1,0 +1,6 @@
+flowchart LR
+    A[K and V tensors\nfrom attention] --> B[Compression strategy:\nimportant/uncertain tokens are]
+    B --> C[Quantize or prune\nKV to W16A16KV2/4/8 mixed; per-token chosen from 2,4,8,FP16]
+    C --> D[Store compressed\nKV cache]
+    D --> E[Decompress during\nattention computation]
+    E --> F[Lower memory\nlonger context]

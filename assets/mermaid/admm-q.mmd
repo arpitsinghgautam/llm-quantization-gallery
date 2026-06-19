@@ -1,0 +1,6 @@
+flowchart LR
+    A[FP16 Weights] --> B[Calibration data:\nyes]
+    B --> C[Compute scale\nand zero-point]
+    C --> D[Quantize weights\nto W2A16/W3A16/W4A16 also composes to W4A8, W2A4KV4, W4A4KV4]
+    D --> E[Outlier handling:\nMSE grid-search range clipping]
+    E --> F[Quantized model\nW2A16/W3A16/W4A16 also composes to W4A8, W2A4KV4, W4A4KV4]

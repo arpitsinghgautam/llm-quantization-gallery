@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#9B59B6" rx="4"/>
+  <text x="20" y="38" font-family="monospace" font-size="22" font-weight="bold" fill="white">GEMQ</text>
+  <text x="780" y="38" font-family="monospace" font-size="16" fill="white" text-anchor="end">W1.5/W2/W2.5/W3 A16 (per-expert mixed, avera…</text>
+
+  <!-- Content area -->
+  <rect x="0" y="60" width="800" height="440" fill="#F8F9FA" rx="0"/>
+
+
+  <!-- Generic diagram for GEMQ -->
+  <!-- Fact panel (left) -->
+  <rect x="30" y="80" width="355" height="340" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="108" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Method Properties</text>
+  <text x="50" y="132" font-family="monospace" font-size="11" fill="#555">Precision:    W1.5/W2/W2.5/W3 A16 (per-expert m…</text>
+  <text x="50" y="152" font-family="monospace" font-size="11" fill="#555">Granularity:  per-expert mixed bit-widths; grou…</text>
+  <text x="50" y="172" font-family="monospace" font-size="11" fill="#555">Calibration:  128 WikiText-2 sequences of lengt…</text>
+  <text x="50" y="192" font-family="monospace" font-size="11" fill="#555">Hardware:     GPU (NVIDIA H100); custom Triton …</text>
+  <text x="50" y="212" font-family="monospace" font-size="11" fill="#555">Training:     yes</text>
+  <text x="50" y="232" font-family="monospace" font-size="11" fill="#555">Category:     moe</text>
+
+  <!-- TL;DR -->
+  <rect x="415" y="80" width="355" height="170" rx="6" fill="#9B59B6" opacity="0.08" stroke="#9B59B6" stroke-width="1.5"/>
+  <text x="435" y="105" font-family="monospace" font-size="12" font-weight="bold" fill="#333">TL;DR</text>
+  <text x="435" y="125" font-family="monospace" font-size="11" fill="#555">GEMQ compresses Mixture-of-Experts LLMs by</text>
+  <text x="435" y="145" font-family="monospace" font-size="11" fill="#555">giving each expert a different bit-width,</text>
+  <text x="435" y="165" font-family="monospace" font-size="11" fill="#555">since experts are not equally important and</text>
+  <text x="435" y="185" font-family="monospace" font-size="11" fill="#555">dominate the model's memory. Instead of</text>
+  <text x="435" y="205" font-family="monospace" font-size="11" fill="#555">deciding bit- widths layer by layer, it scores</text>
+  <text x="435" y="225" font-family="monospace" font-size="11" fill="#555">every expert across the whole model using a</text>
+
+  <!-- Key idea -->
+  <rect x="415" y="260" width="355" height="150" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="435" y="285" font-family="monospace" font-size="12" font-weight="bold" fill="#333">Mechanism</text>
+  <text x="435" y="305" font-family="monospace" font-size="11" fill="#555">GEMQ casts expert bit-width selection as one</text>
+  <text x="435" y="325" font-family="monospace" font-size="11" fill="#555">global integer/linear program over all experts</text>
+  <text x="435" y="345" font-family="monospace" font-size="11" fill="#555">in the model: each expert's contribution to</text>
+  <text x="435" y="365" font-family="monospace" font-size="11" fill="#555">output error at each candidate bit-width is</text>
+  <text x="435" y="385" font-family="monospace" font-size="11" fill="#555">estimated (using a</text>
+
+  <!-- Bottom -->
+  <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#9B59B6">https://arxiv.org/abs/2605.23078</text>
+  <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 2026  |  Authors: Jianing Deng, Song Wang, Dongwei Wang</text>
+
+</svg>

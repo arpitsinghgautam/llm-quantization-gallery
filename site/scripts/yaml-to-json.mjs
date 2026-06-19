@@ -28,8 +28,8 @@ const DEST_DOCS       = resolve(SITE,  'public/docs')
 
 // ─── Category metadata (mirrors build_readme.py) ──────────────────────────
 const CATEGORY_META = {
-  ptq_weight_only:        { title: 'Post-Training Quantization — Weight-Only',        abbr: 'PTQ W-only',   color: '#4A90D9' },
-  ptq_weight_activation:  { title: 'Post-Training Quantization — Weights + Activations', abbr: 'PTQ W+A',   color: '#E87D3E' },
+  ptq_weight_only:        { title: 'Post-Training Quantization - Weight-Only',        abbr: 'PTQ W-only',   color: '#4A90D9' },
+  ptq_weight_activation:  { title: 'Post-Training Quantization - Weights + Activations', abbr: 'PTQ W+A',   color: '#E87D3E' },
   qat:                    { title: 'Quantization-Aware Training & Quantized Fine-Tuning', abbr: 'QAT / QFT', color: '#7B68EE' },
   extreme_lowbit:         { title: 'Extreme Low-Bit & Binary/Ternary Quantization',   abbr: 'Sub-2-bit',    color: '#E84393' },
   kv_cache:               { title: 'KV-Cache Quantization',                           abbr: 'KV Quant',     color: '#3DAD78' },

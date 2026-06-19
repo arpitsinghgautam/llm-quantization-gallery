@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 interface MermaidViewProps {
   methodId?: string   // shows pre-rendered SVG from assets/mermaid-rendered/
-  source?: string     // raw mermaid source — rendered client-side (lineage graph only)
+  source?: string     // raw mermaid source - rendered client-side (lineage graph only)
   className?: string
 }
 
@@ -18,7 +18,7 @@ function StaticMermaid({ methodId, className }: { methodId: string; className?: 
   )
 }
 
-// ── Dynamic renderer — only used for lineage mini-graphs (raw source) ─────────
+// ── Dynamic renderer - only used for lineage mini-graphs (raw source) ─────────
 let mermaidModule: typeof import('mermaid') | null = null
 
 async function getMermaid() {

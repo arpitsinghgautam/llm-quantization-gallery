@@ -36,13 +36,13 @@ export function parsePrecision(s: string): ParsedPrecision {
     return { wBits: [8], aBits: aBits.length ? aBits : [8], kvBits }
   }
 
-  // MXFP / NVFP formats — extract the highest fp bits
+  // MXFP / NVFP formats - extract the highest fp bits
   if (wBits.length === 0 && /MXFP|NVFP/i.test(s)) {
     const fpNums = [...s.matchAll(/(?:MX|NV)FP(\d+)/gi)].map(m => parseFloat(m[1]))
     return { wBits: uniq(fpNums), aBits: aBits.length ? aBits : uniq(fpNums), kvBits }
   }
 
-  // "Q8K8V16" style — treat as A8
+  // "Q8K8V16" style - treat as A8
   if (wBits.length === 0 && /Q8K8V16/i.test(s)) {
     return { wBits: [], aBits: [8], kvBits: [16] }
   }

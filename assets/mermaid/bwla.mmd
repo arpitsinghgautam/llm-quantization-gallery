@@ -1,0 +1,6 @@
+flowchart LR
+    A[Training from scratch\nor PTQ] --> B[W1A6 also W1A4/W1A8/W1A16 evaluated\ntarget format]
+    B --> C[Binary or ternary\nweight representation]
+    C --> D[Scale factors\nto compensate range]
+    D --> E[Matmuls become\nadditions or lookups]
+    E --> F[Extreme compression\nwith quality tradeoff]
