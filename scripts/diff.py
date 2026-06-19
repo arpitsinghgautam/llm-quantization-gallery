@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-diff.py — Side-by-side fact-sheet comparison for two quantization methods.
+diff.py - Side-by-side fact-sheet comparison for two quantization methods.
 
 Usage:
     python scripts/diff.py gptq awq
@@ -54,11 +54,11 @@ def get_method(methods, mid):
 
 def fmt_val(val):
     if val is None or val == "null":
-        return "—"
+        return "-"
     if isinstance(val, bool):
         return "yes" if val else "no"
     if isinstance(val, list):
-        return ", ".join(str(v) for v in val) if val else "—"
+        return ", ".join(str(v) for v in val) if val else "-"
     return str(val)
 
 
@@ -88,9 +88,9 @@ def terminal_diff(ma, mb):
     print()
 
     # TL;DR side by side
-    print(f"\n{ANSI_BOLD}TL;DR — {name_a}{ANSI_RESET}")
+    print(f"\n{ANSI_BOLD}TL;DR - {name_a}{ANSI_RESET}")
     print(ma.get("tldr", "").strip())
-    print(f"\n{ANSI_BOLD}TL;DR — {name_b}{ANSI_RESET}")
+    print(f"\n{ANSI_BOLD}TL;DR - {name_b}{ANSI_RESET}")
     print(mb.get("tldr", "").strip())
     print()
 
@@ -102,7 +102,7 @@ def markdown_diff(ma, mb):
     lines = [
         f"## {name_a} vs. {name_b}\n",
         f"| Field | {name_a} | {name_b} | Same? |",
-        f"|-------|{'—' * len(name_a)}|{'—' * len(name_b)}|-------|",
+        f"|-------|{'-' * len(name_a)}|{'-' * len(name_b)}|-------|",
     ]
 
     for label, key in COMPARE_FIELDS:

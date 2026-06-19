@@ -117,7 +117,7 @@ export function HomeView() {
       {/* ── Description ── */}
       <div className="max-w-2xl mx-auto mb-4 space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
         <p>
-          This page collects fact sheets and flowchart diagrams for LLM quantization methods —
+          This page collects fact sheets and flowchart diagrams for LLM quantization methods -
           every major algorithm from 2022 to the present, organized by category, with consistent
           precision specs, architecture diagrams, and cross-references. Click a diagram to open
           its full detail card, or use the{' '}
@@ -134,7 +134,7 @@ export function HomeView() {
             RAMP
           </a>
           , a mixed-precision quantization method that assigns per-layer bit-widths by retrieving
-          from a sensitivity database — without per-model re-optimization. Surveying the landscape
+          from a sensitivity database - without per-model re-optimization. Surveying the landscape
           for related work, I kept wishing a reference like Sebastian Raschka's{' '}
           <a href="https://github.com/rasbt/llm-architecture-gallery" target="_blank" rel="noopener noreferrer"
             className="underline hover:text-blue-600 dark:hover:text-blue-400">
@@ -168,7 +168,7 @@ export function HomeView() {
         return (
           <section key={cat} className="mb-10">
             <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
-              {CATEGORY_LABEL[cat]} — {catMethods.length}
+              {CATEGORY_LABEL[cat]} - {catMethods.length}
             </h2>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
               {catMethods.map(m => (

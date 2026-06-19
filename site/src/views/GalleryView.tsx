@@ -76,7 +76,7 @@ export function GalleryView() {
         {/* Intro */}
         <div className="mb-8 max-w-2xl">
           <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-            A curated, filterable reference for LLM quantization methods — {meta.count} entries across{' '}
+            A curated, filterable reference for LLM quantization methods - {meta.count} entries across{' '}
             {meta.categories.length} categories, each with a fact sheet, SVG diagram, and Mermaid flowchart.
             Generated from{' '}
             <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 rounded">methods.yml</code>{' '}

@@ -66,5 +66,5 @@ for (let i = 0; i < files.length; i += BATCH) {
 console.log(`\nDone: ${ok} rendered, ${skipped} skipped, ${failed} failed`)
 if (failed > 0) {
   console.warn(`Warning: ${failed} diagram(s) failed. They will fall back to client-side rendering.`)
-  // Don't exit(1) — let the build continue with partial results
+  // Don't exit(1) - let the build continue with partial results
 }

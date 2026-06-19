@@ -28,9 +28,9 @@ const COMPARE_FIELDS: Array<{ key: keyof Method; label: string }> = [
 ]
 
 function valStr(v: unknown): string {
-  if (v === null || v === undefined || v === '') return '—'
+  if (v === null || v === undefined || v === '') return '-'
   if (typeof v === 'boolean') return v ? 'Yes' : 'No'
-  if (Array.isArray(v)) return v.length === 0 ? '—' : v.join(', ')
+  if (Array.isArray(v)) return v.length === 0 ? '-' : v.join(', ')
   return String(v)
 }
 
@@ -67,7 +67,7 @@ function FieldCell({ method: m, field, isDiff, byId }: MethodColumnProps) {
       </span>
     )
   } else if ((field === 'builds_on' || field === 'superseded_by' || field === 'related') && Array.isArray(value)) {
-    display = value.length === 0 ? '—' : (
+    display = value.length === 0 ? '-' : (
       <div className="flex flex-wrap gap-1">
         {value.map(id => (
           <button

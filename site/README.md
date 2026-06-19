@@ -1,4 +1,4 @@
-# LLM Quantization Gallery — Website
+# LLM Quantization Gallery - Website
 
 Interactive visual gallery for [LLM Quantization Gallery](../README.md).
 Built with Vite + React + TypeScript + Tailwind CSS. Deployed to GitHub Pages.
@@ -25,7 +25,7 @@ npm run dev
 
 The dev server runs at `http://localhost:5173/quantization_gallery/`.
 
-Whenever you edit `methods.yml` at the repo root, restart the dev server — the
+Whenever you edit `methods.yml` at the repo root, restart the dev server - the
 `predev` script re-runs `scripts/yaml-to-json.mjs` automatically.
 
 ## Production build
@@ -66,7 +66,7 @@ This pushes `site/dist/` to the `gh-pages` branch.
 2. Run `python scripts/generate_diagrams.py --id <your-id>` to generate the SVG.
 3. Run `python scripts/generate_mermaid.py --id <your-id>` to generate the `.mmd`.
 4. Run `python scripts/build_readme.py` to regenerate `README.md`.
-5. Restart the dev server (`npm run dev`) — the site picks up the new method automatically.
+5. Restart the dev server (`npm run dev`) - the site picks up the new method automatically.
 
 ## Running tests
 
@@ -103,8 +103,8 @@ site/
 
 ## Architecture notes
 
-- **No backend.** Everything is static — `methods.yml` is the source of truth, converted to JSON at build time.
-- **Hash routing** (`#/method/gptq`, `#/compare/gptq/awq`) — works on GitHub Pages without SPA rewrites.
-- **Mermaid is lazy-loaded** — only imported on the method detail view, not the gallery index.
-- **System font stack** — no web fonts, no Google Fonts.
-- **Dark mode** — respects `prefers-color-scheme` on first visit, then persists to `localStorage`.
+- **No backend.** Everything is static - `methods.yml` is the source of truth, converted to JSON at build time.
+- **Hash routing** (`#/method/gptq`, `#/compare/gptq/awq`) - works on GitHub Pages without SPA rewrites.
+- **Mermaid is lazy-loaded** - only imported on the method detail view, not the gallery index.
+- **System font stack** - no web fonts, no Google Fonts.
+- **Dark mode** - respects `prefers-color-scheme` on first visit, then persists to `localStorage`.

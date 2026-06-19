@@ -22,8 +22,8 @@ export const CATEGORY_LABELS: Record<string, string> = {
 }
 
 export const CATEGORY_TITLES: Record<string, string> = {
-  ptq_weight_only:        'Post-Training Quantization — Weight-Only',
-  ptq_weight_activation:  'Post-Training Quantization — Weights + Activations',
+  ptq_weight_only:        'Post-Training Quantization - Weight-Only',
+  ptq_weight_activation:  'Post-Training Quantization - Weights + Activations',
   qat:                    'Quantization-Aware Training & Quantized Fine-Tuning',
   extreme_lowbit:         'Extreme Low-Bit & Binary/Ternary Quantization',
   kv_cache:               'KV-Cache Quantization',

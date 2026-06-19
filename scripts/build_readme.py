@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-build_readme.py — Generates README.md and docs/timeline.md from methods.yml.
+build_readme.py - Generates README.md and docs/timeline.md from methods.yml.
 
 DO NOT hand-edit README.md or docs/timeline.md. Run this script instead.
 
@@ -18,7 +18,7 @@ ROOT = Path(__file__).parent.parent
 
 CATEGORY_META = {
     "ptq_weight_only": {
-        "title": "Post-Training Quantization — Weight-Only",
+        "title": "Post-Training Quantization - Weight-Only",
         "abbr": "PTQ W-only",
         "color": "#4A90D9",
         "description": (
@@ -28,7 +28,7 @@ CATEGORY_META = {
         ),
     },
     "ptq_weight_activation": {
-        "title": "Post-Training Quantization — Weights + Activations",
+        "title": "Post-Training Quantization - Weights + Activations",
         "abbr": "PTQ W+A",
         "color": "#E87D3E",
         "description": (
@@ -68,7 +68,7 @@ CATEGORY_META = {
             "The attention KV cache grows linearly with context length and becomes the dominant "
             "memory consumer at long contexts. Quantizing K and V tensors to 4 or fewer bits "
             "reduces memory pressure, increases effective batch size, and enables longer "
-            "contexts — at the cost of a small attention quality penalty."
+            "contexts - at the cost of a small attention quality penalty."
         ),
     },
     "low_precision_training": {
@@ -78,7 +78,7 @@ CATEGORY_META = {
         "description": (
             "Hardware-oriented floating-point formats and training recipes for using them. "
             "FP8 and MX (Microscaling) formats are now standard in H100/Blackwell training. "
-            "This category is adjacent to inference quantization — the formats overlap, "
+            "This category is adjacent to inference quantization - the formats overlap, "
             "but the use case is accelerating training rather than compressing inference."
         ),
     },
@@ -223,13 +223,13 @@ def render_card(m, path_prefix=""):
     # Cross-refs
     def render_refs(ids):
         if not ids:
-            return "—"
+            return "-"
         return " · ".join(f"[{r}](#{method_anchor(r)})" for r in ids)
 
     rows = [
-        ("Paper", paper_cell or "—"),
-        ("Code", code_cell or "—"),
-        ("Blog / post", blog_cell or "—"),
+        ("Paper", paper_cell or "-"),
+        ("Code", code_cell or "-"),
+        ("Blog / post", blog_cell or "-"),
         ("Precision", m.get("precision", "unknown")),
         ("Granularity", m.get("granularity", "unknown")),
         ("Calibration", m.get("calibration", "unknown")),
@@ -247,7 +247,7 @@ def render_card(m, path_prefix=""):
     parts.append("| Field | Value |")
     parts.append("|-------|-------|")
     for label, val in rows:
-        if val and val != "—":
+        if val and val != "-":
             parts.append(f"| {label} | {val} |")
     parts.append("")
 
@@ -263,7 +263,7 @@ def render_card(m, path_prefix=""):
 
 
 def render_matrix(methods):
-    """Big comparison matrix — all methods as rows."""
+    """Big comparison matrix - all methods as rows."""
     rows = sorted(methods, key=lambda m: m.get("id", ""))
 
     lines = []
@@ -288,7 +288,7 @@ def render_matrix(methods):
 
         # Parse precision string into W/A/KV columns
         import re as _re
-        w_bits = a_bits = kv_bits = "—"
+        w_bits = a_bits = kv_bits = "-"
         p = (precision or "").strip()
         p_up = p.upper()
 
@@ -329,7 +329,7 @@ def render_matrix(methods):
         if paper_url and paper_url not in ("null", None):
             paper_cell = f"[paper]({paper_url})"
         else:
-            paper_cell = "—"
+            paper_cell = "-"
 
         lines.append(
             f"| [{mid}](#{anchor}) | {cat} | {year} | {w_bits} | {a_bits} | {kv_bits} "
@@ -374,9 +374,9 @@ def render_toc(by_cat, methods):
         meta = CATEGORY_META.get(cat, {})
         title = meta.get("title", cat)
         count = len(by_cat.get(cat, []))
-        slug = title.lower().replace(" ", "-").replace("—", "").replace("/", "").replace("&", "").replace(",", "").strip("-")
-        lines.append(f"- [{title}](#{slug}) — {count} method{'s' if count != 1 else ''}")
-    lines.append(f"- [Full Method Matrix](#full-method-matrix) — {len(methods)} total")
+        slug = title.lower().replace(" ", "-").replace("\u2014", "").replace("/", "").replace("&", "").replace(",", "").strip("-")
+        lines.append(f"- [{title}](#{slug}) - {count} method{'s' if count != 1 else ''}")
+    lines.append(f"- [Full Method Matrix](#full-method-matrix) - {len(methods)} total")
     lines.append("- [Chronological Overview](#chronological-overview)")
     lines.append("")
     return "\n".join(lines)
@@ -401,7 +401,7 @@ def render_mermaid_timeline(methods):
     )
     lines.append("```mermaid")
     lines.append("timeline")
-    lines.append("    title LLM Quantization — Publication Timeline")
+    lines.append("    title LLM Quantization - Publication Timeline")
     for year in sorted(by_year.keys()):
         names = by_year[year]
         lines.append(f"    section {year}")
@@ -414,7 +414,7 @@ def render_mermaid_timeline(methods):
 
 
 def render_chronological_section(methods):
-    """Plain markdown table for README — methods published 2022–2025."""
+    """Plain markdown table for README - methods published 2022–2025."""
     in_range = [m for m in methods if str(m.get("year", "0")) in ("2022", "2023", "2024", "2025")]
     sorted_methods = sorted(
         in_range,
@@ -436,7 +436,7 @@ def render_chronological_section(methods):
         anchor = method_anchor(mid)
         name = m.get("name", mid)
         cat = CATEGORY_META.get(m.get("category", ""), {}).get("abbr", m.get("category", ""))
-        prec = m.get("precision", "—")
+        prec = m.get("precision", "-")
         lines.append(f"| {d} | [{name}](#{anchor}) | {cat} | {prec} |")
     return "\n".join(lines)
 
@@ -495,12 +495,12 @@ def render_timeline(methods):
         d = str(m.get("date", "unknown") or "unknown")
         name = m.get("name", m.get("id", ""))
         cat = CATEGORY_META.get(m.get("category", ""), {}).get("abbr", m.get("category", ""))
-        prec = m.get("precision", "—")
+        prec = m.get("precision", "-")
         paper_url = m.get("paper_url")
         if paper_url and paper_url not in ("null", None):
             paper_cell = f"[paper]({paper_url})"
         else:
-            paper_cell = "—"
+            paper_cell = "-"
         lines.append(f"| {d} | {name} | {cat} | {prec} | {paper_cell} |")
 
     return "\n".join(lines)
@@ -559,9 +559,9 @@ def main():
     today = date.today().isoformat()
     n_cats = sum(1 for c in CATEGORY_ORDER if by_cat.get(c))
 
-    # ── docs/methods.md — full method cards ───────────────────────────────────
+    # ── docs/methods.md - full method cards ───────────────────────────────────
     methods_parts = []
-    methods_parts.append("# LLM Quantization Gallery — Method Details\n")
+    methods_parts.append("# LLM Quantization Gallery - Method Details\n")
     methods_parts.append(
         "> Auto-generated by `scripts/build_readme.py`. Do not edit directly. "
         "Edit `methods.yml` and re-run the script.\n"
@@ -614,14 +614,14 @@ def main():
     (ROOT / "docs" / "timeline.md").write_text(timeline_text, encoding="utf-8")
     print("Wrote docs/timeline.md")
 
-    # ── README.md — minimal, like llm-architecture-gallery ───────────────────
+    # ── README.md - minimal, like llm-architecture-gallery ───────────────────
     readme_parts = []
     readme_parts.append("# LLM Quantization Gallery\n")
     readme_parts.append(
         "**Live gallery:** https://arpitsinghgautam.me/llm-quantization-gallery/\n"
     )
     readme_parts.append(
-        f"A curated, visual reference for LLM quantization methods — "
+        f"A curated, visual reference for LLM quantization methods - "
         f"**{len(methods)} methods** across **{n_cats} categories**, "
         f"each with a flowchart diagram, fact sheet, and cross-references.\n"
     )
@@ -631,10 +631,10 @@ def main():
     )
     readme_parts.append("**Browse:**\n")
     readme_parts.append(
-        "- [Full method cards](docs/methods.md) — fact sheets, diagrams, key ideas\n"
-        "- [Timeline](docs/timeline.md) — all methods sorted by date\n"
-        "- [Lineage graph](docs/lineage.md) — builds-on relationships\n"
-        "- [Notation guide](docs/notation.md) — `W4A16`, `W8A8KV4`, group sizes\n"
+        "- [Full method cards](docs/methods.md) - fact sheets, diagrams, key ideas\n"
+        "- [Timeline](docs/timeline.md) - all methods sorted by date\n"
+        "- [Lineage graph](docs/lineage.md) - builds-on relationships\n"
+        "- [Notation guide](docs/notation.md) - `W4A16`, `W8A8KV4`, group sizes\n"
         "- [Glossary](docs/glossary.md)\n"
         "- [Contributing](CONTRIBUTING.md)\n"
     )

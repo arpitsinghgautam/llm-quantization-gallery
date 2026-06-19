@@ -1,5 +1,5 @@
 /**
- * deploy.mjs — local fallback deployment to gh-pages branch.
+ * deploy.mjs - local fallback deployment to gh-pages branch.
  * Preferred path: GitHub Actions workflow (.github/workflows/deploy-site.yml).
  *
  * Usage: node scripts/deploy.mjs

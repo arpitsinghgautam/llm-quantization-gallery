@@ -30,7 +30,7 @@ describe('parsePrecision', () => {
     expect(r.kvBits).toEqual([])
   })
 
-  it('parses W4A16 (AWQ) — ignores parenthetical', () => {
+  it('parses W4A16 (AWQ) - ignores parenthetical', () => {
     const r = parsePrecision('W4A16 (AWQ)')
     expect(r.wBits).toEqual([4])
     expect(r.aBits).toEqual([16])

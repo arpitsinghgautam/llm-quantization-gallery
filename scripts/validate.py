@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-validate.py — Schema-checks methods.yml.
+validate.py - Schema-checks methods.yml.
 
 Checks:
   - All required fields present on every entry
@@ -205,12 +205,12 @@ def main():
     print()
 
     if errors:
-        print(f"FAILED — {len(errors)} error(s):")
+        print(f"FAILED - {len(errors)} error(s):")
         for err in errors:
             print(f"  ERROR: {err}")
         sys.exit(1)
     else:
-        print("OK — all checks passed.")
+        print("OK - all checks passed.")
 
 
 if __name__ == "__main__":
