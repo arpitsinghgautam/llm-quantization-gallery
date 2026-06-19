@@ -172,7 +172,7 @@ All URLs consulted when writing or verifying each methods.yml entry, grouped by 
 - https://github.com/Aaronhuang-778/BiLLM
 
 ## pb-llm
-- https://arxiv.org/abs/2309.06085
+- https://arxiv.org/abs/2310.00034
 
 ## matmul-free
 - https://arxiv.org/abs/2406.02528

@@ -50,4 +50,4 @@ Modeled after Sebastian Raschka's [llm-architecture-gallery](https://github.com/
 
 ---
 
-*156 methods · 8 categories · updated 2026-06-19*
+*156 methods · 8 categories · updated 2026-06-20*

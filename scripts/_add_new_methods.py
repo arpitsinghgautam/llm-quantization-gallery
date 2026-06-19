@@ -189,7 +189,7 @@ entries = r"""
   date: 2025-09-15
   authors: ["unknown"]
   affiliation: ["unknown"]
-  paper_url: https://neurips.cc/virtual/2025/poster/115061
+  paper_url: https://arxiv.org/abs/2506.13771
   code_url: null
   blog_url: null
   venue: "NeurIPS 2025"

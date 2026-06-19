@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sub-2-Bit LLM Quantization — A Literature Survey</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --ink:#e8eaed; --muted:#9aa3b2;
+    --line:#2a2f3a; --accent:#ec4899; --indigo:#818cf8;
+    --qat:#a78bfa;      /* train-from-scratch / QAT */
+    --ptq:#22d3ee;      /* post-training */
+    --hybrid:#f59e0b;   /* hybrid */
+    --good:#34d399; --bad:#fb7185;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  a{color:var(--indigo);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{background:#23272f;color:#f0abfc;padding:.1em .4em;border-radius:5px;font-size:.86em;
+    font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+  /* hero */
+  header.hero{padding:64px 0 40px;border-bottom:1px solid var(--line);
+    background:radial-gradient(1200px 400px at 70% -10%,rgba(236,72,153,.16),transparent),
+               radial-gradient(900px 360px at 10% 0%,rgba(129,140,248,.14),transparent)}
+  .kicker{letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:.72rem}
+  h1{font-size:2.5rem;line-height:1.1;margin:.3em 0 .25em;font-weight:800;letter-spacing:-.02em}
+  .lede{color:var(--muted);font-size:1.12rem;max-width:760px}
+  .meta{margin-top:18px;color:var(--muted);font-size:.82rem;display:flex;gap:18px;flex-wrap:wrap}
+  .meta b{color:var(--ink)}
+
+  /* nav */
+  nav.toc{position:sticky;top:0;z-index:30;background:rgba(15,17,21,.86);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav.toc .wrap{display:flex;gap:6px;flex-wrap:wrap;padding:10px 22px}
+  nav.toc a{color:var(--muted);font-size:.82rem;padding:6px 11px;border-radius:999px;border:1px solid transparent}
+  nav.toc a:hover{color:var(--ink);background:var(--panel2);border-color:var(--line);text-decoration:none}
+
+  section{padding:46px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:1.7rem;margin:0 0 .2em;letter-spacing:-.01em;display:flex;align-items:center;gap:.5em}
+  h2 .num{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:800}
+  h3{font-size:1.18rem;margin:1.8em 0 .4em}
+  p{margin:.7em 0}
+  .sub{color:var(--muted);margin-top:-.2em}
+
+  /* callouts */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .card h4{margin:0 0 .35em;font-size:1.02rem}
+  .card.qat{border-left:4px solid var(--qat)}
+  .card.ptq{border-left:4px solid var(--ptq)}
+  .pill{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.04em;
+    padding:3px 9px;border-radius:999px;text-transform:uppercase}
+  .pill.qat{background:rgba(167,139,250,.16);color:var(--qat)}
+  .pill.ptq{background:rgba(34,211,238,.14);color:var(--ptq)}
+  .pill.hy{background:rgba(245,158,11,.15);color:var(--hybrid)}
+
+  .note{background:linear-gradient(180deg,rgba(236,72,153,.08),transparent);
+    border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;
+    padding:14px 18px;color:var(--muted);font-size:.92rem;margin:20px 0}
+  .note b{color:var(--ink)}
+
+  /* tables */
+  .tbl{width:100%;border-collapse:collapse;margin:16px 0;font-size:.86rem;overflow:hidden;
+    border:1px solid var(--line);border-radius:12px}
+  .scroll{overflow-x:auto;border-radius:12px}
+  .tbl th,.tbl td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+  .tbl thead th{background:var(--panel2);color:var(--muted);font-weight:600;
+    position:sticky;top:0;text-transform:uppercase;letter-spacing:.03em;font-size:.72rem}
+  .tbl tbody tr:hover{background:rgba(129,140,248,.06)}
+  .tbl td.name{font-weight:700;color:var(--ink)}
+  .chk{color:var(--good);font-weight:800}
+  .dash{color:#3b4250}
+  .num{font-variant-numeric:tabular-nums;text-align:right}
+
+  /* timeline eras */
+  .eras{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0}
+  .era{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;position:relative}
+  .era .yr{font-size:1.5rem;font-weight:800;letter-spacing:-.02em}
+  .era .tag{color:var(--accent);font-size:.78rem;font-weight:700;margin-bottom:10px;display:block}
+  .chip{display:inline-block;font-size:.74rem;margin:3px 4px 0 0;padding:4px 9px;border-radius:8px;
+    border:1px solid var(--line);background:var(--panel2)}
+  .chip.qat{border-color:rgba(167,139,250,.5)}
+  .chip.ptq{border-color:rgba(34,211,238,.45)}
+
+  /* lineage flow */
+  .flow{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0}
+  .lane{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .lane.qat{border-top:4px solid var(--qat)} .lane.ptq{border-top:4px solid var(--ptq)}
+  .lane h4{margin:.1em 0 .2em}
+  .steps{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+  .step{display:flex;align-items:center;gap:10px}
+  .step .dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
+  .qat .dot{background:var(--qat)} .ptq .dot{background:var(--ptq)}
+  .step b{font-weight:700} .step span{color:var(--muted);font-size:.85rem}
+  .arrow{color:#444b59;text-align:center;margin:-2px 0 -4px 4px;font-size:.8rem}
+
+  /* legend */
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin:6px 0 0}
+  .legend i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px}
+
+  figure{margin:18px 0}
+  figcaption{color:var(--muted);font-size:.82rem;margin-top:8px;text-align:center}
+  .chartbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+
+  ul.refs{list-style:none;padding:0;counter-reset:r}
+  ul.refs li{counter-increment:r;padding:9px 0 9px 38px;border-bottom:1px solid var(--line);position:relative;font-size:.9rem}
+  ul.refs li::before{content:counter(r);position:absolute;left:0;top:8px;width:26px;height:26px;
+    background:var(--panel2);border:1px solid var(--line);border-radius:8px;text-align:center;
+    line-height:26px;font-size:.78rem;color:var(--muted);font-weight:700}
+  footer{padding:34px 0 60px;color:var(--muted);font-size:.84rem}
+  .win{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .win div{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-size:.9rem}
+  .win b{color:var(--accent)}
+  @media(max-width:820px){.grid2,.flow,.win{grid-template-columns:1fr}.eras{grid-template-columns:1fr 1fr}h1{font-size:2rem}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Literature Survey · Extreme Low-Bit Quantization</div>
+    <h1>Sub-2-Bit LLM Quantization</h1>
+    <p class="lede">How large language models are squeezed to <b>binary (1-bit)</b>, <b>ternary (1.58-bit)</b>, and even <b>sub-1-bit</b> weights — and how the field learned to do it without the model collapsing.</p>
+    <div class="meta">
+      <span><b>15</b> methods · 2023–2026</span>
+      <span><b>Scope:</b> the gallery's <i>Extreme Low-Bit</i> category</span>
+      <span><b>Compiled:</b> 2026-06-20</span>
+      <span>Figures drawn from each paper's PDF</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#intro">1 · Introduction</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#taxonomy">2 · Taxonomy</a>
+  <a href="#qat">3 · Train-from-scratch</a>
+  <a href="#ptq">4 · Post-training</a>
+  <a href="#tech">5 · Techniques</a>
+  <a href="#compare">6 · Comparison</a>
+  <a href="#open">7 · Challenges</a>
+  <a href="#refs">References</a>
+</div></nav>
+
+<!-- ───────────────────────── 1 INTRO ───────────────────────── -->
+<section id="intro"><div class="wrap">
+  <h2><span class="num">1</span> Introduction &amp; scope</h2>
+  <p>Quantization compresses a model by storing its weights in fewer bits. Mainstream deployment has settled on <b>4-bit</b> weights (GPTQ, AWQ) as a near-lossless sweet spot. <b>Sub-2-bit</b> quantization is the frontier <i>below</i> that:</p>
+
+  <div class="grid2">
+    <div class="card"><h4>1 bit — binary</h4><p class="sub">Weights in {−1, +1}. ~16× smaller than FP16; matmul becomes pure sign-flips.</p></div>
+    <div class="card"><h4>~1.58 bits — ternary</h4><p class="sub">Weights in {−1, <b>0</b>, +1} (log₂3 ≈ 1.58). The added zero enables feature filtering — the field's most important design choice.</p></div>
+    <div class="card"><h4>&lt; 1 bit — sub-1-bit</h4><p class="sub">Factorization/codebook tricks where individual weights no longer have an independent representation (down to 0.1 bits).</p></div>
+    <div class="card"><h4>The prize &amp; the peril</h4><p class="sub">Ternary/binary matmuls reduce to <b>additions</b> — order-of-magnitude energy savings. But naive binarization of a pretrained LLM <b>collapses it below random</b>.</p></div>
+  </div>
+
+  <p>Two structural facts shape every method here:</p>
+  <ol>
+    <li><b>The scale tailwind.</b> Larger models tolerate fewer bits per weight — the FP16-vs-low-bit gap <i>shrinks</i> with size. Strong results cluster at ≥ 3 B parameters.</li>
+    <li><b>The central fork.</b> Either <span class="pill qat">bake low precision into training</span> for best quality, or <span class="pill ptq">convert an existing FP16 checkpoint</span> cheaply. This fork organizes the whole field.</li>
+  </ol>
+</div></section>
+
+<!-- ───────────────────────── TIMELINE ───────────────────────── -->
+<section id="timeline"><div class="wrap">
+  <h2>The arc of the field, 2023 → 2026</h2>
+  <p class="sub">Two macro-trends: the pivot from <b>binary → ternary</b> in early 2024, and the 2026 move to push <b>activations</b> low-bit too.</p>
+  <div class="legend">
+    <span><i style="background:var(--qat)"></i>Train-from-scratch / QAT</span>
+    <span><i style="background:var(--ptq)"></i>Post-training (PTQ)</span>
+  </div>
+  <div class="eras">
+    <div class="era"><span class="yr">2023</span><span class="tag">The binary origin</span>
+      <span class="chip qat">BitNet</span><span class="chip ptq">PB-LLM</span>
+    </div>
+    <div class="era"><span class="yr">2024</span><span class="tag">The ternary pivot</span>
+      <span class="chip qat">BitNet b1.58</span><span class="chip qat">Spectra</span><span class="chip qat">MatMul-free</span><span class="chip qat">OneBit</span><span class="chip ptq">BiLLM</span>
+    </div>
+    <div class="era"><span class="yr">2025</span><span class="tag">Production &amp; sub-1-bit</span>
+      <span class="chip qat">BitNet 2B4T</span><span class="chip qat">LittleBit</span><span class="chip qat">Tequila</span>
+    </div>
+    <div class="era"><span class="yr">2026</span><span class="tag">Joint W+A &amp; rotations</span>
+      <span class="chip ptq">SAGE-PTQ</span><span class="chip ptq">TWLA</span><span class="chip ptq">BWLA</span><span class="chip ptq">LBLLM</span><span class="chip ptq">Spectral-LLM</span>
+    </div>
+  </div>
+</div></section>
+
+<!-- ───────────────────────── 2 TAXONOMY ───────────────────────── -->
+<section id="taxonomy"><div class="wrap">
+  <h2><span class="num">2</span> A taxonomy</h2>
+  <p>Four axes separate the 15 methods: <b>paradigm</b> (from-scratch / QAT / PTQ), <b>representation</b> (binary / ternary / sub-1-bit), <b>coverage</b> (weight-only vs joint weight+activation), and <b>core trick</b>.</p>
+  <div class="scroll">
+  <table class="tbl">
+    <thead><tr><th>Method</th><th>Year</th><th>Venue</th><th>Paradigm</th><th>Weights</th><th>Activations</th><th>Family</th></tr></thead>
+    <tbody>
+      <tr><td class="name">PB-LLM</td><td>2023</td><td>ICLR'24</td><td><span class="pill ptq">PTQ+QAT</span></td><td>partial-binary</td><td>FP16</td><td>salient mixed-precision</td></tr>
+      <tr><td class="name">BitNet</td><td>2023</td><td>preprint</td><td><span class="pill qat">scratch</span></td><td>1-bit binary</td><td>INT8</td><td>binary BitLinear</td></tr>
+      <tr><td class="name">OneBit</td><td>2024</td><td>NeurIPS'24</td><td><span class="pill qat">QAT+KD</span></td><td>~1.01-bit</td><td>FP16</td><td>sign-value decomposition</td></tr>
+      <tr><td class="name">BitNet b1.58</td><td>2024</td><td>preprint</td><td><span class="pill qat">scratch</span></td><td>1.58-bit ternary</td><td>INT8</td><td>ternary BitLinear</td></tr>
+      <tr><td class="name">BiLLM</td><td>2024</td><td>ICML'24</td><td><span class="pill ptq">PTQ</span></td><td>~1.1-bit</td><td>FP16</td><td>salient + residual binarization</td></tr>
+      <tr><td class="name">MatMul-free LM</td><td>2024</td><td>preprint</td><td><span class="pill qat">scratch</span></td><td>1.58-bit ternary</td><td>BF16/INT8</td><td>ternary + matmul-free arch</td></tr>
+      <tr><td class="name">Spectra (TriLM)</td><td>2024</td><td>preprint</td><td><span class="pill qat">scratch</span></td><td>1.58-bit ternary</td><td>FP16</td><td>ternary pretraining suite</td></tr>
+      <tr><td class="name">Tequila</td><td>2025</td><td>ICLR'26</td><td><span class="pill qat">QAT</span></td><td>1.58-bit ternary</td><td>FP16</td><td>deadzone-free ternary</td></tr>
+      <tr><td class="name">LittleBit</td><td>2025</td><td>NeurIPS'25</td><td><span class="pill qat">QAT+KD</span></td><td><b>sub-1-bit (0.1–1.0)</b></td><td>FP16</td><td>latent factorization</td></tr>
+      <tr><td class="name">BitNet b1.58 2B4T</td><td>2025</td><td>tech report</td><td><span class="pill qat">scratch</span></td><td>1.58-bit ternary</td><td>INT8</td><td>open 2B/4T model</td></tr>
+      <tr><td class="name">SAGE-PTQ</td><td>2026</td><td>preprint</td><td><span class="pill ptq">PTQ</span></td><td>~1.03-bit</td><td>FP16</td><td>scale-overhead-minimizing</td></tr>
+      <tr><td class="name">TWLA</td><td>2026</td><td>ICML'26</td><td><span class="pill ptq">PTQ</span></td><td>1.58-bit ternary</td><td><b>4-bit</b></td><td>ternary W + low-bit A</td></tr>
+      <tr><td class="name">Spectral-LLM</td><td>2026</td><td>preprint</td><td><span class="pill ptq">PTQ</span></td><td>2-bit</td><td>FP16</td><td>Hadamard rotation + scaling</td></tr>
+      <tr><td class="name">LBLLM</td><td>2026</td><td>preprint</td><td><span class="pill hy">PTQ+KD</span></td><td>W(1+1) ≈ 2-bit</td><td><b>4-bit</b></td><td>binary + 3-stage distillation</td></tr>
+      <tr><td class="name">BWLA</td><td>2026</td><td>ACL'26</td><td><span class="pill ptq">PTQ</span></td><td>~1.16-bit</td><td><b>6-bit</b></td><td>orthogonal reshaping + residual</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div></section>
+
+<!-- ───────────────────────── 3 + 4 LINEAGES ───────────────────────── -->
+<section id="qat"><div class="wrap">
+  <h2><span class="num">3 / 4</span> Two converging lineages</h2>
+  <p>The central fork produces two families. <span class="pill qat">Train-from-scratch / QAT</span> leads on quality but can't touch existing checkpoints. <span class="pill ptq">PTQ</span> converts any FP16 model cheaply and is closing the gap fast.</p>
+
+  <div class="flow">
+    <div class="lane qat">
+      <h4>① Train-from-scratch / QAT</h4>
+      <p class="sub">Bake low precision into training. Best quality, at training cost.</p>
+      <div class="steps">
+        <div class="step"><span class="dot"></span><div><b>BitNet</b> <span>— binary origin; 1-bit follows scaling laws</span></div></div>
+        <div class="arrow">↓ add the {0} state</div>
+        <div class="step"><span class="dot"></span><div><b>BitNet b1.58</b> <span>— ternary; matches FP16 at 3 B (Pareto win)</span></div></div>
+        <div class="arrow">↓ study &amp; scale</div>
+        <div class="step"><span class="dot"></span><div><b>Spectra</b> · <b>MatMul-free</b> · <b>BitNet 2B4T</b> <span>— scaling laws, arch co-design, open 2B model</span></div></div>
+        <div class="arrow">↓ cheaper training / from pretrained</div>
+        <div class="step"><span class="dot"></span><div><b>Tequila</b> · <b>OneBit</b> · <b>LittleBit</b> <span>— deadzone fix, sign-value &amp; factorized + KD</span></div></div>
+      </div>
+    </div>
+    <div class="lane ptq">
+      <h4>② Post-training (PTQ)</h4>
+      <p class="sub">Convert an existing FP16 model. Practical path for the millions already trained.</p>
+      <div class="steps">
+        <div class="step"><span class="dot"></span><div><b>PB-LLM</b> <span>— salient weights kept high-bit; binarize the rest</span></div></div>
+        <div class="arrow">↓ fewer bits, higher quality</div>
+        <div class="step"><span class="dot"></span><div><b>BiLLM</b> <span>— ~1.1-bit; residual binarization + bell-split</span></div></div>
+        <div class="arrow">↓ kill the scale overhead</div>
+        <div class="step"><span class="dot"></span><div><b>SAGE-PTQ</b> <span>— ~1.03-bit; 0.004 bit/weight on scales</span></div></div>
+        <div class="arrow">↓ rotate &amp; push activations low</div>
+        <div class="step"><span class="dot"></span><div><b>TWLA</b> · <b>BWLA</b> · <b>LBLLM</b> · <b>Spectral-LLM</b> <span>— joint W + 4–6-bit A via rotations / distillation</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Highlights from the train-from-scratch lineage</h3>
+  <p><b>BitNet (2023)</b> introduced <code>BitLinear</code> and showed billion-scale 1-bit LLMs follow the same scaling laws as FP16, crushing every post-hoc baseline (6.7 B: 17.07 PPL vs GPTQ's 1032 at the same bits). <b>BitNet b1.58 (2024)</b> added the ternary {0} state and reached <b>FP16 parity at 3 B</b> (9.91 vs 10.04 PPL) while 2.71× faster and 3.55× lighter. <b>Spectra/TriLM</b> proved a ternary 3.9 B model matches FP16 at <b>5.9× fewer bits</b>; <b>MatMul-free LM</b> removed matrix multiplication entirely; and <b>BitNet b1.58 2B4T</b> shipped the first open 2 B/4T-token ternary model (avg 54.19, beating INT4 PTQ at lower memory). <b>OneBit</b> and <b>LittleBit</b> bring this quality to <i>pretrained</i> models via sign-value / latent-factorization + distillation — LittleBit reaching an unprecedented <b>0.1 bits/weight</b>.</p>
+
+  <h3>Highlights from the post-training lineage</h3>
+  <p><b>PB-LLM (2023)</b> was first to binarize LLMs and to show naive binarization collapses them — its fix was to keep a salient fraction high-bit. <b>BiLLM (2024)</b> reached usable <b>~1.1-bit</b> with no training via residual binarization. <b>SAGE-PTQ (2026)</b> attacks the overlooked cost of the scales themselves (0.004 bit/weight), claiming near-FP16 at ~1 bit. The newest wave — <b>TWLA</b> (ternary W + 4-bit A), <b>BWLA</b> (1-bit W + 6-bit A), <b>LBLLM</b> (W(1+1)A4), <b>Spectral-LLM</b> (2-bit, Hadamard) — uses <b>orthogonal rotations</b> to make both weights and activations quantization-friendly at once, finally moving activations low-bit for real end-to-end speedup.</p>
+</div></section>
+
+<!-- ───────────────────────── 5 TECHNIQUES ───────────────────────── -->
+<section id="tech"><div class="wrap">
+  <h2><span class="num">5</span> Cross-cutting techniques</h2>
+  <p>The 15 methods recombine a compact toolkit. Reading the field as <i>techniques</i> rather than papers shows what actually makes sub-2-bit work.</p>
+  <div class="scroll">
+  <table class="tbl">
+    <thead><tr>
+      <th>Method</th><th>Saliency</th><th>Hessian comp.</th><th>Factoriz. / sign-value</th>
+      <th>Rotation</th><th>Reshaping</th><th>Distillation</th><th>From scratch</th><th>Joint W+A</th><th>Sub-1-bit</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="name">PB-LLM</td><td class="chk">✓</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td></tr>
+      <tr><td class="name">BitNet</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td></tr>
+      <tr><td class="name">OneBit</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td></tr>
+      <tr><td class="name">BitNet b1.58</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td></tr>
+      <tr><td class="name">BiLLM</td><td class="chk">✓</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td></tr>
+      <tr><td class="name">MatMul-free</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td></tr>
+      <tr><td class="name">Spectra</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td></tr>
+      <tr><td class="name">Tequila</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td></tr>
+      <tr><td class="name">LittleBit</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td></tr>
+      <tr><td class="name">BitNet 2B4T</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td></tr>
+      <tr><td class="name">SAGE-PTQ</td><td class="chk">✓</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td></tr>
+      <tr><td class="name">TWLA</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td></tr>
+      <tr><td class="name">Spectral-LLM</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td></tr>
+      <tr><td class="name">LBLLM</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td></tr>
+      <tr><td class="name">BWLA</td><td class="dash">·</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="chk">✓</td><td class="dash">·</td><td class="dash">·</td><td class="chk">✓</td><td class="dash">·</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub"><b>The single most consequential choice</b> is the move from binary {−1,+1} to ternary {−1,<b>0</b>,+1}: the extra 0.58 bits buys feature filtering and is what lifted from-scratch models to FP16 parity.</p>
+</div></section>
+
+<!-- ───────────────────────── 6 COMPARISON ───────────────────────── -->
+<section id="compare"><div class="wrap">
+  <h2><span class="num">6</span> Comparative analysis</h2>
+  <p class="sub">PTQ on <b>LLaMA-2-7B</b>, WikiText-2 perplexity (lower is better). FP16 baseline = 5.47. W/A and effective bits annotated — cross-paper numbers are <i>directional</i>, not exact.</p>
+
+  <figure><div class="chartbox">
+    <svg viewBox="0 0 840 330" width="100%" role="img" aria-label="Perplexity comparison bar chart">
+      <!-- FP16 reference line at ppl 5.47 -->
+      <line x1="296.5" y1="14" x2="296.5" y2="296" stroke="#34d399" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <text x="300" y="312" fill="#34d399" font-size="11" font-family="monospace">FP16 = 5.47</text>
+      <!-- gridlines / x labels -->
+      <g font-family="monospace" font-size="10" fill="#5b6473">
+        <line x1="200" y1="14" x2="200" y2="296" stroke="#2a2f3a"/>
+        <line x1="376.5" y1="14" x2="376.5" y2="296" stroke="#2a2f3a"/><text x="370" y="312">10</text>
+        <line x1="553" y1="14" x2="553" y2="296" stroke="#2a2f3a"/><text x="547" y="312">20</text>
+        <line x1="729.5" y1="14" x2="729.5" y2="296" stroke="#2a2f3a"/><text x="723" y="312">30</text>
+      </g>
+      <!-- bars: x0=200, scale = 17.647 px per ppl (600px / 34) -->
+      <g font-family="-apple-system,Segoe UI,sans-serif" font-size="12.5">
+        <!-- SAGE-PTQ 5.87 -->
+        <text x="190" y="34" text-anchor="end" fill="#e8eaed">SAGE-PTQ <tspan fill="#9aa3b2" font-size="10">~1.03b · A16</tspan></text>
+        <rect x="200" y="24" width="103.6" height="16" rx="3" fill="#22d3ee"/><text x="310" y="36" fill="#9aa3b2" font-size="11">5.87</text>
+        <!-- TWLA 6.97 -->
+        <text x="190" y="72" text-anchor="end" fill="#e8eaed">TWLA <tspan fill="#9aa3b2" font-size="10">1.58b · A16</tspan></text>
+        <rect x="200" y="62" width="123.0" height="16" rx="3" fill="#22d3ee"/><text x="329" y="74" fill="#9aa3b2" font-size="11">6.97</text>
+        <!-- LittleBit 9.08 -->
+        <text x="190" y="110" text-anchor="end" fill="#e8eaed">LittleBit <tspan fill="#9aa3b2" font-size="10">~1.0 BPW</tspan></text>
+        <rect x="200" y="100" width="160.2" height="16" rx="3" fill="#a78bfa"/><text x="366" y="112" fill="#9aa3b2" font-size="11">9.08</text>
+        <!-- LBLLM 9.18 -->
+        <text x="190" y="148" text-anchor="end" fill="#e8eaed">LBLLM <tspan fill="#9aa3b2" font-size="10">W(1+1) · A4</tspan></text>
+        <rect x="200" y="138" width="162.0" height="16" rx="3" fill="#f59e0b"/><text x="368" y="150" fill="#9aa3b2" font-size="11">9.18</text>
+        <!-- OneBit 9.73 -->
+        <text x="190" y="186" text-anchor="end" fill="#e8eaed">OneBit <tspan fill="#9aa3b2" font-size="10">~1.01b · A16</tspan></text>
+        <rect x="200" y="176" width="171.7" height="16" rx="3" fill="#a78bfa"/><text x="377" y="188" fill="#9aa3b2" font-size="11">9.73</text>
+        <!-- BWLA 9.96 -->
+        <text x="190" y="224" text-anchor="end" fill="#e8eaed">BWLA <tspan fill="#9aa3b2" font-size="10">~1.16b · A16</tspan></text>
+        <rect x="200" y="214" width="175.8" height="16" rx="3" fill="#22d3ee"/><text x="381" y="226" fill="#9aa3b2" font-size="11">9.96</text>
+        <!-- BiLLM 32.48 -->
+        <text x="190" y="262" text-anchor="end" fill="#e8eaed">BiLLM <tspan fill="#9aa3b2" font-size="10">~1.08b · A16</tspan></text>
+        <rect x="200" y="252" width="573.2" height="16" rx="3" fill="#475569"/><text x="200" y="264" fill="#cbd5e1" font-size="11" dx="6">32.48 (2024 binary SOTA)</text>
+      </g>
+    </svg>
+    <figcaption>At ~1-bit weight-only, the field improved roughly <b>BiLLM (32) → OneBit (9.7) → BWLA (10) → TWLA (7.0) → SAGE-PTQ (5.9)</b> in two years. The 2026 PTQ results approaching FP16 at ~1 bit are the most surprising development — and the most in need of independent replication.</figcaption>
+  </div></figure>
+
+  <h3>Train-from-scratch models (own training — not directly comparable to the chart)</h3>
+  <div class="scroll">
+  <table class="tbl">
+    <thead><tr><th>Model</th><th>Bits</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td class="name">BitNet b1.58 (3 B)</td><td>1.58 / A8</td><td>Matches FP16 LLaMA-3B PPL (9.91 vs 10.04); 2.71× faster, 3.55× less memory</td></tr>
+      <tr><td class="name">Spectra TriLM (3.9 B)</td><td>1.58</td><td>Matches FloatLM-3.9B downstream at <b>5.9× fewer bits</b></td></tr>
+      <tr><td class="name">BitNet b1.58 2B4T</td><td>1.58 / A8</td><td>11-bench avg <b>54.19</b> (2nd of 6 among 1–2 B peers); beats INT4 PTQ at lower memory</td></tr>
+      <tr><td class="name">MatMul-free (2.7 B)</td><td>1.58</td><td>49.9 vs Transformer++ 50.7 avg; &gt;10× inference memory savings</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Where each paradigm wins</h3>
+  <div class="win">
+    <div><b>Best quality, building a new model →</b> ternary train-from-scratch (BitNet b1.58 → 2B4T)</div>
+    <div><b>Quantize an existing model, weight-only →</b> SAGE-PTQ (2026) or BiLLM (battle-tested)</div>
+    <div><b>Real end-to-end speedup (low-bit activations) →</b> TWLA (ternary W+A4) or BWLA (binary W+A6)</div>
+    <div><b>Maximum compression, sub-1-bit →</b> LittleBit</div>
+  </div>
+</div></section>
+
+<!-- ───────────────────────── 7 CHALLENGES ───────────────────────── -->
+<section id="open"><div class="wrap">
+  <h2><span class="num">7</span> Open challenges &amp; future directions</h2>
+  <div class="grid2">
+    <div class="card"><h4>1 · Activations are the wall</h4><p class="sub">Most methods keep activations at INT8 or FP16. True W1A4 is only just emerging (TWLA, BWLA, LBLLM) and still degrades at A4.</p></div>
+    <div class="card"><h4>2 · Hardware gates the gains</h4><p class="sub">Nearly every speedup needs custom kernels (<code>bitnet.cpp</code>, BitBLAS) or non-commodity hardware. Commodity GPUs have no native W1.58A8 path.</p></div>
+    <div class="card"><h4>3 · PTQ ≈ from-scratch?</h4><p class="sub">2026 PTQ claims near-FP16 at ~1 bit (SAGE-PTQ 5.87). If replicated this is field-changing — but these are recent single-team preprints.</p></div>
+    <div class="card"><h4>4 · Small / new models are harder</h4><p class="sub">Parity needs scale (≥ 3 B); newer dense models (LLaMA-3, Qwen3) degrade more at the same bit-width.</p></div>
+    <div class="card"><h4>5 · Evaluation gaps</h4><p class="sub">Subset perplexity, single seeds, limited baselines (e.g. Spectral-LLM vs only AutoRound). The field needs a standardized sub-2-bit benchmark.</p></div>
+    <div class="card"><h4>6 · Theory lags practice</h4><p class="sub">Why native 1-bit training works at scale, and why closed-form rotations recover learned-rotation gains, remain open.</p></div>
+  </div>
+  <div class="note"><b>Conclusion.</b> In ~3 years the field went from "binarization destroys LLMs" (PB-LLM, 2023) to <b>ternary models that match FP16 from scratch</b> (BitNet b1.58 / 2B4T) and <b>post-training methods that approach FP16 at ~1 bit</b> (SAGE-PTQ, BWLA, TWLA). The decisive ideas: the ternary {0} state, saliency-aware mixed precision, sign-value / factorized representations, and orthogonal rotations that make weights and activations quantization-friendly at once. The binding constraints now are <b>low-bit activations</b> and <b>hardware support</b> — the algorithms are increasingly ahead of the silicon.</p></div>
+</div></section>
+
+<!-- ───────────────────────── REFERENCES ───────────────────────── -->
+<section id="refs"><div class="wrap">
+  <h2>References</h2>
+  <p class="sub">All PDFs live in <code>papers/04_Extreme_Low-Bit/</code>. arXiv IDs verified against the downloaded papers.</p>
+  <ul class="refs">
+    <li><b>PB-LLM: Partially Binarized Large Language Models.</b> Shang et al. ICLR 2024. <a href="https://arxiv.org/abs/2310.00034">arXiv:2310.00034</a></li>
+    <li><b>BitNet: Scaling 1-bit Transformers for LLMs.</b> Wang et al. 2023. <a href="https://arxiv.org/abs/2310.11453">arXiv:2310.11453</a></li>
+    <li><b>OneBit: Towards Extremely Low-bit LLMs.</b> Xu et al. NeurIPS 2024. <a href="https://arxiv.org/abs/2402.11295">arXiv:2402.11295</a></li>
+    <li><b>The Era of 1-bit LLMs (BitNet b1.58).</b> Ma et al. 2024. <a href="https://arxiv.org/abs/2402.17764">arXiv:2402.17764</a></li>
+    <li><b>BiLLM: Pushing the Limit of PTQ for LLMs.</b> Huang et al. ICML 2024. <a href="https://arxiv.org/abs/2402.04291">arXiv:2402.04291</a></li>
+    <li><b>Scalable MatMul-free Language Modeling.</b> Zhu et al. 2024. <a href="https://arxiv.org/abs/2406.02528">arXiv:2406.02528</a></li>
+    <li><b>Spectra: Ternary, Quantized, and FP16 LMs (TriLM).</b> Kaushal et al. 2024. <a href="https://arxiv.org/abs/2407.12327">arXiv:2407.12327</a></li>
+    <li><b>Tequila: Deadzone-free Ternary Quantization.</b> Huang et al. ICLR 2026. <a href="https://arxiv.org/abs/2509.23809">arXiv:2509.23809</a></li>
+    <li><b>LittleBit: Ultra Low-Bit Quantization via Latent Factorization.</b> Lee et al. NeurIPS 2025. <a href="https://arxiv.org/abs/2506.13771">arXiv:2506.13771</a></li>
+    <li><b>BitNet b1.58 2B4T Technical Report.</b> Ma et al. 2025. <a href="https://arxiv.org/abs/2504.12285">arXiv:2504.12285</a></li>
+    <li><b>SAGE-PTQ: Graph-Guided Ultra-Low-Bit Quantization.</b> Abdalla et al. 2026. <a href="https://arxiv.org/abs/2606.05429">arXiv:2606.05429</a></li>
+    <li><b>TWLA: Ternary Weights and Low-Bit Activations via PTQ.</b> Zhao et al. ICML 2026. <a href="https://arxiv.org/abs/2606.13054">arXiv:2606.13054</a></li>
+    <li><b>Influence-Inspired Spectral Rotations for Extreme Low-Bit Quantization.</b> Pavlov. 2026. <a href="https://arxiv.org/abs/2605.25203">arXiv:2605.25203</a></li>
+    <li><b>LBLLM: Lightweight Binarization via Three-Stage Distillation.</b> Song et al. 2026. <a href="https://arxiv.org/abs/2604.19167">arXiv:2604.19167</a></li>
+    <li><b>BWLA: Breaking the Barrier of W1AX PTQ for LLMs.</b> Zhao et al. ACL 2026. <a href="https://arxiv.org/abs/2605.00422">arXiv:2605.00422</a></li>
+  </ul>
+  <footer>Companion to <code>under_2bit_literature_survey.md</code>. Generated 2026-06-20 for the LLM Quantization Gallery. Quantitative figures are quoted from each paper individually; different evaluation setups make cross-method comparisons directional.</footer>
+</div></section>
+
+</body>
+</html>

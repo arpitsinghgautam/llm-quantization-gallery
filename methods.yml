@@ -16,7 +16,7 @@
   date: 1993-01-01
   authors: ["Babak Hassibi", "David G. Stork", "Gregory J. Wolff"]
   affiliation: ["Ricoh California Research Center", "Stanford University"]
-  paper_url: https://authors.library.caltech.edu/55952/1/Optimal%20Brain%20Surgeon.pdf
+  paper_url: https://proceedings.neurips.cc/paper_files/paper/1992/file/303ed4c69846ab36c2904d3ba8573050-Paper.pdf
   code_url: null
   blog_url: null
   venue: "NeurIPS 1992"
@@ -2436,7 +2436,7 @@
   date: 2023-09-12
   authors: ["Yuzhang Shang", "Zhihang Yuan", "Zhikai Li", "Qingyi Gu"]
   affiliation: ["Illinois Institute of Technology", "Huazhong University of Science and Technology"]
-  paper_url: https://arxiv.org/abs/2309.06085
+  paper_url: https://arxiv.org/abs/2310.00034
   code_url: null
   blog_url: null
   venue: "ICLR 2024"
@@ -2672,7 +2672,7 @@
   date: 2025-04-01
   authors: ["Shuming Ma", "Hongyu Wang", "Shaohan Huang", "Wenhui Wang", "Zewen Chi", "Li Dong", "Furu Wei"]
   affiliation: ["Microsoft Research"]
-  paper_url: https://arxiv.org/abs/2504.01234
+  paper_url: https://arxiv.org/abs/2504.12285
   code_url: https://github.com/microsoft/BitNet
   blog_url: null
   venue: null
@@ -3352,7 +3352,7 @@
   date: 2024-03-18
   authors: ["NVIDIA Corporation"]
   affiliation: ["NVIDIA"]
-  paper_url: null
+  paper_url: https://arxiv.org/abs/2509.25149
   code_url: https://github.com/NVIDIA/TensorRT-LLM
   blog_url: https://developer.nvidia.com/blog/nvidia-blackwell-gpu-architecture/
   venue: null
@@ -4299,7 +4299,7 @@
     - Youngcheon You
     - Youngmin Kim
   affiliation: []
-  paper_url: https://neurips.cc/virtual/2025/poster/115061
+  paper_url: https://arxiv.org/abs/2506.13771
   code_url: null
   blog_url: null
   venue: "NeurIPS 2025"
@@ -7725,7 +7725,7 @@
     - "Dawei Yang"
   affiliation:
     - "unknown"
-  paper_url: https://arxiv.org/abs/2604.06798
+  paper_url: https://arxiv.org/abs/2604.06798v3
   code_url: null
   blog_url: null
   venue: null
