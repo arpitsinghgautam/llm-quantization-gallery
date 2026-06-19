@@ -584,7 +584,7 @@
 - id: omniquant
   name: OmniQuant
   full_name: "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models"
-  category: ptq_weight_only
+  category: ptq_weight_activation
   subcategory: learnable-clipping
   year: 2023
   date: 2023-08-25
@@ -681,7 +681,7 @@
 - id: marlin
   name: Marlin
   full_name: "MARLIN: Mixed-Precision Auto-Regressive Parallel Inference on Large Language Models"
-  category: ptq_weight_only
+  category: systems
   subcategory: inference-kernel
   year: 2024
   date: 2024-08-21
@@ -4058,7 +4058,7 @@
 - id: flute
   name: FLUTE
   full_name: "FLUTE: Flexible Lookup Table for Efficient, Scalable Unified LLM Compression"
-  category: ptq_weight_only
+  category: systems
   subcategory: lookup-table
   year: 2024
   date: 2024-07-15
@@ -4289,7 +4289,7 @@
 - id: littlebit
   name: LittleBit
   full_name: "LittleBit: Ultra Low-Bit Quantization via Latent Factorization"
-  category: ptq_weight_only
+  category: extreme_lowbit
   subcategory: latent-factorization
   year: 2025
   date: 2025-09-15
