@@ -40,7 +40,7 @@
 
   <!-- Bottom -->
   <rect x="30" y="420" width="740" height="55" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
-  <text x="50" y="442" font-family="monospace" font-size="11" fill="#4A90D9">https://authors.library.caltech.edu/55952/1/Optimal%20Brain%20Surgeon.pdf</text>
+  <text x="50" y="442" font-family="monospace" font-size="11" fill="#4A90D9">https://proceedings.neurips.cc/paper_files/paper/1992/file/303ed4c69846ab3…</text>
   <text x="50" y="462" font-family="monospace" font-size="11" fill="#555">Year: 1993  |  Authors: Babak Hassibi, David G. Stork, Gregory J. Wolff</text>
 
 </svg>

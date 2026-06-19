@@ -38,7 +38,7 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [bit-by-bit](#bit-by-bit) | QAT / QFT | 2026 | arXiv | 2 | 2 | - | yes | yes | [paper](https://arxiv.org/abs/2604.07888) |
 | [bitdistiller](#bitdistiller) | QAT / QFT | 2024 | ACL 2024 | 2/3 | 16 | - | no | yes | [paper](https://arxiv.org/abs/2402.10631) |
 | [bitnet](#bitnet) | Sub-2-bit | 2023 | arXiv | 1 | 8 | - | no | yes | [paper](https://arxiv.org/abs/2310.11453) |
-| [bitnet-2b4t](#bitnet-2b4t) | Sub-2-bit | 2025 | arXiv | 1.58 | 8 | - | no | yes | [paper](https://arxiv.org/abs/2504.01234) |
+| [bitnet-2b4t](#bitnet-2b4t) | Sub-2-bit | 2025 | arXiv | 1.58 | 8 | - | no | yes | [paper](https://arxiv.org/abs/2504.12285) |
 | [bitnet-b158](#bitnet-b158) | Sub-2-bit | 2024 | arXiv | 1.58 | 8 | - | no | yes | [paper](https://arxiv.org/abs/2402.17764) |
 | [bitsandbytes](#bitsandbytes) | Systems | 2022 | arXiv | 8 | 8 | - | no | no | [paper](https://arxiv.org/abs/2208.07339) |
 | [bitsandbytes-nf4](#bitsandbytes-nf4) | PTQ W-only | 2023 | NeurIPS 2023 | 4 | 16 | - | no | no | [paper](https://arxiv.org/abs/2305.14314) |
@@ -83,7 +83,7 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [lc-qat](#lc-qat) | QAT / QFT | 2026 | ICML 2026 | 2 | 16 | - | yes | yes | [paper](https://arxiv.org/abs/2606.10531) |
 | [lfq](#lfq) | PTQ W-only | 2026 | ICML 2026 | 4 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2605.29756) |
 | [liftquant](#liftquant) | PTQ W-only | 2026 | ICML 2026 | 2.4 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2606.04050) |
-| [littlebit](#littlebit) | Sub-2-bit | 2025 | NeurIPS 2025 | <1 | - | - | yes | no | [paper](https://neurips.cc/virtual/2025/poster/115061) |
+| [littlebit](#littlebit) | Sub-2-bit | 2025 | NeurIPS 2025 | <1 | - | - | yes | no | [paper](https://arxiv.org/abs/2506.13771) |
 | [llama-cpp](#llama-cpp) | Systems | 2023 | n/a | 2/3/4/5/6/8 | 16 | - | no | no | - |
 | [llamaweb](#llamaweb) | Systems | 2026 | arXiv | 2/4/8 | 16 | - | no | no | [paper](https://arxiv.org/abs/2605.20706) |
 | [llm-int8](#llm-int8) | PTQ W+A | 2022 | NeurIPS 2022 | 8 | 8 | - | no | no | [paper](https://arxiv.org/abs/2208.07339) |
@@ -95,17 +95,17 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [mc-moe](#mc-moe) | MoE Quant | 2024 | arXiv | 2/4 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2408.11813) |
 | [mixfp4](#mixfp4) | LP Training | 2026 | arXiv | 4 | 8 | - | yes | no | [paper](https://arxiv.org/abs/2605.31035) |
 | [mlc-llm](#mlc-llm) | Systems | 2023 | n/a | 4 | 16 | - | no | no | - |
-| [mobie](#mobie) | MoE Quant | 2026 | arXiv | 1 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2604.06798) |
+| [mobie](#mobie) | MoE Quant | 2026 | arXiv | 1 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2604.06798v3) |
 | [moqe](#moqe) | MoE Quant | 2023 | arXiv | 2/4 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2310.02410) |
 | [morphoquant](#morphoquant) | PTQ W+A | 2026 | arXiv | 4 | 4 | - | yes | no | [paper](https://arxiv.org/abs/2606.04349) |
 | [mosaicquant](#mosaicquant) | PTQ W+A | 2026 | arXiv | 4 | 8 | - | yes | no | [paper](https://arxiv.org/abs/2606.15652) |
 | [mx-formats](#mx-formats) | LP Training | 2023 | NeurIPS 2023 | 4/6/8 | 4/6/8 | - | no | yes | [paper](https://arxiv.org/abs/2310.10537) |
 | [mxfp4-pretraining](#mxfp4-pretraining) | LP Training | 2026 | arXiv | 32/4 | 32/4 | - | no | yes | [paper](https://arxiv.org/abs/2605.09825) |
 | [mxfp4-rl-error-decomposition](#mxfp4-rl-error-decomposition) | LP Training | 2026 | arXiv | 4 | 4 | - | no | yes | [paper](https://arxiv.org/abs/2605.20402) |
-| [nvfp4](#nvfp4) | LP Training | 2024 | n/a | 4 | 8 | - | yes | no | - |
+| [nvfp4](#nvfp4) | LP Training | 2024 | arXiv | 4 | 8 | - | yes | no | [paper](https://arxiv.org/abs/2509.25149) |
 | [oa-em](#oa-em) | PTQ W-only | 2026 | arXiv | 2 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2604.08118) |
 | [obq](#obq) | PTQ W-only | 2022 | NeurIPS 2022 | 3/4 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2208.11580) |
-| [obs](#obs) | PTQ W-only | 1993 | NeurIPS 1992 | - | - | - | yes | no | [paper](https://authors.library.caltech.edu/55952/1/Optimal%20Brain%20Surgeon.pdf) |
+| [obs](#obs) | PTQ W-only | 1993 | NeurIPS 1992 | - | - | - | yes | no | [paper](https://proceedings.neurips.cc/paper_files/paper/1992/file/303ed4c69846ab36c2904d3ba8573050-Paper.pdf) |
 | [offq](#offq) | PTQ W+A | 2026 | arXiv | 4 | 4 | 4 | yes | no | [paper](https://arxiv.org/abs/2606.07116) |
 | [omniquant](#omniquant) | PTQ W+A | 2023 | ICLR 2024 | 4 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2308.13137) |
 | [onebit](#onebit) | Sub-2-bit | 2024 | NeurIPS 2024 | 1 | 16 | - | no | yes | [paper](https://arxiv.org/abs/2402.11295) |
@@ -117,7 +117,7 @@ Every method in one table. Sort by any column. Linked IDs jump to the full card.
 | [owq](#owq) | PTQ W-only | 2023 | AAAI 2024 | 3/4 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2306.02272) |
 | [palu](#palu) | KV Quant | 2024 | arXiv | 16 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2407.21118) |
 | [paroquant](#paroquant) | PTQ W+A | 2025 | ICLR 2026 | 4 | 8 | - | yes | no | [paper](https://arxiv.org/abs/2511.10645) |
-| [pb-llm](#pb-llm) | Sub-2-bit | 2023 | ICLR 2024 | 1/16 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2309.06085) |
+| [pb-llm](#pb-llm) | Sub-2-bit | 2023 | ICLR 2024 | 1/16 | 16 | - | yes | no | [paper](https://arxiv.org/abs/2310.00034) |
 | [peqa](#peqa) | QAT / QFT | 2023 | NeurIPS 2023 | 4 | 16 | - | no | yes | [paper](https://arxiv.org/abs/2304.02384) |
 | [pmkvq](#pmkvq) | KV Quant | 2025 | ICLR 2026 | - | - | 2 | yes | no | [paper](https://arxiv.org/abs/2505.18610) |
 | [pqcache](#pqcache) | KV Quant | 2024 | arXiv | 16 | 16 | 2-4 | yes | no | [paper](https://arxiv.org/abs/2407.12820) |
@@ -1534,7 +1534,7 @@ flowchart LR
 | Field | Value |
 |-------|-------|
 | Published at | **NeurIPS 1992** |
-| Paper | [Optimal%20Brain%20Surgeon.pdf](https://authors.library.caltech.edu/55952/1/Optimal%20Brain%20Surgeon.pdf) |
+| Paper | [303ed4c69846ab36c2904d3ba8573050-Paper.pdf](https://proceedings.neurips.cc/paper_files/paper/1992/file/303ed4c69846ab36c2904d3ba8573050-Paper.pdf) |
 | Precision | n/a (pruning framework; later adapted to quantization) |
 | Granularity | per-weight |
 | Calibration | training data (Hessian computed during training) |
@@ -3902,7 +3902,7 @@ flowchart LR
 | Field | Value |
 |-------|-------|
 | Published at | **NeurIPS 2025** |
-| Paper | [115061](https://neurips.cc/virtual/2025/poster/115061) |
+| Paper | [2506.13771](https://arxiv.org/abs/2506.13771) |
 | Precision | sub-1-bit (effective ~0.1 bits per weight) |
 | Granularity | global latent space factorization |
 | Calibration | calibration set for latent factor optimization |
@@ -3941,7 +3941,7 @@ flowchart LR
 | Field | Value |
 |-------|-------|
 | Published at | arXiv (preprint) |
-| Paper | [2504.01234](https://arxiv.org/abs/2504.01234) |
+| Paper | [2504.12285](https://arxiv.org/abs/2504.12285) |
 | Code | [microsoft/BitNet](https://github.com/microsoft/BitNet) |
 | Precision | W1.58A8 |
 | Granularity | per-tensor (weights); per-token (activations) |
@@ -4226,7 +4226,7 @@ flowchart LR
 | Field | Value |
 |-------|-------|
 | Published at | **ICLR 2024** |
-| Paper | [2309.06085](https://arxiv.org/abs/2309.06085) |
+| Paper | [2310.00034](https://arxiv.org/abs/2310.00034) |
 | Precision | W1/W16 A16 (binary weights + FP16 for salient subset) |
 | Granularity | per-tensor (binary part); FP16 for salient |
 | Calibration | calibration set for saliency |
@@ -5627,7 +5627,8 @@ flowchart LR
 
 | Field | Value |
 |-------|-------|
-| Published at | n/a (no paper) |
+| Published at | arXiv (preprint) |
+| Paper | [2509.25149](https://arxiv.org/abs/2509.25149) |
 | Code | [NVIDIA/TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) |
 | Blog / post | [link](https://developer.nvidia.com/blog/nvidia-blackwell-gpu-architecture/) |
 | Precision | W4 A8/A16 (NVFP4 weights + FP8/FP16 activations) |
@@ -5877,7 +5878,7 @@ flowchart LR
 | Field | Value |
 |-------|-------|
 | Published at | arXiv (preprint) |
-| Paper | [2604.06798](https://arxiv.org/abs/2604.06798) |
+| Paper | [2604.06798v3](https://arxiv.org/abs/2604.06798v3) |
 | Precision | W1A16 |
 | Granularity | per-expert (binary weights), with joint SVD across experts |
 | Calibration | calibration set used for Hessian/gradient-based importance and null-space estimation |
@@ -6618,4 +6619,4 @@ Methods published 2022–2025, ordered by date. See [docs/timeline.md](docs/time
 
 ---
 
-*Generated 2026-06-19 from 156 entries across 8 categories.*
+*Generated 2026-06-20 from 156 entries across 8 categories.*

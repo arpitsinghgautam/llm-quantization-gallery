@@ -9,7 +9,7 @@
 | Date | Method | Category | Precision | Paper |
 |------|--------|----------|-----------|-------|
 | unknown | RTN | PTQ W-only | W4A16 | - |
-| 1993-01-01 | OBS | PTQ W-only | n/a (pruning framework; later adapted to quantization) | [paper](https://authors.library.caltech.edu/55952/1/Optimal%20Brain%20Surgeon.pdf) |
+| 1993-01-01 | OBS | PTQ W-only | n/a (pruning framework; later adapted to quantization) | [paper](https://proceedings.neurips.cc/paper_files/paper/1992/file/303ed4c69846ab36c2904d3ba8573050-Paper.pdf) |
 | 2022-06-06 | ZeroQuant | PTQ W+A | W8A8 | [paper](https://arxiv.org/abs/2206.01861) |
 | 2022-08-15 | bitsandbytes | Systems | W8A8 (LLM.int8()); W4A16 (NF4/FP4) | [paper](https://arxiv.org/abs/2208.07339) |
 | 2022-08-15 | LLM.int8() | PTQ W+A | W8A8 (with FP16 outlier decomposition) | [paper](https://arxiv.org/abs/2208.07339) |
@@ -38,7 +38,7 @@
 | 2023-08-21 | GGUF K-quants | PTQ W-only | W2/W3/W4/W5/W6 A16 | - |
 | 2023-08-25 | OmniQuant | PTQ W+A | W4A16 (weight-only mode); W4A8, W6A6 (W+A mode) | [paper](https://arxiv.org/abs/2308.13137) |
 | 2023-09-11 | AutoRound | PTQ W-only | W4A16 | [paper](https://arxiv.org/abs/2309.05516) |
-| 2023-09-12 | PB-LLM | Sub-2-bit | W1/W16 A16 (binary weights + FP16 for salient subset) | [paper](https://arxiv.org/abs/2309.06085) |
+| 2023-09-12 | PB-LLM | Sub-2-bit | W1/W16 A16 (binary weights + FP16 for salient subset) | [paper](https://arxiv.org/abs/2310.00034) |
 | 2023-09-25 | QA-LoRA | QAT / QFT | W4A16 (group-wise) | [paper](https://arxiv.org/abs/2309.14717) |
 | 2023-10-03 | MoQE | MoE Quant | W2/W4 A16 (expert-specific) | [paper](https://arxiv.org/abs/2310.02410) |
 | 2023-10-12 | LoftQ | QAT / QFT | W4A16 (quantized base) + BF16 LoRA | [paper](https://arxiv.org/abs/2310.08659) |
@@ -67,7 +67,7 @@
 | 2024-02-27 | BitNet b1.58 | Sub-2-bit | W1.58A8 | [paper](https://arxiv.org/abs/2402.17764) |
 | 2024-03-07 | QAQ | KV Quant | W16A16KV2–KV4 (mixed) | [paper](https://arxiv.org/abs/2403.04643) |
 | 2024-03-08 | GEAR | KV Quant | W16A16KV4 (with low-rank residual correction) | [paper](https://arxiv.org/abs/2403.05527) |
-| 2024-03-18 | NVFP4 | LP Training | W4 A8/A16 (NVFP4 weights + FP8/FP16 activations) | - |
+| 2024-03-18 | NVFP4 | LP Training | W4 A8/A16 (NVFP4 weights + FP8/FP16 activations) | [paper](https://arxiv.org/abs/2509.25149) |
 | 2024-03-25 | AffineQuant | PTQ W+A | W4A8 / W4A4 | [paper](https://arxiv.org/abs/2403.16379) |
 | 2024-04-01 | QuaRot | PTQ W+A | W4A4 (with optional KV4) | [paper](https://arxiv.org/abs/2404.00456) |
 | 2024-04-18 | SnapKV | KV Quant | KV selective eviction (variable effective bits) | [paper](https://arxiv.org/abs/2404.14469) |
@@ -94,16 +94,16 @@
 | 2024-12-26 | DeepSeek FP8 Training | LP Training | FP8 (E4M3 forward / E5M2 gradient) with fine-grained block scaling | [paper](https://arxiv.org/abs/2412.19437) |
 | 2025-01-20 | ResQ | PTQ W+A | W4A8 with FP16 low-rank residual for outlier subspace | [paper](https://arxiv.org/abs/2407.08563) |
 | 2025-02-10 | RotateKV | KV Quant | KV2 (2-bit keys and values) | [paper](https://www.ijcai.org/proceedings/2025/0690.pdf) |
-| 2025-04-01 | BitNet b1.58 2B4T | Sub-2-bit | W1.58A8 | [paper](https://arxiv.org/abs/2504.01234) |
+| 2025-04-01 | BitNet b1.58 2B4T | Sub-2-bit | W1.58A8 | [paper](https://arxiv.org/abs/2504.12285) |
 | 2025-04-28 | TurboQuant | KV Quant | W16A16KV2.5/KV3.5 (vector quantization) | [paper](https://arxiv.org/abs/2504.19874) |
 | 2025-05-28 | PM-KVQ | KV Quant | KV2-KV8 mixed progressive | [paper](https://arxiv.org/abs/2505.18610) |
-| 2025-09-15 | LittleBit | Sub-2-bit | sub-1-bit (effective ~0.1 bits per weight) | [paper](https://neurips.cc/virtual/2025/poster/115061) |
+| 2025-09-15 | LittleBit | Sub-2-bit | sub-1-bit (effective ~0.1 bits per weight) | [paper](https://arxiv.org/abs/2506.13771) |
 | 2025-09-30 | Tequila | Sub-2-bit | W1.58 A16 (ternary {-1, 0, +1} PTQ) | [paper](https://arxiv.org/abs/2509.23809) |
 | 2025-11-14 | ParoQuant | PTQ W+A | W4A8 (reasoning-model optimized) | [paper](https://arxiv.org/abs/2511.10645) |
 | 2026-03-31 | RAMP | PTQ W-only | W2-W8 A16 mixed (per-layer) | [paper](https://arxiv.org/abs/2603.17891) |
 | 2026-04-06 | Don't Waste Bits! | KV Quant | W16A16KV2/4/8 (mixed; per-token chosen from {2,4,8,FP16}) | [paper](https://arxiv.org/abs/2604.04722) |
 | 2026-04-07 | Router-Norm MoE MPQ | MoE Quant | W1/W2/W3 A16 (per-expert mixed, ~2.0-2.75 avg bits/expert) | [paper](https://arxiv.org/abs/2604.06515) |
-| 2026-04-08 | MoBiE | MoE Quant | W1A16 | [paper](https://arxiv.org/abs/2604.06798) |
+| 2026-04-08 | MoBiE | MoE Quant | W1A16 | [paper](https://arxiv.org/abs/2604.06798v3) |
 | 2026-04-09 | Bit-by-Bit | QAT / QFT | W2A2 / W2A16 | [paper](https://arxiv.org/abs/2604.07888) |
 | 2026-04-09 | CAE (ResComp) | PTQ W-only | W2/W3 A16 | [paper](https://arxiv.org/abs/2604.07955) |
 | 2026-04-09 | OA-EM | PTQ W-only | W2A16 | [paper](https://arxiv.org/abs/2604.08118) |

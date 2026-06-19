@@ -12,6 +12,9 @@ build/
 Thumbs.db
 .claude/
 
+# Downloaded paper PDFs (local archive — too large for git, ~500 MB)
+papers/
+
 # Site build artifacts
 site/node_modules/
 site/dist/
