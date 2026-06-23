@@ -5,6 +5,9 @@ import { categoryColor, CATEGORY_LABELS, CATEGORY_ORDER } from '../lib/categoryC
 import { ALL_W_BITS, ALL_A_BITS, ALL_KV_BITS } from '../lib/precision'
 import type { MetaCategory } from '../data/schema'
 
+// Sub-2-bit paradigm sub-filter values (shown only when the Extreme Low-Bit category is selected).
+const PARADIGMS = ['PTQ', 'QAT', 'Pretraining', 'Hybrid'] as const
+
 interface FilterBarProps {
   filters: FilterState
   sort: SortOrder
@@ -105,10 +108,22 @@ export function FilterBar({
   }, [onReset])
 
   const toggleCategory = (cat: string) => {
-    const cats = filters.categories.includes(cat)
+    const has = filters.categories.includes(cat)
+    const cats = has
       ? filters.categories.filter(c => c !== cat)
       : [...filters.categories, cat]
-    set({ categories: cats })
+    const patch: Partial<FilterState> = { categories: cats }
+    // The paradigm sub-filter only applies within Sub-2-bit; clear it when that category is removed.
+    if (cat === 'extreme_lowbit' && has) patch.paradigm = []
+    set(patch)
+  }
+
+  const toggleParadigm = (p: string) => {
+    set({
+      paradigm: filters.paradigm.includes(p)
+        ? filters.paradigm.filter(x => x !== p)
+        : [...filters.paradigm, p],
+    })
   }
 
   return (
@@ -182,6 +197,31 @@ export function FilterBar({
             )
           })}
         </div>
+
+        {/* Row 2b: paradigm sub-filter — only within Sub-2-bit (Extreme Low-Bit) */}
+        {filters.categories.includes('extreme_lowbit') && (
+          <div className="flex flex-wrap gap-1.5 items-center" role="group" aria-label="Filter sub-2-bit by paradigm">
+            <span className="text-xs text-gray-500 dark:text-gray-400">Paradigm:</span>
+            {PARADIGMS.map(p => {
+              const active = filters.paradigm.includes(p)
+              return (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => toggleParadigm(p)}
+                  aria-pressed={active}
+                  className={`chip text-xs ${active ? 'chip-active bg-pink-600 dark:bg-pink-500' : 'chip-inactive'}`}
+                >
+                  {p}
+                </button>
+              )
+            })}
+            {filters.paradigm.length > 0 && (
+              <button type="button" onClick={() => set({ paradigm: [] })}
+                className="text-xs text-gray-400 hover:text-red-500 ml-1">✕</button>
+            )}
+          </div>
+        )}
 
         {/* Row 3: bit filters */}
         <div className="flex flex-wrap gap-x-6 gap-y-2">

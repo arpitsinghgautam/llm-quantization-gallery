@@ -6,6 +6,7 @@ export const MethodSchema = z.object({
   full_name:                z.string(),
   category:                 z.string(),
   subcategory:              z.string(),
+  paradigm:                 z.string().nullable().optional(),  // PTQ | QAT | Pretraining | Hybrid (sub-2-bit only)
   year:                     z.number(),
   date:                     z.string(),
   authors:                  z.array(z.string()),

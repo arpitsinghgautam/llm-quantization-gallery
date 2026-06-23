@@ -70,6 +70,13 @@ export function FactTable({ method: m, byId }: FactTableProps) {
               <span className="text-gray-600 dark:text-gray-400">{m.subcategory}</span>
             </Row>
           )}
+          {m.paradigm && (
+            <Row label="Paradigm">
+              <span className="badge bg-pink-50 text-pink-700 dark:bg-pink-900/20 dark:text-pink-400">
+                {m.paradigm}
+              </span>
+            </Row>
+          )}
           <Row label="Year">{m.year}</Row>
           <Row label="Published at">
             <span className={`badge ${isAcceptedVenue(m.venue)

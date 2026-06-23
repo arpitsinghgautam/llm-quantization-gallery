@@ -2334,6 +2334,7 @@
   name: BitNet
   full_name: "BitNet: Scaling 1-bit Transformers for Large Language Models"
   category: extreme_lowbit
+  paradigm: Pretraining
   subcategory: binary
   year: 2023
   date: 2023-10-17
@@ -2382,6 +2383,7 @@
   name: BitNet b1.58
   full_name: "The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits"
   category: extreme_lowbit
+  paradigm: Pretraining
   subcategory: ternary
   year: 2024
   date: 2024-02-27
@@ -2431,6 +2433,7 @@
   name: PB-LLM
   full_name: "PB-LLM: Partially Binarized Large Language Models"
   category: extreme_lowbit
+  paradigm: Hybrid
   subcategory: partial-binary
   year: 2023
   date: 2023-09-12
@@ -2478,6 +2481,7 @@
   name: BiLLM
   full_name: "BiLLM: Pushing the Limit of Post-Training Quantization for LLMs"
   category: extreme_lowbit
+  paradigm: PTQ
   subcategory: binary-ptq
   year: 2024
   date: 2024-02-06
@@ -2526,6 +2530,7 @@
   name: OneBit
   full_name: "OneBit: Towards Extremely Low-bit Large Language Models"
   category: extreme_lowbit
+  paradigm: QAT
   subcategory: sign-value-decomposition
   year: 2024
   date: 2024-02-15
@@ -2573,6 +2578,7 @@
   name: MatMul-free LM
   full_name: "MatMul-Free Language Modeling"
   category: extreme_lowbit
+  paradigm: Pretraining
   subcategory: matmul-free
   year: 2024
   date: 2024-06-05
@@ -2620,6 +2626,7 @@
   name: Spectra
   full_name: "Spectra: A Comprehensive Study of Ternary, Quantized, and FP16 Language Models"
   category: extreme_lowbit
+  paradigm: Pretraining
   subcategory: ternary-pretrained
   year: 2024
   date: 2024-07-17
@@ -2667,6 +2674,7 @@
   name: BitNet b1.58 2B4T
   full_name: "BitNet b1.58 2B4T: An Open 1-bit LLM at 2B Scale Trained on 4T Tokens"
   category: extreme_lowbit
+  paradigm: Pretraining
   subcategory: ternary
   year: 2025
   date: 2025-04-01
@@ -4290,6 +4298,7 @@
   name: LittleBit
   full_name: "LittleBit: Ultra Low-Bit Quantization via Latent Factorization"
   category: extreme_lowbit
+  paradigm: QAT
   subcategory: latent-factorization
   year: 2025
   date: 2025-09-15
@@ -4338,6 +4347,7 @@
   name: Tequila
   full_name: "Tequila: Deadzone-free Ternary Quantization for Large Language Models"
   category: extreme_lowbit
+  paradigm: QAT
   subcategory: ternary-ptq
   year: 2025
   date: 2025-09-30
@@ -6425,6 +6435,7 @@
   name: "LBLLM"
   full_name: "LBLLM: Lightweight Binarization of Large Language Models via Three-Stage Distillation"
   category: extreme_lowbit
+  paradigm: Hybrid
   subcategory: "binary-weight-distillation"
   year: 2026
   date: 2026-04-21
@@ -6483,6 +6494,7 @@
   name: "BWLA"
   full_name: "BWLA: Breaking the Barrier of W1AX Post-Training Quantization for LLMs"
   category: extreme_lowbit
+  paradigm: PTQ
   subcategory: "binary-weight-low-bit-activation-ptq"
   year: 2026
   date: 2026-05-01
@@ -6535,6 +6547,7 @@
   name: "Spectral-LLM"
   full_name: "Influence-Inspired Spectral Rotations for Extreme Low-Bit LLM Quantization"
   category: extreme_lowbit
+  paradigm: PTQ
   subcategory: "rotation + importance-weighted quantization"
   year: 2026
   date: 2026-05-24
@@ -6586,6 +6599,7 @@
   name: "SAGE-PTQ"
   full_name: "Minimizing the Hidden Cost of Scales: Graph-Guided Ultra-Low-Bit Quantization for Large Language Models"
   category: extreme_lowbit
+  paradigm: PTQ
   subcategory: "binary-ptq"
   year: 2026
   date: 2026-06-03
@@ -6641,6 +6655,7 @@
   name: "TWLA"
   full_name: "TWLA: Achieving Ternary Weights and Low-Bit Activations for LLMs via Post-Training Quantization"
   category: extreme_lowbit
+  paradigm: PTQ
   subcategory: "ternary weights + low-bit activations (W1.58A4)"
   year: 2026
   date: 2026-06-11

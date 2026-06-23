@@ -15,6 +15,9 @@ Thumbs.db
 # Downloaded paper PDFs (local archive — too large for git, ~500 MB)
 papers/
 
+# Survey paper authoring workspace (separate from the gallery; not part of this repo)
+survey-papers/
+
 # Site build artifacts
 site/node_modules/
 site/dist/
