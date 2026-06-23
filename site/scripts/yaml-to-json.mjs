@@ -81,6 +81,7 @@ const cleaned = methods.map((m, idx) => {
     full_name:                String(m.full_name ?? ''),
     category:                 String(m.category ?? ''),
     subcategory:              String(m.subcategory ?? ''),
+    paradigm:                 m.paradigm ? String(m.paradigm) : null,
     year:                     Number(m.year ?? 2020),
     date:                     String(dateVal),
     authors:                  Array.isArray(m.authors) ? m.authors.map(String) : [],

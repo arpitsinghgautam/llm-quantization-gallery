@@ -4,6 +4,7 @@ import { CATEGORY_ORDER } from './categoryColors'
 
 export interface FilterState {
   categories: string[]
+  paradigm: string[]        // sub-2-bit paradigm: PTQ | QAT | Pretraining | Hybrid
   wBits: number[]
   aBits: number[]
   kvBits: number[]          // numeric selected
@@ -20,6 +21,7 @@ export type SortOrder = 'newest' | 'oldest' | 'alpha' | 'category'
 export function defaultFilters(yearMin: number, yearMax: number): FilterState {
   return {
     categories: [],
+    paradigm: [],
     wBits: [],
     aBits: [],
     kvBits: [],
@@ -45,6 +47,9 @@ export function applyFilters(
 function matchesFilters(m: Method, f: FilterState): boolean {
   // Category filter
   if (f.categories.length > 0 && !f.categories.includes(m.category)) return false
+
+  // Paradigm filter (sub-2-bit only: PTQ / QAT / Pretraining / Hybrid)
+  if (f.paradigm.length > 0 && (!m.paradigm || !f.paradigm.includes(m.paradigm))) return false
 
   // Precision filters
   const parsed = parsePrecision(m.precision)
@@ -108,6 +113,7 @@ function sortMethods(methods: Method[], sort: SortOrder): Method[] {
 export function filterSummary(f: FilterState, totalYearMin: number, totalYearMax: number): string[] {
   const parts: string[] = []
   if (f.categories.length > 0) parts.push(f.categories.map(c => c.replace(/_/g, ' ')).join(', '))
+  if (f.paradigm.length > 0) parts.push(f.paradigm.join('/'))
   if (f.wBits.length > 0) parts.push(`W${f.wBits.join('/')}`)
   if (f.aBits.length > 0) parts.push(`A${f.aBits.join('/')}`)
   if (f.kvBits.length > 0) parts.push(`KV${f.kvBits.join('/')}`)
@@ -123,6 +129,7 @@ export function filterSummary(f: FilterState, totalYearMin: number, totalYearMax
 export function isDefaultFilters(f: FilterState, totalYearMin: number, totalYearMax: number): boolean {
   return (
     f.categories.length === 0 &&
+    f.paradigm.length === 0 &&
     f.wBits.length === 0 &&
     f.aBits.length === 0 &&
     f.kvBits.length === 0 &&
